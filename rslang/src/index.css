@@ -10,7 +10,11 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #FFF5EE;
+  background: #FFF5EE !important;
   font-family: 'Lato', sans-serif !important;
+}
+
+button {
+  border-radius: 5px !important;
 }
 
