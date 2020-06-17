@@ -1,0 +1,49 @@
+.header {
+    width: 100%;
+    background: #abcdef;
+}
+
+.wrapper {
+    width: 1200px;
+    margin: auto;
+}
+
+.header_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_block__logo {
+    width: 400px;
+    height: 40px;
+    background-image: url(../../assets/logo-start-page.png);
+    background-size: 200px;
+    background-repeat: no-repeat;
+    margin: 20px;
+}
+
+.header_block__log_buttons {
+    margin-top: 16px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.header_block__log_buttons button {
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.main_content__description {
+    margin-top: 40px;
+}
+
+.main_content__description__text {
+    text-align: center;
+}
+
+
+
+
+
