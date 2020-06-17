@@ -1,0 +1,38 @@
+.card_word {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30vh;
+}
+
+.card_word__wrapper {
+    width: 1200px;
+    margin: auto;
+}
+
+.card_word__main_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    border: 1px solid #61dafb;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.card_word__main__sentence {
+    width: 100%;
+    max-width: 400px;
+}
+
+.card_word__main__sentence_translation {
+    width: 100%;
+    max-width: 400px;
+}
+
+.card_word__main__word_translation {
+    width: 100%;
+    max-width: 400px;
+}
