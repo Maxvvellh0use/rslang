@@ -1,40 +1,47 @@
-.card_word {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 30vh;
+.card_word__section {
+  margin-top: 20vh;
 }
 
-.card_word__wrapper {
+.wrapper {
   width: 1200px;
   margin: auto;
 }
 
-.card_word__main_block {
+.card_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.card_word {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  border: 1px solid #61dafb;
+  background: aliceblue;
   border-radius: 5px;
   width: 100%;
   max-width: 400px;
   margin: auto;
+  box-shadow: 2px 3px 18px 3px rgba(0, 0, 0, 0.75);
 }
 
 .card_word__main__sentence {
   width: 100%;
   max-width: 400px;
+  margin: 20px;
 }
 
 .card_word__main__sentence_translation {
   width: 100%;
   max-width: 400px;
+  margin: 20px;
 }
 
 .card_word__main__word_translation {
+  align-self: center;
   width: 100%;
   max-width: 400px;
+  margin: 20px;
 }
 
 /*# sourceMappingURL=Card.css.map */

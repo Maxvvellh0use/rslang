@@ -3,23 +3,24 @@ import './Card.scss';
 
 function Card() {
     return (
-        <div className="card_word">
-            <div className="card_word__wrapper">
-                <section className="card_word__section">
-                    <div className="card_word__main_block">
+        <section className="card_word__section">
+            <div className="wrapper card_wrapper">
+                <div className="card_word">
+                    <div className="card_word__main">
                         <div className="card_word__main__sentence">
-                            <p>sentence</p>
+                            <p><input type="text"/></p>
                         </div>
                         <div className="card_word__main__sentence_translation">
                             <p>sentence_translation</p>
                         </div>
-                        <div className="card_word__main__word_translation">
-                            <p>word_translation</p>
-                        </div>
+                        <div className="card_word__main__description"></div>
                     </div>
-                </section>
+                </div>
+                <div className="card_word__main__word_translation">
+                    <p>word_translation</p>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }
 
