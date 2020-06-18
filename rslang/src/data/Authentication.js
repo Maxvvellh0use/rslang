@@ -1,6 +1,4 @@
-import AuthentificatedUserModel from '../Models/AuthenticatedUserModel';
-
-
+import AuthenticatedUserModel from '../Models/AuthenticatedUserModel';
 export default class Authentication {
   
   /**
@@ -34,7 +32,7 @@ export default class Authentication {
       statusText: rawResponse.statusText
     }
     const content = await rawResponse.json();
-    const authUser = new AuthentificatedUserModel(
+    const authUser = new AuthenticatedUserModel(
       user.email,
       user.password,
       content.userId,
@@ -44,45 +42,4 @@ export default class Authentication {
       user: authUser
     }
   };
-
-  // static loginUser = (user) => {
-  //   return fetch('https://afternoon-falls-25894.herokuapp.com/signin', {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(user),
-  //   })
-  //     .then((rawResponse) => {
-  //       if (!rawResponse.ok) {
-  //         const err = new Error(rawResponse.statusText);
-  //         err.info = rawResponse;
-  //         throw err;
-  //       } else {
-  //         return rawResponse.json();
-  //       }
-  //     })
-  //     .then((content) => {
-  //       const authUser = new AuthentificatedUserModel(
-  //         user.email,
-  //         user.password,
-  //         content.userId,
-  //         content.token
-  //       );
-  //       return {
-  //         ok: true,
-  //         user: authUser,
-  //       };
-  //     })
-  //     .catch((e) => {
-  //       console.log(e.info);        
-  //       console.log('Authentication error: ', e);        
-  //       return {
-  //         ok: false,          
-  //         statusText: e.info.statusText,
-  //         status: e.info.status,
-  //       }
-  //     });
-  // };
 }

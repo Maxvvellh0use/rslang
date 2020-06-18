@@ -1,6 +1,15 @@
 // path to data repository
 const repoPath = "https://raw.githubusercontent.com/Maxvvellh0use/rslang-data/master/"
 
+const wordDifficulty =  {
+  weak: 'weak',
+  medium: 'medium',
+  strong: 'strong',
+}
+Object.freeze(wordDifficulty);
+
+export { wordDifficulty };
+
 export default class WordModel {
   constructor({
     id,

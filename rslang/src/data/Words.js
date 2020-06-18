@@ -1,5 +1,4 @@
 import WordModel from '../Models/WordModel';
-
 export default class Words {
   /**
    * Get word by id
@@ -43,17 +42,13 @@ export default class Words {
   };
 
   /**
-   * Get word by id
-   * @param {object} object - 
+   * Get all words according to the query  
    *  @param {string} group  - group number
    *  @param {string} page - page in the group
    *  @param {string} wordsPerExampleSentenceLTE - words per example sentence(less then equal to)
    *  @param {string} wordsPerPage - words per page, works only if wordsPerExampleSentenceLTE is specified. Equals 10 by default
-   * 
-   * 
-   * @returns {object}  
+   * @returns {object}
    * if success the function will return 
-   * 
    * {
       ok: true,
       wordArray: [] of {WordModelModel}
@@ -70,11 +65,11 @@ export default class Words {
     page = 0,
     wordsPerExampleSentenceLTE,
     wordsPerPage,
-  }) => {    
+  }) => {
     const wordsPerExampleSentenceLTEString = wordsPerExampleSentenceLTE
       ? `&wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}`
       : '';
-    const wordsPerPageString =  (wordsPerExampleSentenceLTE && wordsPerPage)
+    const wordsPerPageString = (wordsPerExampleSentenceLTE && wordsPerPage)
       ? `&wordsPerPage=${wordsPerPage}`
       : '';
 
@@ -93,23 +88,20 @@ export default class Words {
         ok: false,
         status: rawResponse.status,
         statusText: rawResponse.statusText,
-    };
-    const content = await rawResponse.json();    
-    const wordArray = content.map((element) => new WordModel(element));    
+      };
+    const content = await rawResponse.json();
+    const wordArray = content.map((element) => new WordModel(element));
     return {
       ok: true,
       wordArray: wordArray,
-    };   
+    };
   };
 
   /**
-   * Get words count
-   * @param {object} object - 
+   * Get words count 
    *  @param {string} group  - group number  
    *  @param {string} wordsPerExampleSentenceLTE - words per example sentence(less then equal to)
    *  @param {string} wordsPerPage - words per page, works only if wordsPerExampleSentenceLTE is specified. Equals 10 by default
-   * 
-   * 
    * @returns {object}  
    * if success the function will return 
    * 
@@ -124,15 +116,15 @@ export default class Words {
       statusText: statusText - error message
     } 
    */
-  static getwordsCount = async ({
-    group = 0,    
+  static getWordsCount = async ({
+    group = 0,
     wordsPerExampleSentenceLTE,
     wordsPerPage,
-  }) => {    
+  }) => {
     const wordsPerExampleSentenceLTEString = wordsPerExampleSentenceLTE
       ? `&wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}`
       : '';
-    const wordsPerPageString =  (wordsPerExampleSentenceLTE && wordsPerPage)
+    const wordsPerPageString = (wordsPerExampleSentenceLTE && wordsPerPage)
       ? `&wordsPerPage=${wordsPerPage}`
       : '';
 
@@ -151,15 +143,11 @@ export default class Words {
         ok: false,
         status: rawResponse.status,
         statusText: rawResponse.statusText,
-    };    
-    const content = await rawResponse.json(); 
+      };
+    const content = await rawResponse.json();
     return {
       ok: true,
       count: content.count,
-    }; 
-
-
+    };
   }
-
-
 }
