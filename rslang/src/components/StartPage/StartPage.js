@@ -1,5 +1,5 @@
 import React from "react";
-import './Startpage.css';
+import './Startpage.scss';
 import { TEXT_START_PAGE_H2, TEXT_START_PAGE_DESCRIPTION } from "../../constants/textConstants";
 
 class StartPage extends React.Component {
