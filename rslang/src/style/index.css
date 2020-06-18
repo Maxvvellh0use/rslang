@@ -84,7 +84,6 @@
 }
 
 .main_content__description__button {
-  cursor: pointer;
   border: 4px solid #455A64;
   align-self: center;
   margin-top: 40px;
@@ -92,13 +91,12 @@
   font-size: 30px;
   border-radius: 5px;
   padding: 5px;
-  transition: all ease-in-out 0.2s;
   user-select: none;
   color: aliceblue;
   background: #455A64;
 }
-
 .main_content__description__button:hover {
+  cursor: pointer;
   background: #455A64;
   color: aliceblue;
 }
@@ -111,17 +109,15 @@
 }
 
 .main_content__description__promo_button {
-  cursor: pointer;
   font-size: 30px;
   border-radius: 5px;
   border: 4px solid #455A64;
-  transition: all ease-in-out 0.2s;
   padding: 5px;
   color: aliceblue;
   background: #455A64;
 }
-
 .main_content__description__promo_button:hover {
+  cursor: pointer;
   background: #455A64;
   color: aliceblue;
 }

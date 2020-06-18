@@ -1,4 +1,5 @@
 @import "../../style/abstract/constants";
+@import "../../style/abstract/placeholders";
 
 .header_start_page {
     width: 100%;
@@ -82,8 +83,7 @@
     background-position-y: center;
 }
 
-.main_content__description__button {
-    cursor: pointer;
+.main_content__description__button, %transition  {
     border: 4px solid $color-button-start-page;
     align-self: center;
     margin-top: 40px;
@@ -91,15 +91,14 @@
     font-size: 30px;
     border-radius: 5px;
     padding: 5px;
-    transition: all ease-in-out .2s;
     user-select: none;
     color: $color-text-button-start-page;
     background: $color-button-start-page;
-}
-
-.main_content__description__button:hover {
-    background: $color-button-start-page;
-    color: $color-text-button-start-page;
+    &:hover {
+        cursor: pointer;
+        background: $color-button-start-page;
+        color: $color-text-button-start-page;
+    }
 }
 
 .footer_start_page_wrapper {
@@ -109,20 +108,18 @@
     height: 120px;
 }
 
-.main_content__description__promo_button {
-    cursor: pointer;
+.main_content__description__promo_button, %transition  {
     font-size: 30px;
     border-radius: 5px;
     border: 4px solid $color-button-start-page;
-    transition: all ease-in-out .2s;
     padding: 5px;
     color: $color-text-button-start-page;
     background: $color-button-start-page;
-}
-
-.main_content__description__promo_button:hover {
-    background: $color-button-start-page;
-    color: aliceblue;
+    &:hover {
+        cursor: pointer;
+        background: $color-button-start-page;
+        color: aliceblue;
+    }
 }
 
 .footer_start_page {
