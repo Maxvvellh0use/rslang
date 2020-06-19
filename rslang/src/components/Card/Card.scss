@@ -1,5 +1,9 @@
 @import "../../style/abstract/constants";
 
+.card_word__form p input {
+    width: 30px;
+}
+
 .card_word__section {
     margin-top: 20vh;
 }
@@ -12,6 +16,7 @@
 .card_wrapper {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .card_word {
@@ -25,6 +30,7 @@
     max-width: 400px;
     margin: auto;
     box-shadow: $box-shadow-card;
+    font-size: 20px;
 }
 
 .card_word__main__sentence {
@@ -45,3 +51,40 @@
     max-width: 400px;
     margin: 20px;
 }
+
+.description_and_audio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.progress_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20vh;
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.progress_block__bar {
+    justify-self: center;
+    border-radius: 5px;
+    height: 10px;
+    width: 100%;
+    margin: 0 5px;
+    background: $color-card-background;
+    box-shadow: $box-shadow-progress-bar;
+}
+
+

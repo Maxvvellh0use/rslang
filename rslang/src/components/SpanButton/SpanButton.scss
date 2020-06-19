@@ -1,0 +1,30 @@
+@import "../../style/abstract/placeholders";
+
+.description_and_audio__audio_button, %transition {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-image: url(https://raw.githubusercontent.com/Maxvvellh0use/rslang-data-files/master/files/icons/audion-off-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  animation-duration: 1s;
+  animation-name: opacity_button;
+}
+
+.active_audio_button, %transition {
+  background-image: url(https://raw.githubusercontent.com/Maxvvellh0use/rslang-data-files/master/files/icons/audio-on-icon.png);
+  animation-duration: 1s;
+  animation-name: opacity_button;
+}
+
+
+
+@keyframes opacity_button {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
