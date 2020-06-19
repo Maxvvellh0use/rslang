@@ -5,17 +5,25 @@ export default class DataHelper {
     // console.log(rawResponse);
     if (!rawResponse.ok) {
       switch (rawResponse.status) {
+        case 401:
+          throw new Error(
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Access token is missing or invalid`
+          );    
         case 417:
           throw new Error(
-            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Such user word already exists`
-          );        
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Such entity already exists`
+          );    
+        case 422:
+          throw new Error(
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Incorrect e-mail or password`
+          );    
         default:
           throw new Error(
             `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
           );
       }
     }    
-    // console.log(rawResponse);
+    //console.log(rawResponse);
     try {
       if (rawResponse.status === 204) return {};  // DELETE UserWord contains no content
       return rawResponse.json();

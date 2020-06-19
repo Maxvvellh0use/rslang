@@ -37,7 +37,7 @@ export default class UserWords {
    * @returns {[]} array of UserWordDataModel
    *
    */
-  static getAllUserWordsData = async ({ authUser }) => {
+  static getAllUserWordsData = async (authUser) => {
     const url = `${serverPath}/users/${authUser.id}/words`;
     const data = {
       method: 'GET',
@@ -78,7 +78,7 @@ export default class UserWords {
    * @returns {} success: array of all user words {WordModel}
    *             unsuccess: array of error messages
    */
-  static getAllUserWords = async ({ authUser }) => {
+  static getAllUserWords = async (authUser) => {
     let userWordsDataArray;
 
     userWordsDataArray = await UserWords.getAllUserWordsData({
