@@ -1,0 +1,15 @@
+.description_and_audio__audio_button {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-image: url(https://raw.githubusercontent.com/Maxvvellh0use/rslang-data-files/master/files/icons/audion-off-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+}
+
+.active_audio_button {
+  background-image: url(https://raw.githubusercontent.com/Maxvvellh0use/rslang-data-files/master/files/icons/audio-on-icon.png);
+}
+
+/*# sourceMappingURL=SpanButton.css.map */

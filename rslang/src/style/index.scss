@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,400&display=swap');
 @import "abstract/constants";
+@import "../components/Card/Card";
+@import "../components/SpanButton/SpanButton";
 
 body {
   margin: 0;
