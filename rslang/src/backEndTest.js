@@ -6,148 +6,160 @@ import { wordDifficulty } from './Models/WordModel';
 
 export const backEndTest = async () => {
   const user = new UserModel({});
-  let result = await Authentication.loginUser(user);
-
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
+  
+  let authUser;
+  try {
+    authUser = await Authentication.loginUser(user);
+    console.log(authUser);
+  } catch (error) {
+    console.log(error);
     return;
   }
-
-  const authUser = result.user;
-  console.log(authUser);
 
   const wordId = '5e9f5ee35eb9e72bc21af713';
-  result = await Words.getWordById(wordId);
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
+  let firstWord;
+  try {
+    firstWord = await Words.getWordById(wordId);
+    console.log('firstWord: ', firstWord);
+  } catch (error) {
+    console.log(error);
     return;
   }
-  const firstWord = result.word;
-  console.log('firstWord: ', firstWord);
 
-  result = await Words.getAllWords({
-    group: 1,
-    page: 1,
-    wordsPerExampleSentenceLTE: 5,
-    wordsPerPage: 5,
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);    
+  let wordGroup1;
+  try {
+    wordGroup1 = await Words.getAllWords({
+      group: 1,
+      page: 1,
+      wordsPerExampleSentenceLTE: 5,
+      wordsPerPage: 5,
+    });
+    console.log(wordGroup1);
+  } catch (error) {
+    console.log(error);
   }
-  const wordGroup1 = result.wordArray;
-  console.log(wordGroup1);
 
-  result = await Words.getAllWords({
-    group: 1,
-    page: 1,
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);    
+  let wordGroup2;
+  try {
+    wordGroup2 = await Words.getAllWords({
+      group: 1,
+      page: 1,
+    });
+    console.log(wordGroup2);
+  } catch (error) {
+    console.log(error);
   }
-  const wordGroup2 = result.wordArray;
-  console.log(wordGroup2);
 
-  result = await Words.getWordsCount({
-    group: 1,
-    wordsPerExampleSentenceLTE: 5,
-    wordsPerPage: 5,
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
+  let count1;
+  try {
+    count1 = await Words.getWordsCount({
+      group: 1,
+      wordsPerExampleSentenceLTE: 5,
+      wordsPerPage: 5,
+    });
+    console.log(count1);
+  } catch (error) {
+    console.log(error);
   }
-  const count1 = result.count;
-  console.log(count1);
 
-  result = await Words.getWordsCount({
-    group: 2,
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
+  let count2;
+  try {
+    count2 = await Words.getWordsCount({
+      group: 2,
+    });
+    console.log(count2);
+  } catch (error) {
+    console.log(error);
   }
-  const count2 = result.count;
-  console.log(count2);
 
   console.log('wordId to add: ', firstWord.id);
   console.log('userId: ', authUser.id);
-  result = await UserWords.addWord(
-    {
+
+  let addedWordId;
+  try {
+    addedWordId = await UserWords.addWord({
       authUser: authUser,
       wordId: firstWord.id,
       statistics: {
-        'difficulty': wordDifficulty.weak,
-        'optional': {
-          "useCounter": 2,
-          "lastUse": new Date().toDateString(),
-        }
-      }
-    }
-  );
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('added word with id: ', result.wordId);
+        difficulty: wordDifficulty.weak,
+        optional: {
+          useCounter: 2,
+          lastUse: new Date().toDateString(),
+        },
+      },
+    });
+    console.log('Added word with id: ', addedWordId);
+  } catch (error) {
+    console.log(error);
   }
 
-  result = await UserWords.getUserWordDataById(
-    {
+  let currentWordData;
+  try {
+    currentWordData = await UserWords.getUserWordDataById({
       authUser: authUser,
       wordId: wordId,
     });
-
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('user word data: ', result.data);
+    console.log('user word data: ', currentWordData);
+  } catch (error) {
+    console.log(error);
   }
 
-  result = await UserWords.getAllUserWordsData({ authUser: authUser });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('user word data array: ', result.dataArray);
+  let currentWordDataarray;
+  try {
+    currentWordDataarray = await UserWords.getAllUserWordsData({
+      authUser: authUser,
+    });
+    console.log('user word data array: ', currentWordDataarray);
+  } catch (error) {
+    console.log(error);
   }
 
-  result = await UserWords.getAllUserWords({ authUser: authUser });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('user words: ', result.wordsArray);
+  let wordsArrayResult;
+  try {
+    wordsArrayResult = await UserWords.getAllUserWords({ authUser: authUser });
+    console.log('user words: ', wordsArrayResult.success);
+    console.log('user words errors: ', wordsArrayResult.unsuccess);
+  } catch (error) {
+    console.log(error);
   }
 
-  result = await UserWords.getUserWordById({
-    authUser: authUser,
-    wordId: wordId,
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('user word by id: ', result.word);
+  let userWord;
+  try {
+    userWord = await UserWords.getUserWordById({
+      authUser: authUser,
+      wordId: wordId,
+    });
+    console.log('User word by id: ', userWord);
+  } catch (error) {
+    console.log(error);
   }
 
-  result = await UserWords.updateWord({
-    authUser: authUser,
-    wordId: wordId,
-    statistics: {
-      'difficulty': wordDifficulty.medium,
-      'optional': {
-        "useCounter": 3,
-        "lastUse": new Date().toDateString(),
-      }
-    }
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('update user word with id: ', result.wordId);
+  let updatedWordId;
+  try {
+    updatedWordId = await UserWords.updateWord({
+      authUser: authUser,
+      wordId: wordId,
+      statistics: {
+        difficulty: wordDifficulty.medium,
+        optional: {
+          useCounter: 3,
+          lastUse: new Date().toDateString(),
+        },
+      },
+    });
+    console.log('update user word with id: ', updatedWordId);
+  } catch (error) {
+    console.log(error);
+  }
+
+  let deletedWordId;
+  try {
+    deletedWordId = await UserWords.deleteWord({
+      authUser: authUser,
+      wordId: wordId,
+    });
+    console.log('delete user word with id: ', deletedWordId);
+  } catch (error) {
+    console.log(error);
   } 
-  
-  result = await UserWords.deleteWord({
-    authUser: authUser,
-    wordId: wordId,    
-  });
-  if (!result.ok) {
-    console.log('Error:', result.status, ' message: ', result.statusText);
-  } else {
-    console.log('delete user word with id: ', result.wordId);
-  }
 };

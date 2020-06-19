@@ -1,20 +1,13 @@
 import WordModel from '../Models/WordModel';
+
+const errorMessage = 'Words';
+
 export default class Words {
   /**
    * Get word by id
    * @param {string} wordId - wordId
-   * @returns {object}  
-   * if success the function will return 
-   * {
-      ok: true,
-      word: {WordModelModel} word
-    }
-    else it will return 
-    {
-      ok: false,
-      status: status code  - 403, 404
-      statusText: statusText - error message
-    } 
+   * @returns {WordModel} word
+   *
    */
   static getWordById = async (wordId) => {
     const rawResponse = await fetch(
@@ -28,37 +21,21 @@ export default class Words {
       }
     );
     if (!rawResponse.ok)
-      return {
-        ok: false,
-        status: rawResponse.status,
-        statusText: rawResponse.statusText,
-      };
+      throw new Error(
+        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}. WordId: ${wordId}`
+      );
     const content = await rawResponse.json();
-    const word = new WordModel(content);
-    return {
-      ok: true,
-      word: word,
-    };
+    return new WordModel(content);
   };
 
   /**
-   * Get all words according to the query  
+   * Get all words according to the query
    *  @param {string} group  - group number
    *  @param {string} page - page in the group
    *  @param {string} wordsPerExampleSentenceLTE - words per example sentence(less then equal to)
    *  @param {string} wordsPerPage - words per page, works only if wordsPerExampleSentenceLTE is specified. Equals 10 by default
-   * @returns {object}
-   * if success the function will return 
-   * {
-      ok: true,
-      wordArray: [] of {WordModelModel}
-    }
-    else it will return 
-    {
-      ok: false,
-      status: status code  - 403, 404
-      statusText: statusText - error message
-    } 
+   * @returns {[]} array of words {WordModel}
+   *
    */
   static getAllWords = async ({
     group = 0,
@@ -69,9 +46,10 @@ export default class Words {
     const wordsPerExampleSentenceLTEString = wordsPerExampleSentenceLTE
       ? `&wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}`
       : '';
-    const wordsPerPageString = (wordsPerExampleSentenceLTE && wordsPerPage)
-      ? `&wordsPerPage=${wordsPerPage}`
-      : '';
+    const wordsPerPageString =
+      wordsPerExampleSentenceLTE && wordsPerPage
+        ? `&wordsPerPage=${wordsPerPage}`
+        : '';
 
     const rawResponse = await fetch(
       `https://afternoon-falls-25894.herokuapp.com/words/?group=${group}&page=${page}${wordsPerExampleSentenceLTEString}${wordsPerPageString}`,
@@ -84,37 +62,20 @@ export default class Words {
       }
     );
     if (!rawResponse.ok)
-      return {
-        ok: false,
-        status: rawResponse.status,
-        statusText: rawResponse.statusText,
-      };
+      throw new Error(
+        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
+      );
     const content = await rawResponse.json();
-    const wordArray = content.map((element) => new WordModel(element));
-    return {
-      ok: true,
-      wordArray: wordArray,
-    };
+    return content.map((element) => new WordModel(element));
   };
 
   /**
-   * Get words count 
-   *  @param {string} group  - group number  
+   * Get words count
+   *  @param {string} group  - group number
    *  @param {string} wordsPerExampleSentenceLTE - words per example sentence(less then equal to)
    *  @param {string} wordsPerPage - words per page, works only if wordsPerExampleSentenceLTE is specified. Equals 10 by default
-   * @returns {object}  
-   * if success the function will return 
-   * 
-   * {
-      ok: true,
-      count: {number} count
-    }
-    else it will return 
-    {
-      ok: false,
-      status: status code  - 403, 404
-      statusText: statusText - error message
-    } 
+   * @returns {number} words count
+   *
    */
   static getWordsCount = async ({
     group = 0,
@@ -124,9 +85,10 @@ export default class Words {
     const wordsPerExampleSentenceLTEString = wordsPerExampleSentenceLTE
       ? `&wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}`
       : '';
-    const wordsPerPageString = (wordsPerExampleSentenceLTE && wordsPerPage)
-      ? `&wordsPerPage=${wordsPerPage}`
-      : '';
+    const wordsPerPageString =
+      wordsPerExampleSentenceLTE && wordsPerPage
+        ? `&wordsPerPage=${wordsPerPage}`
+        : '';
 
     const rawResponse = await fetch(
       `https://afternoon-falls-25894.herokuapp.com/words/count?group=${group}${wordsPerExampleSentenceLTEString}${wordsPerPageString}`,
@@ -139,15 +101,10 @@ export default class Words {
       }
     );
     if (!rawResponse.ok)
-      return {
-        ok: false,
-        status: rawResponse.status,
-        statusText: rawResponse.statusText,
-      };
+      throw new Error(
+        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
+      );
     const content = await rawResponse.json();
-    return {
-      ok: true,
-      count: content.count,
-    };
-  }
+    return content.count;
+  };
 }
