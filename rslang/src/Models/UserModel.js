@@ -2,7 +2,7 @@ export default class UserModel {
   constructor(
     {
       email = "test-user@herokuapp.com",
-      password = "Test-user-pasword-1",      
+      password = "Test-user-password-1",      
     }
   ) {
     this.email = email;

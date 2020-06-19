@@ -1,8 +1,6 @@
 export default class DataHelper {
-  static makeRequest = async (url, data = {}, errorMessage) => {
-    // console.log(url);
-    const rawResponse = await fetch(url, data);
-    // console.log(rawResponse);
+  static makeRequest = async (url, data = {}, errorMessage) => {    
+    const rawResponse = await fetch(url, data);    
     if (!rawResponse.ok) {
       switch (rawResponse.status) {
         case 417:
@@ -14,8 +12,7 @@ export default class DataHelper {
             `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
           );
       }
-    }    
-    // console.log(rawResponse);
+    }        
     try {
       if (rawResponse.status === 204) return {};  // DELETE UserWord contains no content
       return rawResponse.json();
