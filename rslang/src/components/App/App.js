@@ -5,7 +5,9 @@ import StartPage from "../StartPage/StartPage";
 
 function App() {
   return (
-    <StartPage />
+    <div>
+      <StartPage />
+    </div>
   );
 }
 
