@@ -1,4 +1,6 @@
 import AuthenticatedUserModel from '../Models/AuthenticatedUserModel';
+import DataHelper from './DataHelper';
+import { serverPath } from './dataConstants';
 
 const errorMessage = 'Authentication';
 
@@ -10,27 +12,21 @@ export default class Authentication {
    *
    */
   static loginUser = async (user) => {
-    const rawResponse = await fetch(
-      'https://afternoon-falls-25894.herokuapp.com/signin',
-      {
+    const url = `${serverPath}/signin`;
+    const data = {    
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
-      }
-    );
-    if (!rawResponse.ok)
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
-    const content = await rawResponse.json();
+      };    
+    const response = await DataHelper.makeRequest(url, data, errorMessage);
     return new AuthenticatedUserModel(
       user.email,
       user.password,
-      content.userId,
-      content.token
+      response.userId,
+      response.token,
     );
   };
 }

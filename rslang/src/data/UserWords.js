@@ -1,5 +1,7 @@
 import UserWordDataModel from '../Models/UserWordDataModel';
 import Words from './Words';
+import DataHelper from './DataHelper';
+import { serverPath } from './dataConstants';
 
 const errorMessage = 'UserWords';
 
@@ -13,31 +15,20 @@ export default class UserWords {
    *
    */
   static addWord = async ({ authUser, wordId, statistics }) => {
-    const rawResponse = await fetch(
-      `https://afternoon-falls-25894.herokuapp.com/users/${authUser.id}/words/${wordId}`,
-      {
-        method: 'POST',
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(statistics),
-      }
-    );
-    if (!rawResponse.ok) {
-      if (rawResponse.status === 417) {
-        throw new Error(
-          `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Such user word already exists`
-        );
-      }
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
-    }
-    const content = await rawResponse.json();
-    return content.wordId;
+    const url = `${serverPath}/users/${authUser.id}/words/${wordId}`;
+    const data = {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(statistics),
+    };
+    const message = `${errorMessage}. WordId: ${wordId}`;
+    const response = await DataHelper.makeRequest(url, data, message);
+    return response.wordId;
   };
 
   /**
@@ -47,23 +38,17 @@ export default class UserWords {
    *
    */
   static getAllUserWordsData = async ({ authUser }) => {
-    const rawResponse = await fetch(
-      `https://afternoon-falls-25894.herokuapp.com/users/${authUser.id}/words`,
-      {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-          Accept: 'application/json',
-        },
-      }
-    );
-    if (!rawResponse.ok)
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
-    const content = await rawResponse.json();
-    return content.map((element) => new UserWordDataModel(element));
+    const url = `${serverPath}/users/${authUser.id}/words`;
+    const data = {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+      },
+    };
+    const response = await DataHelper.makeRequest(url, data, errorMessage);
+    return response.map((element) => new UserWordDataModel(element));
   };
 
   /**
@@ -73,23 +58,18 @@ export default class UserWords {
    * @returns {UserWordDataModel} user word data
    */
   static getUserWordDataById = async ({ authUser, wordId }) => {
-    const rawResponse = await fetch(
-      `https://afternoon-falls-25894.herokuapp.com/users/${authUser.id}/words/${wordId}`,
-      {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-          Accept: 'application/json',
-        },
-      }
-    );
-    if (!rawResponse.ok)
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
-    const content = await rawResponse.json();
-    return new UserWordDataModel(content);
+    const url = `${serverPath}/users/${authUser.id}/words/${wordId}`;
+    const data = {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+      },
+    };
+    const message = `${errorMessage}. WordId: ${wordId}`;
+    const response = await DataHelper.makeRequest(url, data, message);
+    return new UserWordDataModel(response);
   };
 
   /**
@@ -103,7 +83,7 @@ export default class UserWords {
 
     userWordsDataArray = await UserWords.getAllUserWordsData({
       authUser: authUser,
-    });
+    });    
 
     // here is a bottleneck. Backend need to be changed or partial loading is needed
     const response = await Promise.allSettled(
@@ -139,29 +119,23 @@ export default class UserWords {
    * @param {AuthenticatedUserModel} authUser
    * @param {string} wordId
    * @param {object} statistics - {"difficulty": "string", "optional": {} }
-   * @returns {string} wordId of updated word
+   * @returns {userWordDataModel} new word data for updated word
    *
    */
   static updateWord = async ({ authUser, wordId, statistics }) => {
-    const rawResponse = await fetch(
-      `https://afternoon-falls-25894.herokuapp.com/users/${authUser.id}/words/${wordId}`,
-      {
-        method: 'PUT',
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(statistics),
-      }
-    );
-    if (!rawResponse.ok)
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
-    const content = await rawResponse.json();
-    return content.wordId;
+    const url = `${serverPath}/users/${authUser.id}/words/${wordId}`;
+    const data = {
+      method: 'PUT',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(statistics),
+    };
+    const message = `${errorMessage}. WordId: ${wordId}`;
+    return DataHelper.makeRequest(url, data, message);
   };
 
   /**
@@ -171,22 +145,18 @@ export default class UserWords {
    * @returns {string} wordId of deleted word
    */
   static deleteWord = async ({ authUser, wordId }) => {
-    const rawResponse = await fetch(
-      `https://afternoon-falls-25894.herokuapp.com/users/${authUser.id}/words/${wordId}`,
-      {
-        method: 'DELETE',
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }
-    );    
-    if (!rawResponse.ok)
-      throw new Error(
-        `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
-      );
+    const url = `${serverPath}/users/${authUser.id}/words/${wordId}`;
+    const data = {
+      method: 'DELETE',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    const message = `${errorMessage}. WordId: ${wordId}`;
+    await DataHelper.makeRequest(url, data, message);
     return wordId;
   };
 }

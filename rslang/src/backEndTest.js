@@ -116,7 +116,7 @@ export const backEndTest = async () => {
 
   let wordsArrayResult;
   try {
-    wordsArrayResult = await UserWords.getAllUserWords({ authUser: authUser });
+    wordsArrayResult = await UserWords.getAllUserWords({ authUser: authUser});
     console.log('user words: ', wordsArrayResult.success);
     console.log('user words errors: ', wordsArrayResult.unsuccess);
   } catch (error) {
@@ -134,23 +134,23 @@ export const backEndTest = async () => {
     console.log(error);
   }
 
-  let updatedWordId;
+  let updatedWordData;
   try {
-    updatedWordId = await UserWords.updateWord({
+    updatedWordData = await UserWords.updateWord({
       authUser: authUser,
       wordId: wordId,
       statistics: {
         difficulty: wordDifficulty.medium,
         optional: {
-          useCounter: 3,
+          useCounter: 15,
           lastUse: new Date().toDateString(),
         },
       },
     });
-    console.log('update user word with id: ', updatedWordId);
+    console.log('update user word with id: ', updatedWordData.wordId);
   } catch (error) {
     console.log(error);
-  }
+  }  
 
   let deletedWordId;
   try {
@@ -161,5 +161,5 @@ export const backEndTest = async () => {
     console.log('delete user word with id: ', deletedWordId);
   } catch (error) {
     console.log(error);
-  } 
+  }
 };
