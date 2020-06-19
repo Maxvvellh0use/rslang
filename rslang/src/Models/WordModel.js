@@ -1,5 +1,5 @@
 // path to data repository
-const repoPath = "https://raw.githubusercontent.com/Maxvvellh0use/rslang-data/master/"
+import {repoPath} from '../data/dataConstants';
 
 const wordDifficulty =  {
   weak: 'weak',
