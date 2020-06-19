@@ -5,11 +5,12 @@ import ProgressBar from "./ProgressBar";
 class Card extends React.Component {
     constructor(props, inputWidth, word) {
         super(props);
-        this.state = {
-            isActiveButton: false,
-        }
         this.word = word;
         this.inputWidth = inputWidth;
+    }
+
+    state = {
+        isActiveButton: false,
     }
 
     getInputWidth() {
@@ -23,8 +24,9 @@ class Card extends React.Component {
     }
 
     playWordAudio = () => {
-        this.state.isActiveButton ? this.setState({ isActiveButton: false }) :
-            this.setState({ isActiveButton: true })
+        this.setState({
+            isActiveButton: !this.state.isActiveButton
+        })
     }
 
     render() {
