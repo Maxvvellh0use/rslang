@@ -131,7 +131,7 @@ export default class UserWords {
       authUser: authUser,
       wordId: wordId,
     });
-    return await Words.getWordById(result.wordId);
+    return Words.getWordById(result.wordId);
   };
 
   /**
