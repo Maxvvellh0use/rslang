@@ -3,7 +3,6 @@ import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
 
 const errorMessage = 'Authentication';
-
 export default class Authentication {
   /**
    * Try to login user.

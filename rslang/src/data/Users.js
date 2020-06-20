@@ -1,10 +1,8 @@
 import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
-import AuthenticatedUserModel from '../Models/AuthenticatedUserModel';
 import UserModel from '../Models/UserModel';
 
 const errorMessage = 'Users';
-
 export default class Users {
 
   /**
@@ -26,7 +24,6 @@ export default class Users {
     const response = await DataHelper.makeRequest(url, data, errorMessage);
     return response.id;
   };
-
 
   /**
    * Get method. Get user by  Id  
@@ -53,7 +50,7 @@ export default class Users {
   /**
    * Put method. Update user   
    * @param {AuthenticatedUserModel} authUser
-   * @returns {string} user email
+   * @returns {UserModel} user
    * 
    * Need to pass authUser because userId and token are connected.
    */
@@ -62,10 +59,8 @@ export default class Users {
     newEmail = authUser.email,
     newPassword = authUser.password
   }) => {
-    console.log(authUser);
-    console.log(newEmail);
-    console.log(newPassword);    
-    const url = `${serverPath}/users/${authUser.id}`;
+    const url = `${serverPath}/users/${
+      authUser.id}`;
     const data = {
       method: 'PUT',
       withCredentials: true,
@@ -74,18 +69,35 @@ export default class Users {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        email: authUser.email,
+        email: newEmail,
         password: newPassword,
       }),
     };
     const message = `${errorMessage}. UserId: ${authUser.id}`;
-    const response = await DataHelper.makeRequest(url, data, message);
-    console.log('---- ', response);
-    return new UserModel({
-      email: response.email,
-      password: newPassword,      
-    });
+    const response = await DataHelper.makeRequest(url, data, message);    
+    console.log('From updateUser. Server response: ', response);    
+    return new UserModel({email: response.email, password: newPassword});
   };
 
-
+/**
+   * Delete method. Delete user by  Id  
+   * @param {AuthenticatedUserModel} authUser
+   * @returns {string} user id
+   * 
+   * Need to pass authUser because userId and token are connected.
+   */
+  static deleteUser = async (authUser) => {
+    const url = `${serverPath}/users/${authUser.id}`;
+    const data = {
+      method: 'DELETE',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${authUser.token}`,
+        Accept: 'application/json',
+      },
+    };
+    const message = `${errorMessage}. UserId: ${authUser.id}`;
+    await DataHelper.makeRequest(url, data, message);    
+    return authUser.id;
+  };
 }
