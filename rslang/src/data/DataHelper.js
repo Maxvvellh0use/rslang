@@ -3,10 +3,18 @@ export default class DataHelper {
     const rawResponse = await fetch(url, data);    
     if (!rawResponse.ok) {
       switch (rawResponse.status) {
+        case 401:
+          throw new Error(
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Access token is missing or invalid`
+          );    
         case 417:
           throw new Error(
-            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Such user word already exists`
-          );        
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Such entity already exists`
+          );    
+        case 422:
+          throw new Error(
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Incorrect e-mail or password`
+          );    
         default:
           throw new Error(
             `In ${errorMessage}. Error code: ${rawResponse.status}. Message: ${rawResponse.statusText}`
@@ -14,7 +22,7 @@ export default class DataHelper {
       }
     }        
     try {
-      if (rawResponse.status === 204) return {};  // DELETE UserWord contains no content
+      if (rawResponse.status === 204) return {};  // DELETE operations returns no content
       return rawResponse.json();
     } catch (error) {
       throw new Error(error);

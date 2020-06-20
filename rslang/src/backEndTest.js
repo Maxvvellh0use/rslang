@@ -3,10 +3,96 @@ import UserModel from './Models/UserModel';
 import Words from './data/Words';
 import UserWords from './data/UserWords';
 import { wordDifficulty } from './Models/WordModel';
+import Users from './data/Users';
 
 export const backEndTest = async () => {
-  const user = new UserModel({});
   
+  let newUser = new UserModel({
+    email: 'test-user99@herokuapp.com',
+    password: 'Test-user99-password-1'
+  });
+
+  try {
+    let userId = await Users.addUser(newUser);
+    console.log('Create new user with id: ', userId);
+  } catch (error) {
+    console.log(error);
+  }
+
+  let newAuthUser;
+  try {
+    newAuthUser = await Authentication.loginUser(newUser); 
+    console.log('login new user: ', newAuthUser);   
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+  
+  try {
+    let userEmail = await Users.getUserById(newAuthUser);
+    console.log('get user email by id: ', userEmail);
+  } catch (error) {
+    console.log(error);    
+  }
+
+  let updatedUser;
+  try {
+    updatedUser = await Users.updateUser(
+      {
+        authUser: newAuthUser,
+        newEmail: 'test-user99@herokuapp.com',
+        newPassword: 'Test-user100-password-1'
+      });
+    console.log('updatedUser: ', updatedUser);
+  } catch (error) {
+    console.log(error);   
+  }
+
+  try {
+    let userEmail = await Users.getUserById(newAuthUser);
+    console.log('get user email by id: ', userEmail);
+  } catch (error) {
+    console.log(error);    
+  }
+  
+  // testing ability to login updated user ---------------  
+  console.log('try to login user with updated data: ', updatedUser);
+  let updatedAuthUser;
+  try {
+    updatedAuthUser = await Authentication.loginUser(updatedUser);    
+    console.log(updatedAuthUser);
+  } catch (error) {
+    console.log(error);    
+  }
+  // 
+  // -------------------------------------------------
+
+  try {
+    let deletedUserId  = await Users.deleteUser(newAuthUser);
+    console.log('delete user with id: ', deletedUserId);
+  } catch (error) {
+    console.log(error);   
+  } 
+
+  console.log(`check if user with id ${newAuthUser.id} exists:`);
+  try {
+    let userEmail = await Users.getUserById(newAuthUser);
+    console.log('user email by id: ', userEmail);
+  } catch (error) {
+    console.log(error);    
+  } 
+
+  console.log('------------------ Create new User ----------------------');
+
+  const user = new UserModel({});
+
+  try {
+    let userId = await Users.addUser(user);
+    console.log('Create new user with id: ', userId);
+  } catch (error) {
+    console.log(error);
+  }
+
   let authUser;
   try {
     authUser = await Authentication.loginUser(user);
@@ -104,19 +190,17 @@ export const backEndTest = async () => {
     console.log(error);
   }
 
-  let currentWordDataarray;
+  let currentWordDataArray;
   try {
-    currentWordDataarray = await UserWords.getAllUserWordsData({
-      authUser: authUser,
-    });
-    console.log('user word data array: ', currentWordDataarray);
+    currentWordDataArray = await UserWords.getAllUserWordsData(authUser);
+    console.log('user word data array: ', currentWordDataArray);
   } catch (error) {
     console.log(error);
   }
 
   let wordsArrayResult;
   try {
-    wordsArrayResult = await UserWords.getAllUserWords({ authUser: authUser});
+    wordsArrayResult = await UserWords.getAllUserWords(authUser);
     console.log('user words: ', wordsArrayResult.success);
     console.log('user words errors: ', wordsArrayResult.unsuccess);
   } catch (error) {

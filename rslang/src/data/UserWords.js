@@ -4,7 +4,6 @@ import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
 
 const errorMessage = 'UserWords';
-
 export default class UserWords {
   /**
    * Post method. Add word with wordId to user (userId) words.
@@ -37,7 +36,7 @@ export default class UserWords {
    * @returns {[]} array of UserWordDataModel
    *
    */
-  static getAllUserWordsData = async ({ authUser }) => {
+  static getAllUserWordsData = async (authUser) => {
     const url = `${serverPath}/users/${authUser.id}/words`;
     const data = {
       method: 'GET',
@@ -78,12 +77,10 @@ export default class UserWords {
    * @returns {} success: array of all user words {WordModel}
    *             unsuccess: array of error messages
    */
-  static getAllUserWords = async ({ authUser }) => {
+  static getAllUserWords = async (authUser) => {
     let userWordsDataArray;
 
-    userWordsDataArray = await UserWords.getAllUserWordsData({
-      authUser: authUser,
-    });    
+    userWordsDataArray = await UserWords.getAllUserWordsData(authUser);    
 
     // here is a bottleneck. Backend need to be changed or partial loading is needed
     const response = await Promise.allSettled(
