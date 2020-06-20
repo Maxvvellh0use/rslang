@@ -74,8 +74,7 @@ export default class Users {
       }),
     };
     const message = `${errorMessage}. UserId: ${authUser.id}`;
-    const response = await DataHelper.makeRequest(url, data, message);    
-    console.log('From updateUser. Server response: ', response);    
+    const response = await DataHelper.makeRequest(url, data, message); 
     return new UserModel({email: response.email, password: newPassword});
   };
 
