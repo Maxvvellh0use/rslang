@@ -1,0 +1,39 @@
+@import "../../style/abstract/constants";
+
+.progress_section {
+  position: absolute;
+  bottom: 10px;
+  max-width: 500px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.progress_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20vh;
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.progress_block__bar {
+  justify-self: center;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin: 0 5px;
+  background: $color-card-background;
+  box-shadow: $box-shadow-progress-bar;
+}

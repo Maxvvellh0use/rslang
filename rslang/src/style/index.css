@@ -26,7 +26,7 @@
   background: aliceblue;
   border-radius: 5px;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: auto;
   box-shadow: 2px 3px 18px 3px rgba(0, 0, 0, 0.75);
   font-size: 20px;
@@ -40,14 +40,14 @@
 
 .card_word__main__sentence_translation {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: 20px;
 }
 
 .card_word__main__word_translation {
   align-self: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: 20px;
 }
 
@@ -56,34 +56,6 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 20px;
-}
-
-.progress_block {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 20vh;
-}
-
-.progress {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
-.progress_block__bar {
-  justify-self: center;
-  border-radius: 5px;
-  height: 10px;
-  width: 100%;
-  margin: 0 5px;
-  background: aliceblue;
-  box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.4);
 }
 
 .description_and_audio__audio_button {
@@ -112,6 +84,44 @@
     opacity: 1;
   }
 }
+.progress_section {
+  position: absolute;
+  bottom: 10px;
+  max-width: 500px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.progress_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20vh;
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.progress_block__bar {
+  justify-self: center;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin: 0 5px;
+  background: aliceblue;
+  box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.4);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;

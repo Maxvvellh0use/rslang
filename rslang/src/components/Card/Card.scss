@@ -27,7 +27,7 @@
     background: $color-card-background;
     border-radius: 5px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: auto;
     box-shadow: $box-shadow-card;
     font-size: 20px;
@@ -41,14 +41,14 @@
 
 .card_word__main__sentence_translation {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px;
 }
 
 .card_word__main__word_translation {
     align-self: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px;
 }
 
@@ -58,33 +58,4 @@
     justify-content: space-between;
     margin: 20px;
 }
-
-.progress_block {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 20vh;
-}
-
-.progress {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-}
-
-.progress_block__bar {
-    justify-self: center;
-    border-radius: 5px;
-    height: 10px;
-    width: 100%;
-    margin: 0 5px;
-    background: $color-card-background;
-    box-shadow: $box-shadow-progress-bar;
-}
-
 

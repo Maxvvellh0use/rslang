@@ -1,6 +1,6 @@
 import React from 'react';
 import SpanButton from "../SpanButton/SpanButton";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 class Card extends React.Component {
     constructor(props, inputWidth, word) {
