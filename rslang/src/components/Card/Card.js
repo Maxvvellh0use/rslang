@@ -38,7 +38,7 @@ class Card extends React.Component {
         }
         return (
             <section className="card_word__section">
-                <div className="wrapper card_wrapper">
+                <div className="card_wrapper">
                     <div className="card_word">
                         <div className="card_word__main">
                             <div className="card_word__main__sentence">

@@ -7,11 +7,6 @@
   margin-top: 20vh;
 }
 
-.wrapper {
-  width: 1200px;
-  margin: auto;
-}
-
 .card_wrapper {
   display: flex;
   flex-direction: column;
