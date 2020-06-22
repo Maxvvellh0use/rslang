@@ -1,4 +1,4 @@
-import UserWordDataModel from '../Models/UserWordDataModel';
+import UserWordDataModel from '../models/UserWordDataModel';
 import Words from './Words';
 import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
@@ -80,7 +80,7 @@ export default class UserWords {
   static getAllUserWords = async (authUser) => {
     let userWordsDataArray;
 
-    userWordsDataArray = await UserWords.getAllUserWordsData(authUser);    
+    userWordsDataArray = await UserWords.getAllUserWordsData(authUser);
 
     // here is a bottleneck. Backend need to be changed or partial loading is needed
     const response = await Promise.allSettled(

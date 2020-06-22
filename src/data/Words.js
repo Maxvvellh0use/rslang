@@ -1,4 +1,4 @@
-import WordModel from '../Models/WordModel';
+import WordModel from '../models/WordModel';
 import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
 
