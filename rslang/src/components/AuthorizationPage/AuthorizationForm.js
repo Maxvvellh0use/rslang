@@ -67,8 +67,8 @@ class Form extends Component {
        <div className="panel panel-default error-block">
         <FormErrors formErrors={this.state.formErrors} />
        </div>
-       <FormInput image={require('./assets/email.png')} name={'email'} type={'text'} placeholder={'Email'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
-       <FormInput image={require('./assets/password.png')} name={'password'} type={'password'} placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state .passwordValid)}`}/>
+       <FormInput image={require('../../assets/email.png')} name={'email'} type={'text'} placeholder={'Email'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
+       <FormInput image={require('../../assets/password.png')} name={'password'} type={'password'} placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state .passwordValid)}`}/>
        <button type='submit' className='btn btn-primary authorization-button' disabled={!this.state.formValid}>
         Log in
        </button>

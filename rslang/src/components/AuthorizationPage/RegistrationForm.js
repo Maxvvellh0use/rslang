@@ -94,12 +94,12 @@ class Form extends Component {
        <div className="panel panel-default error-block">
         <FormErrors formErrors={this.state.formErrors} />
        </div>
-       <FormInput image={require('./assets/name.png')} name={'name'} type={'text'} 
+       <FormInput image={require('../../assets/name.png')} name={'name'} type={'text'} 
                   placeholder={'User name'} value={this.state.name}  onChange={this.handleUserInput} className={'form-control'}/>
-       <FormInput image={require('./assets/email.png')} name={'email'} type={'email'} 
+       <FormInput image={require('../../assets/email.png')} name={'email'} type={'email'} 
                   placeholder={'Email'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
-       <FormInput image={require('./assets/password.png')} name={'password'} type={'password'} placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
-       <FormInput image={require('./assets/password.png')} name={'passwordRepeat'} type={'password'} placeholder={'Repeat password'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
+       <FormInput image={require('../../assets/password.png')} name={'password'} type={'password'} placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
+       <FormInput image={require('../../assets/password.png')} name={'passwordRepeat'} type={'password'} placeholder={'Repeat password'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
        <button type='submit' className='btn btn-primary authorization-button' disabled={!this.state.formValid}>
           Sign up
        </button>
