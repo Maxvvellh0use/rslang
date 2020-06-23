@@ -7,8 +7,8 @@ import Card from "../Card/Card";
 function App() {
   return (
     <div>
-      <StartPage />
-      {/*<Card />*/}
+      {/*<StartPage />*/}
+      <Card />
     </div>
   );
 }
