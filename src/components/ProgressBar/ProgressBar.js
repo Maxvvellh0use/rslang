@@ -1,4 +1,5 @@
 import React from "react";
+import './ProgressBar.scss'
 
 function ProgressBar(props) {
     return (
