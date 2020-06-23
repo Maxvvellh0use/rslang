@@ -13,8 +13,12 @@ class CustomInput extends React.Component {
     }
 
     render = () => {
+        console.log(this.props.onChange)
         return (
-            <input data-check={this.props.dataCheck} style={this.props.style}
+            <input className={this.props.class} data-check={this.props.dataCheck}
+                   style={this.props.style}
+                   onChange={this.props.onChange}
+                   value={this.props.value}
                    ref={this.textInput} type="text"/>
 
         )

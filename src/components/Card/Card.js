@@ -3,6 +3,7 @@ import SpanButton from "../SpanButton/SpanButton";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import CustomInput from "../CustomInput/CustomInput";
 import splitSentence from "./splitSentence.helper";
+import checkWord from "./checkWord.helper";
 import './Card.scss'
 import Words from "../../data/Words";
 import {widthCoefficient} from "./const";
@@ -15,6 +16,7 @@ class Card extends React.Component {
         this.inputWidth = inputWidth;
         this.inputWord = React.createRef();
         this.word = null;
+        this.handleChangeInput = this.handleChangeInput.bind(this);
     }
 
     state = {
@@ -24,15 +26,20 @@ class Card extends React.Component {
         sentence: null,
         sentenceTranslation: null,
         audio: null,
-        inputWidth: null
+        inputWidth: null,
+        valueInputWord: '',
+        inputBackground: null
     }
 
    getWordModel = async () => {
         const allWords = await Words.getAllWords({
             group: 1,
             page: 1,
+            wordsPerExampleSentenceLTE: 10,
+            wordsPerPage: 10
         });
-        return allWords[2];
+        allWords.sort(() => Math.random() - 0.5);
+        return allWords[1];
     }
 
     getInputWidth = (wordLength) => {
@@ -41,28 +48,33 @@ class Card extends React.Component {
     }
 
     componentDidMount = async () => {
-        const wordModel = await this.getWordModel();
-        const word = wordModel.word;
-        const wordTranslation = wordModel.wordTranslate;
-        const sentenceTranslation = wordModel.textExampleTranslate;
-        const audioSrc = wordModel.audioPath;
-        const sentence = wordModel.textMeaning;
-        const splitSentenceObject = splitSentence(sentence);
-        const startSentence = splitSentenceObject.startSentence;
-        const endSentence = splitSentenceObject.endSentence;
-        const wordLength = word.length
-        const widthInput = this.getInputWidth(wordLength);
-        this.setState({
-            inputDataCheck: word,
-            wordTranslation: wordTranslation,
-            startSentence: startSentence,
-            endSentence: endSentence,
-            sentenceTranslation: sentenceTranslation,
-            audio: new Audio(audioSrc),
-            inputWidth: `${widthInput}px`
-        })
-        this.inputWord.current.focusInput();
-        this.audioListener();
+        try{
+            const wordModel = await this.getWordModel();
+            const word = wordModel.word;
+            const wordTranslation = wordModel.wordTranslate;
+            const sentenceTranslation = wordModel.textExampleTranslate;
+            const audioSrc = wordModel.audioPath;
+            const sentence = wordModel.textMeaning;
+            const splitSentenceObject = splitSentence(sentence);
+            const startSentence = splitSentenceObject.startSentence;
+            const endSentence = splitSentenceObject.endSentence;
+            const wordLength = word.length
+            const widthInput = this.getInputWidth(wordLength);
+            this.setState({
+                inputDataCheck: word,
+                wordTranslation: wordTranslation,
+                startSentence: startSentence,
+                endSentence: endSentence,
+                sentenceTranslation: sentenceTranslation,
+                audio: new Audio(audioSrc),
+                inputWidth: `${widthInput}px`
+            })
+            this.inputWord.current.focusInput();
+            this.audioListener();
+        }
+       catch (e) {
+           alert('ERROR')
+       }
     }
 
     audioListener = () => {
@@ -84,10 +96,36 @@ class Card extends React.Component {
         }
     }
 
+    handleChangeInput(event) {
+        this.setState({valueInputWord: event.target.value});
+    }
+
+    submitForm = async (event) => {
+        event.preventDefault()
+        if (checkWord(this.state.inputDataCheck, this.state.valueInputWord)) {
+            this.setState({
+                inputBackground: 'green',
+            })
+            await this.componentDidMount()
+            this.setState({
+                inputBackground: 'white',
+                valueInputWord: ''
+            })
+        } else {
+            this.setState({
+                inputBackground: 'red'
+            })
+        }
+        console.log('FORM');
+    }
+
     render = () => {
-        const inputWord = <CustomInput dataCheck={this.state.inputDataCheck}
-                                               style={{width: this.state.inputWidth}}
-                                                ref={this.inputWord} type="text"/>;
+        const inputWord = <CustomInput class="input_word" dataCheck={this.state.inputDataCheck}
+                                       style={{width: this.state.inputWidth,
+                                       background: this.state.inputBackground}}
+                                       onChange={this.handleChangeInput}
+                                       value={this.state.valueInputWord}
+                                       ref={this.inputWord} type="text"/>;
         let classNameButton = 'description_and_audio__audio_button';
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
@@ -98,7 +136,7 @@ class Card extends React.Component {
                     <div className="card_word">
                         <div className="card_word__main">
                             <div className="card_word__main__sentence">
-                                <form className="card_word__form">
+                                <form onSubmit={this.submitForm} className="card_word__form">
                                     <p>{this.state.startSentence} {inputWord} {this.state.endSentence}</p>
                                 </form>
                             </div>
