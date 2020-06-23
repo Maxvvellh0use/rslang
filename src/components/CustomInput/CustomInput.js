@@ -14,10 +14,9 @@ class CustomInput extends React.Component {
 
     render = () => {
         return (
-            <div>
-                <input data-check={this.props.dataCheck} style={this.props.style}
-                       ref={this.textInput} type="text"/>
-            </div>
+            <input data-check={this.props.dataCheck} style={this.props.style}
+                   ref={this.textInput} type="text"/>
+
         )
 
     };
