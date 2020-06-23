@@ -1,6 +1,7 @@
 import React from 'react';
 import SpanButton from "../SpanButton/SpanButton";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import CustomInput from "../CustomInput/CustomInput";
 import './Card.scss'
 import Words from "../../data/Words";
 import {widthCoefficient} from "./const";
@@ -10,11 +11,17 @@ class Card extends React.Component {
         super(props);
         this.word = word;
         this.inputWidth = inputWidth;
+        this.inputWord = React.createRef();
         this.word = null;
     }
-
     state = {
         isActiveButton: false,
+        inputDataCheck: null,
+        wordTranslation: null,
+        sentence: null,
+        sentenceTranslation: null,
+        audio: null,
+        inputWidth: null
     }
 
    getWordModel = async () => {
@@ -37,35 +44,45 @@ class Card extends React.Component {
         const word = wordModel.word;
         const wordTranslation = wordModel.wordTranslate;
         const sentenceTranslation = wordModel.textExampleTranslate;
-        const audioSrc = wordModel.audioExamplePath;
+        const audioSrc = wordModel.audioPath;
+        const sentence = wordModel.textMeaning;
         console.log(wordModel);
         const wordLength = word.length
         const widthInput = this.getInputWidth(wordLength);
         this.setState({
             inputDataCheck: word,
             wordTranslation: wordTranslation,
+            sentence: sentence,
             sentenceTranslation: sentenceTranslation,
-            audioSrc: audioSrc,
+            audio: new Audio(audioSrc),
             inputWidth: `${widthInput}px`
         })
-        this.inputWord.focus();
+        this.inputWord.current.focusInput();
+        this.audioListener();
     }
 
-    playWordAudio = async () => {
-        this.setState({
-            isActiveButton: !this.state.isActiveButton
-        })
-        const audioSrc = this.state.audioSrc;
-        const audio = new Audio(audioSrc);
-        await audio.play();
+    audioListener = () => {
+        const audio = this.state.audio;
         audio.addEventListener('ended', () => {
+            console.log('sdf')
             this.setState({
                 isActiveButton: !this.state.isActiveButton
             })
         });
     }
 
+    playWordAudio = async () => {
+        const audio = this.state.audio;
+        if (audio.paused) {
+            this.setState({
+                isActiveButton: !this.state.isActiveButton
+            })
+            await audio.play();
+        }
+    }
+
     render = () => {
+        console.log(this.inputWord)
         let classNameButton = 'description_and_audio__audio_button';
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
@@ -77,9 +94,8 @@ class Card extends React.Component {
                         <div className="card_word__main">
                             <div className="card_word__main__sentence">
                                 <form className="card_word__form">
-                                    <p><input data-check={this.state.inputDataCheck} style={{width: this.state.inputWidth}}
-                                              ref={(input) => { this.inputWord = input; }} type="text"/>
-                                    </p>
+                                    <CustomInput dataCheck={this.state.inputDataCheck} style={{width: this.state.inputWidth}}
+                                          ref={this.inputWord} type="text"/>
                                 </form>
                             </div>
                             <div className="card_word__main__sentence_translation">
