@@ -1,0 +1,54 @@
+@import '../../style/constants';
+@import '../../style/placeholders';
+
+.dictionary {
+  background-color: $color-body;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__wrapper {
+    width: $width-wrapper;
+    margin: 0 auto;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;      
+    background-color: lightblue;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+  }
+
+  &__panel {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: lightgreen;
+    min-width: 300px;
+    min-height: 240px;
+  }
+
+  &__tabs {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+
+    &__tab {
+      min-width: 90px;
+      min-height: 80px;
+      width: 100%;
+      height: 100%;
+      background-color: pink;
+      border: 1px solid black;
+
+    }
+  }
+}

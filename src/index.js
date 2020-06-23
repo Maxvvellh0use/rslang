@@ -8,7 +8,7 @@ import { backEndTest } from './backEndTest';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // example of using
-backEndTest();
+// backEndTest();
 
 
   
