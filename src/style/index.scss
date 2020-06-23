@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,400&display=swap');
 @import "abstract/constants";
-@import "../components/Card/Card";
-@import "../components/SpanButton/SpanButton";
+@import "../components/Card/Card.css";
+@import "../components/SpanButton/SpanButton.css";
 @import "../components/ProgressBar/ProgressBar";
 
 body {
@@ -19,3 +19,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wrapper {
+  width: $width-wrapper;
+  margin: auto;
+}
+
