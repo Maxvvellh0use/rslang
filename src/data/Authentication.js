@@ -1,4 +1,4 @@
-import AuthenticatedUserModel from '../Models/AuthenticatedUserModel';
+import AuthenticatedUserModel from '../models/AuthenticatedUserModel';
 import DataHelper from './DataHelper';
 import { serverPath } from './dataConstants';
 
@@ -12,14 +12,14 @@ export default class Authentication {
    */
   static loginUser = async (user) => {
     const url = `${serverPath}/signin`;
-    const data = {    
+    const data = {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
-      };    
+      };
     const response = await DataHelper.makeRequest(url, data, errorMessage);
     return new AuthenticatedUserModel(
       user.email,
