@@ -1,0 +1,7 @@
+@mixin rotateX($degrees) {
+  -webkit-transform: rotateX($degrees);
+  -moz-transform: rotateX($degrees);
+  -ms-transform: rotateX($degrees);
+  -o-transform: rotateX($degrees);
+  transform: rotateX($degrees);
+}
