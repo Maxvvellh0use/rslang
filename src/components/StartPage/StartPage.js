@@ -1,6 +1,6 @@
 import React from "react";
 import './Startpage.scss';
-import { TEXT_START_PAGE_H2, TEXT_START_PAGE_DESCRIPTION } from "../../constants/textConstants";
+import { TEXT_START_PAGE_H2, TEXT_START_PAGE_DESCRIPTION } from "./const";
 
 class StartPage extends React.Component {
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.scss';
-import Card from "../Card/Card";
+import '../../style/index.scss';
+import StartPage from "../StartPage/StartPage";
 
 function App() {
-
   return (
-    <Card />
+    <div>
+      <StartPage />
+    </div>
   );
 }
 
