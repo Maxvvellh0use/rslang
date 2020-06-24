@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.scss';
 import '../../style/index.scss';
-import DictionaryPage from "../DictionaryPage/DictionaryPage";
+import StartPage from "../DictionaryPage/StartPage";
 
 function App() {
   return (
     <div>
-      <DictionaryPage />
+      <StartPage />
     </div>
   );
 }
