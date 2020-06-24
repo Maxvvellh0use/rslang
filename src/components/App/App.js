@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import '../../style/index.scss';
-import StartPage from "../DictionaryPage/StartPage";
+import StartPage from "../StartPage/StartPage";
 
 function App() {
   return (
