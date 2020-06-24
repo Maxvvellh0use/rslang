@@ -62,6 +62,23 @@
 }
 
 .input_word {
-    text-align: center;
+    position: relative;
+    //opacity: .5;
+    z-index: 2;
+}
+
+.card_word__form__span_word_check {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 1vh;
+    z-index: 1;
+}
+
+.green_letter {
+    color: lightgreen;
+}
+
+.red_letter {
+    color: palevioletred;
 }
 

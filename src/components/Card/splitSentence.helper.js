@@ -1,6 +1,5 @@
 import { searchSymbol, firstLetter, firstElem, unitOffset } from "./const";
 
-
 function splitSentence(sentence) {
     const sentenceArray = sentence.split(' ');
     console.log(sentenceArray.filter((elem) => elem[firstLetter] === searchSymbol));
