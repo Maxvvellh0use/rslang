@@ -21,14 +21,16 @@ class Card extends React.Component {
 
     state = {
         isActiveButton: false,
-        inputDataCheck: null,
+        inputDataCheck: '',
         wordTranslation: null,
         sentence: null,
         sentenceTranslation: null,
         audio: null,
         inputWidth: null,
+        inputClass: '',
         valueInputWord: '',
-        inputBackground: null
+        inputBackground: null,
+        spansLetters: '',
     }
 
    getWordModel = async () => {
@@ -47,33 +49,37 @@ class Card extends React.Component {
         return widthInput;
     }
 
+    createCard = async () => {
+        const wordModel = await this.getWordModel();
+        const word = wordModel.word;
+        const wordTranslation = wordModel.wordTranslate;
+        const sentenceTranslation = wordModel.textExampleTranslate;
+        const audioSrc = wordModel.audioPath;
+        const sentence = wordModel.textMeaning;
+        const splitSentenceObject = splitSentence(sentence);
+        const startSentence = splitSentenceObject.startSentence;
+        const endSentence = splitSentenceObject.endSentence;
+        const wordLength = word.length
+        const widthInput = this.getInputWidth(wordLength);
+        this.setState({
+            inputDataCheck: word,
+            wordTranslation: wordTranslation,
+            startSentence: startSentence,
+            endSentence: endSentence,
+            sentenceTranslation: sentenceTranslation,
+            audio: new Audio(audioSrc),
+            inputWidth: `${widthInput}px`,
+        })
+        this.audioListener();
+    }
+
     componentDidMount = async () => {
-        try{
-            const wordModel = await this.getWordModel();
-            const word = wordModel.word;
-            const wordTranslation = wordModel.wordTranslate;
-            const sentenceTranslation = wordModel.textExampleTranslate;
-            const audioSrc = wordModel.audioPath;
-            const sentence = wordModel.textMeaning;
-            const splitSentenceObject = splitSentence(sentence);
-            const startSentence = splitSentenceObject.startSentence;
-            const endSentence = splitSentenceObject.endSentence;
-            const wordLength = word.length
-            const widthInput = this.getInputWidth(wordLength);
-            this.setState({
-                inputDataCheck: word,
-                wordTranslation: wordTranslation,
-                startSentence: startSentence,
-                endSentence: endSentence,
-                sentenceTranslation: sentenceTranslation,
-                audio: new Audio(audioSrc),
-                inputWidth: `${widthInput}px`
-            })
+        try {
+            await this.createCard();
             this.inputWord.current.focusInput();
-            this.audioListener();
         }
        catch (e) {
-           alert('ERROR')
+           console.log('ERROR');
        }
     }
 
@@ -102,27 +108,37 @@ class Card extends React.Component {
 
     submitForm = async (event) => {
         event.preventDefault()
-        if (checkWord(this.state.inputDataCheck, this.state.valueInputWord)) {
-            this.setState({
-                inputBackground: 'green',
-            })
-            await this.componentDidMount()
+        const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
+        const correctLetters = checkLetters.filter((elem) => elem !== true);
+        const audio = this.state.audio;
+        if (!correctLetters.length) {
+            await this.playWordAudio();
+            audio.addEventListener('ended', this.createCard);
             this.setState({
                 inputBackground: 'white',
-                valueInputWord: ''
-            })
-        } else {
-            this.setState({
-                inputBackground: 'red'
+                valueInputWord: '',
+                spansLetters: '',
             })
         }
-        console.log('FORM');
+    }
+
+    checkLetters = () => {
+        const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord);
+        const letters = this.state.valueInputWord.split('');
+        const invalidLetters = checkLetters.map((letter, index) => {
+            return !letter ? <span className="card_word__form__span_letter red_letter" key={letters[index]}>{letters[index]}</span> :
+                <span className="card_word__form__span_letter green_letter" key={letters[index]}>{letters[index]}</span>;
+        })
+        return invalidLetters;
     }
 
     render = () => {
-        const inputWord = <CustomInput class="input_word" dataCheck={this.state.inputDataCheck}
-                                       style={{width: this.state.inputWidth,
-                                       background: this.state.inputBackground}}
+        const checkLetters = this.checkLetters();
+        const inputWord = <CustomInput class="input_word"
+                                       dataCheck={this.state.inputDataCheck}
+                                       spanValue={checkLetters}
+                                       spanClass="card_word__form__span_word_check"
+                                       style={{width: this.state.inputWidth}}
                                        onChange={this.handleChangeInput}
                                        value={this.state.valueInputWord}
                                        ref={this.inputWord} type="text"/>;
@@ -131,31 +147,36 @@ class Card extends React.Component {
             classNameButton += ' active_audio_button';
         }
         return (
-            <section className="card_word__section">
-                <div className="card_wrapper">
-                    <div className="card_word">
-                        <div className="card_word__main">
-                            <div className="card_word__main__sentence">
-                                <form onSubmit={this.submitForm} className="card_word__form">
-                                    <p>{this.state.startSentence} {inputWord} {this.state.endSentence}</p>
-                                </form>
-                            </div>
-                            <div className="card_word__main__sentence_translation">
-                                <p>{this.state.sentenceTranslation}</p>
-                            </div>
-                            <div className="description_and_audio">
-                                <SpanButton className={classNameButton} onClick={this.playWordAudio} />
+            <main>
+                <section className="card_word__section">
+                    <div className="card_wrapper">
+                        <div className="card_word">
+                            <div className="card_word__main">
+                                <div className="card_word__main__sentence">
+                                    <form onSubmit={this.submitForm} className="card_word__form">
+                                        <p>{this.state.startSentence} {inputWord} {this.state.endSentence}</p>
+                                    </form>
+                                </div>
+                                <div className="card_word__main__sentence_translation">
+                                    <p>{this.state.sentenceTranslation}</p>
+                                </div>
+                                <div className="description_and_audio">
+                                    <SpanButton className={classNameButton} onClick={this.playWordAudio} />
+                                </div>
                             </div>
                         </div>
+                        <div className="card_word__main__word_translation">
+                            <p>{this.state.wordTranslation}</p>
+                        </div>
                     </div>
-                    <div className="card_word__main__word_translation">
-                        <p>{this.state.wordTranslation}</p>
+                </section>
+                <section>
+                    <div className="progress_section">
+                        <ProgressBar />
                     </div>
-                </div>
-                <div className="progress_section">
-                    <ProgressBar />
-                </div>
-            </section>)
+                </section>
+            </main>
+        )
     }
 
 }
