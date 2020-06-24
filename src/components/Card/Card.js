@@ -10,12 +10,9 @@ import {widthCoefficient} from "./const";
 
 class Card extends React.Component {
 
-    constructor(props, inputWidth, word) {
+    constructor(props) {
         super(props);
-        this.word = word;
-        this.inputWidth = inputWidth;
         this.inputWord = React.createRef();
-        this.word = null;
         this.handleChangeInput = this.handleChangeInput.bind(this);
     }
 
@@ -27,10 +24,11 @@ class Card extends React.Component {
         sentenceTranslation: null,
         audio: null,
         inputWidth: null,
-        inputClass: '',
+        inputClassColor: '',
         valueInputWord: '',
         inputBackground: null,
         spansLetters: '',
+        spanLettersClass: ''
     }
 
    getWordModel = async () => {
@@ -41,6 +39,7 @@ class Card extends React.Component {
             wordsPerPage: 10
         });
         allWords.sort(() => Math.random() - 0.5);
+        console.log(allWords[1]);
         return allWords[1];
     }
 
@@ -69,6 +68,9 @@ class Card extends React.Component {
             sentenceTranslation: sentenceTranslation,
             audio: new Audio(audioSrc),
             inputWidth: `${widthInput}px`,
+            valueInputWord: '',
+            inputClassColor: '',
+            spanLettersClass: ''
         })
         this.audioListener();
     }
@@ -102,8 +104,16 @@ class Card extends React.Component {
         }
     }
 
-    handleChangeInput(event) {
+    handleChangeInput = (event) => {
         this.setState({valueInputWord: event.target.value});
+    }
+
+    clearInput = () => {
+        this.setState({
+            valueInputWord: '',
+            inputClassColor: '',
+            spanLettersClass: '',
+        })
     }
 
     submitForm = async (event) => {
@@ -115,9 +125,17 @@ class Card extends React.Component {
             await this.playWordAudio();
             audio.addEventListener('ended', this.createCard);
             this.setState({
-                inputBackground: 'white',
-                valueInputWord: '',
+                inputClassColor: ' white',
                 spansLetters: '',
+                spanLettersClass: ' z-index3'
+            })
+        } else {
+            this.inputWord.current.blurInput();
+            await this.playWordAudio();
+            this.setState({
+                inputClassColor: ' white',
+                spansLetters: '',
+                spanLettersClass: ' z-index3'
             })
         }
     }
@@ -134,12 +152,13 @@ class Card extends React.Component {
 
     render = () => {
         const checkLetters = this.checkLetters();
-        const inputWord = <CustomInput class="input_word"
+        const inputWord = <CustomInput class={"input_word" + this.state.inputClassColor}
                                        dataCheck={this.state.inputDataCheck}
                                        spanValue={checkLetters}
-                                       spanClass="card_word__form__span_word_check"
+                                       spanClass= {"card_word__form__span_word_check" + this.state.spanLettersClass}
                                        style={{width: this.state.inputWidth}}
                                        onChange={this.handleChangeInput}
+                                       onFocus={this.clearInput}
                                        value={this.state.valueInputWord}
                                        ref={this.inputWord} type="text"/>;
         let classNameButton = 'description_and_audio__audio_button';
