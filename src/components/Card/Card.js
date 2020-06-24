@@ -40,7 +40,6 @@ class Card extends React.Component {
             wordsPerPage: 10
         });
         allWords.sort(() => Math.random() - 0.5);
-        console.log(allWords[1]);
         return allWords[1];
     }
 
@@ -104,13 +103,10 @@ class Card extends React.Component {
 
 
     handleChangeInput = (event) => {
-        console.log(this.state.valueInputWord);
         this.setState({
             valueInputWord: event.target.value,
             spanCheckValue: this.checkLetters(),
         });
-        console.log(this.state.valueInputWord);
-        // console.log(this.state.spanCheckValue);
     }
 
     clearInput = () => {
@@ -148,7 +144,6 @@ class Card extends React.Component {
     }
 
     checkLetters = () => {
-        console.log(this.state.valueInputWord);
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord);
         const letters = this.state.valueInputWord.split('');
         const validLetters = checkLetters.map((letter, index) => {
@@ -159,7 +154,6 @@ class Card extends React.Component {
     }
 
     render = () => {
-        console.log(this.state.spanCheckValue)
         const inputWord = <CustomInput class={"input_word" + this.state.inputClassColor}
                                        dataCheck={this.state.inputDataCheck}
                                        spanValue={this.state.spanCheckValue}
