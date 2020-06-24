@@ -18,11 +18,9 @@ class CustomInput extends React.Component {
     }
 
     render = () => {
-        console.log(this.props.spanValue);
-        console.log(this.props.onChange);
         return (
             <section className="letter_check">
-                <span className={this.props.spanClass} onFocus={this.props.onFocus}>{this.props.spanValue}</span>
+                <span className={this.props.spanClass} onClick={this.props.onFocus}>{this.props.spanValue}</span>
             <input className={this.props.class} data-check={this.props.dataCheck}
                    style={this.props.style}
                    maxLength={this.props.maxLength}
