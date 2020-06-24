@@ -1,0 +1,38 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+@import "../../style/mixins";
+
+.dictionary__tabs {
+  &__tab {
+    display: block;
+    min-width: 90px;
+    min-height: 80px;      
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-radius: 10px;
+    opacity: 0.6;
+    background-color: lightgrey;
+
+    @extend %transition;
+
+    &_selected {
+      @extend %transition;
+      opacity: 1;
+    }
+    &:hover {
+      @extend %transition;
+      opacity: 1;
+    }
+
+    &_learning {
+      background-color: lightgreen;
+    }
+    &_difficult {
+      background-color: lightskyblue;
+      margin: 10px 0;
+    }
+    &_removed {
+      background-color: pink;
+    }
+  }
+}

@@ -1,6 +1,6 @@
-@import '../../style/constants';
-@import '../../style/placeholders';
-@import '../../style/mixins';
+@import "../../style/constants";
+@import "../../style/placeholders";
+@import "../../style/mixins";
 
 .dictionary {
   background-color: $color-body;
@@ -36,67 +36,54 @@
     flex-direction: row;
     background-color: lightslategray;
     width: 100%;
-    height: 100%;
-    padding: 10px;
-    min-height: 80vh;
+    height: 820px;
+    padding: 10px;    
   }
 
   &__panel {
     position: relative;
     display: block;
     width: 80%;
-    height: 300px;
-    
+    height: 800px;
 
-    -webkit-transform-origin: 0 50%;
-    -ms-transform-origin: 0 50%;
-    transform-origin: 0 50%;
+    @include transform-origin(0 50%);
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transition: -webkit-transform 0.5s ease-in;
     transition: transform 0.5s ease-in;
 
     &_learning-checked {
-      -webkit-transform: rotateX(-90deg);
-      transform: rotateX(-90deg);
+      @include rotateX(-90deg);
     }
     &_difficult-checked {
-      -webkit-transform: rotateX(0deg);
-      transform: rotateX(0deg);
+      @include rotateX(0deg);
     }
     &_removed-checked {
-      -webkit-transform: rotateX(90deg);
-      transform: rotateX(90deg);
+      @include rotateX(90deg);
     }
   }
 
   &__panel-content {
     width: 900px;
-    height: 300px;
+    height: 100%;
+    border-radius: 10px;
     position: absolute;
 
     &_learning {
       background-color: lightgreen;
-      -webkit-transform: rotateX(-270deg) translateY(-50%);
-      transform: rotateX(-270deg) translateY(-50%);
-      -webkit-transform-origin: top left;
-      -ms-transform-origin: top left;
-      transform-origin: top left;
+      @include transform(rotateX(-270deg) translateY(-400px));
+      @include transform-origin(top left);
     }
 
     &_difficult {
       background-color: lightskyblue;
-      -webkit-transform: translateZ(50%);
-      transform: translateZ(50%);
+      @include translateZ(400px);
     }
 
     &_removed {
       background-color: pink;
-      -webkit-transform: rotateX(-90deg) translateY(50%);
-      transform: rotateX(-90deg) translateY(50%);
-      -webkit-transform-origin: bottom center;
-      -ms-transform-origin: bottom center;
-      transform-origin: bottom center;
+      @include transform(rotateX(-90deg) translateY(400px));
+      @include transform-origin(bottom center);
     }
   }
 
@@ -110,24 +97,6 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 10px;
-
-    &__tab {
-      display: block;
-      min-width: 90px;
-      min-height: 80px;
-      width: 100%;
-      height: 100%;
-      border: 1px solid black;
-
-      &_learning {
-        background-color: lightgreen;
-      }
-      &_difficult {
-        background-color: lightskyblue;
-      }
-      &_removed {
-        background-color: pink;
-      }
-    }
+    
   }
 }
