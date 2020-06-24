@@ -1,4 +1,4 @@
-import { searchSymbol, firstLetter, firstElem, unitOffset } from "./const";
+import { searchSymbol, firstLetter, firstElem, unitOffset } from "../const";
 
 function splitSentence(sentence) {
     const sentenceArray = sentence.split(' ');

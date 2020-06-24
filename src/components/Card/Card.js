@@ -2,11 +2,11 @@ import React from 'react';
 import SpanButton from "../SpanButton/SpanButton";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import CustomInput from "../CustomInput/CustomInput";
-import splitSentence from "./splitSentence.helper";
-import checkWord from "./checkWord.helper";
+import splitSentence from "./helpers/splitSentence.helper";
+import checkWord from "./helpers/checkWord.helper";
+import getInputWidth from "./helpers/getInputWidth.helper";
 import './Card.scss'
 import Words from "../../data/Words";
-import {widthCoefficient} from "./const";
 
 class Card extends React.Component {
 
@@ -19,6 +19,7 @@ class Card extends React.Component {
     state = {
         isActiveButton: false,
         inputDataCheck: '',
+        wordLength: null,
         wordTranslation: null,
         sentence: null,
         sentenceTranslation: null,
@@ -43,25 +44,21 @@ class Card extends React.Component {
         return allWords[1];
     }
 
-    getInputWidth = (wordLength) => {
-        const widthInput = wordLength * widthCoefficient;
-        return widthInput;
-    }
-
     createCard = async () => {
         const wordModel = await this.getWordModel();
         const word = wordModel.word;
         const wordTranslation = wordModel.wordTranslate;
         const sentenceTranslation = wordModel.textExampleTranslate;
         const audioSrc = wordModel.audioPath;
-        const sentence = wordModel.textMeaning;
+        const sentence = wordModel.textExample;
         const splitSentenceObject = splitSentence(sentence);
         const startSentence = splitSentenceObject.startSentence;
         const endSentence = splitSentenceObject.endSentence;
         const wordLength = word.length
-        const widthInput = this.getInputWidth(wordLength);
+        const widthInput = getInputWidth(wordLength);
         this.setState({
             inputDataCheck: word,
+            wordLength: wordLength,
             wordTranslation: wordTranslation,
             startSentence: startSentence,
             endSentence: endSentence,
@@ -78,6 +75,7 @@ class Card extends React.Component {
     componentDidMount = async () => {
         try {
             await this.createCard();
+            this.checkLetters();
             this.inputWord.current.focusInput();
         }
        catch (e) {
@@ -104,8 +102,15 @@ class Card extends React.Component {
         }
     }
 
+
     handleChangeInput = (event) => {
-        this.setState({valueInputWord: event.target.value});
+        console.log(this.state.valueInputWord);
+        this.setState({
+            valueInputWord: event.target.value,
+            spanCheckValue: this.checkLetters(),
+        });
+        console.log(this.state.valueInputWord);
+        // console.log(this.state.spanCheckValue);
     }
 
     clearInput = () => {
@@ -127,7 +132,8 @@ class Card extends React.Component {
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
-                spanLettersClass: ' z-index3'
+                spanLettersClass: ' z-index3',
+                spanCheckValue: this.checkLetters()
             })
         } else {
             this.inputWord.current.blurInput();
@@ -135,28 +141,31 @@ class Card extends React.Component {
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
-                spanLettersClass: ' z-index3'
+                spanLettersClass: ' z-index3',
+                spanCheckValue: this.checkLetters()
             })
         }
     }
 
     checkLetters = () => {
+        console.log(this.state.valueInputWord);
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord);
         const letters = this.state.valueInputWord.split('');
-        const invalidLetters = checkLetters.map((letter, index) => {
-            return !letter ? <span className="card_word__form__span_letter red_letter" key={letters[index]}>{letters[index]}</span> :
-                <span className="card_word__form__span_letter green_letter" key={letters[index]}>{letters[index]}</span>;
+        const validLetters = checkLetters.map((letter, index) => {
+            return !letter ? <span className="card_word__form__span_letter red_letter" key={index}>{letters[index]}</span> :
+                <span className="card_word__form__span_letter green_letter" key={index + 'letter'}>{letters[index]}</span>;
         })
-        return invalidLetters;
+        return validLetters;
     }
 
     render = () => {
-        const checkLetters = this.checkLetters();
+        console.log(this.state.spanCheckValue)
         const inputWord = <CustomInput class={"input_word" + this.state.inputClassColor}
                                        dataCheck={this.state.inputDataCheck}
-                                       spanValue={checkLetters}
+                                       spanValue={this.state.spanCheckValue}
                                        spanClass= {"card_word__form__span_word_check" + this.state.spanLettersClass}
                                        style={{width: this.state.inputWidth}}
+                                       maxLength={this.state.wordLength}
                                        onChange={this.handleChangeInput}
                                        onFocus={this.clearInput}
                                        value={this.state.valueInputWord}
@@ -173,7 +182,7 @@ class Card extends React.Component {
                             <div className="card_word__main">
                                 <div className="card_word__main__sentence">
                                     <form onSubmit={this.submitForm} className="card_word__form">
-                                        <p>{this.state.startSentence} {inputWord} {this.state.endSentence}</p>
+                                        <div>{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
                                     </form>
                                 </div>
                                 <div className="card_word__main__sentence_translation">
