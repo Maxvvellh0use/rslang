@@ -16,6 +16,7 @@
 
 .sentence_wrapper {
     max-height: 120px;
+    margin: 20px;
 }
 
 .card_word {
@@ -39,13 +40,12 @@
 .card_word__main__sentence {
     width: 100%;
     max-width: 400px;
-    margin: 20px;
 }
 
 .card_word__main__sentence_translation {
     width: 100%;
     max-width: 500px;
-    margin: 20px;
+    font-size: 15px;
 }
 
 .card_word__main__word_translation {
@@ -64,6 +64,7 @@
     margin: 20px;
 }
 
+
 .input_word {
     position: relative;
     z-index: 2;
@@ -76,6 +77,13 @@
     position: absolute;
     margin: 2px auto 0 auto;
     z-index: 1;
+}
+
+.show_word {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
 }
 
 .z-index3 {

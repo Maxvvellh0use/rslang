@@ -161,6 +161,14 @@ class Card extends React.Component {
         return validLetters;
     }
 
+    showWord = async () => {
+        this.setState({
+            valueInputWord: this.state.inputDataCheck,
+        })
+        await this.playWordAudio()
+        setTimeout(async () => {await this.createCard()}, 1000);
+    }
+
     render = () => {
         const inputWord = <CustomInput class={"input_word" + this.state.inputClassColor}
                                        dataCheck={this.state.inputDataCheck}
@@ -194,9 +202,12 @@ class Card extends React.Component {
                                 </div>
                                 <div className="next_and_audio">
                                     <SpanButton className="next_and_audio__next"
-                                                onClick={this.createCard} />
-                                    <SpanButton className={classNameButton}
-                                                onClick={this.playWordAudio} />
+                                                onClick={this.submitForm} />
+                                    <div className="show_word">
+                                        <a href="#" onClick={this.showWord}>Показать ответ</a>
+                                    </div>
+                                        <SpanButton className={classNameButton}
+                                                    onClick={this.playWordAudio} />
                                 </div>
                             </div>
                         </div>

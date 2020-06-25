@@ -3,6 +3,7 @@
 .next_and_audio__audio_button  {
   @extend %transition;
   cursor: pointer;
+  padding-left: 10px;
   width: 30px;
   height: 30px;
   background-image: url(../../assets/img/icons/audion-off-icon.png);
