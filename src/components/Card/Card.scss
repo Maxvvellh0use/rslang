@@ -8,11 +8,6 @@
     margin-top: 20vh;
 }
 
-.wrapper {
-    width: $width-wrapper;
-    margin: auto;
-}
-
 .card_wrapper {
     display: flex;
     flex-direction: column;
@@ -63,14 +58,15 @@
 
 .input_word {
     position: relative;
-    //opacity: .5;
     z-index: 2;
+    height: 25px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .card_word__form__span_word_check {
     position: absolute;
-    margin-top: 3px;
-    margin-left: .75vh;
+    margin: 2px auto 0 auto;
     z-index: 1;
 }
 

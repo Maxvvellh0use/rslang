@@ -1,4 +1,4 @@
-export const widthCoefficient = 15;
+export const widthCoefficient = 12;
 
 export const firstLetter = 0;
 export const firstElem = 0;
