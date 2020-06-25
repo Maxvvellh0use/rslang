@@ -67,6 +67,7 @@ export default class Users {
       headers: {
         Authorization: `Bearer ${authUser.token}`,
         Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: newEmail,

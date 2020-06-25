@@ -2,6 +2,7 @@ import Authentication from './data/Authentication';
 import UserModel from './models/UserModel';
 import Words from './data/Words';
 import UserWords from './data/UserWords';
+import UserSettings from './data/UserSettings';
 import { wordDifficulty } from './models/WordModel';
 import Users from './data/Users';
 
@@ -101,6 +102,36 @@ export const backEndTest = async () => {
     console.log(error);
     return;
   }
+
+  //----------------------- User settings -------------------------
+
+  let userSettings;
+  try {
+    const wordsPerDay = 10;
+    const optional = {
+      showImages: true,
+      playSound: true,
+      showTranscription: false,
+    }
+    userSettings = await UserSettings.updateUserSettings(
+      {
+        authUser: authUser,
+        wordsPerDay: wordsPerDay,
+        optional: optional,
+      });
+    console.log('Updated user settings: ', userSettings);
+  } catch (error) {
+    console.log(error);    
+  }
+
+  try {
+    userSettings = await UserSettings.getUserSettings(authUser);
+    console.log('User settings: ', userSettings);
+  } catch (error) {
+    console.log(error);    
+  }
+
+//----------------------- words -------------------------
 
   const wordId = '5e9f5ee35eb9e72bc21af713';
   let firstWord;
