@@ -162,8 +162,10 @@ class Card extends React.Component {
     }
 
     showWord = async () => {
+        console.log(this.state.inputDataCheck)
         this.setState({
             valueInputWord: this.state.inputDataCheck,
+            inputClassColor: ''
         })
         await this.playWordAudio()
         setTimeout(async () => {await this.createCard()}, 1000);
