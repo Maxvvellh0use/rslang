@@ -1,0 +1,30 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+@import "../../style/mixins";
+
+.dictionary {
+
+  &__panel-content {
+    width: 900px;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+
+    &_learning {
+      background-color: lightgreen;
+      @include transform(rotateX(-270deg) translateY(-400px));
+      @include transform-origin(top left);
+    }
+
+    &_difficult {
+      background-color: lightskyblue;
+      @include translateZ(400px);
+    }
+
+    &_removed {
+      background-color: pink;
+      @include transform(rotateX(-90deg) translateY(400px));
+      @include transform-origin(bottom center);
+    }
+  }
+}
