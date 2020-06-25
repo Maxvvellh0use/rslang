@@ -1,4 +1,4 @@
-@import "../../style/placeholders";
+@import "../../../style/placeholders";
 
 .next_and_audio__audio_button  {
   @extend %transition;
@@ -6,7 +6,7 @@
   padding-left: 10px;
   width: 30px;
   height: 30px;
-  background-image: url(../../assets/img/icons/audion-off-icon.png);
+  background-image: url(../../../assets/img/icons/audion-off-icon.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30px;
@@ -18,7 +18,7 @@
 }
 
 .active_audio_button {
-  background-image: url(../../assets/img/icons/audio-on-icon.png);
+  background-image: url(../../../assets/img/icons/audio-on-icon.png);
   animation-duration: 1s;
   animation-name: opacity_button;
 }
@@ -26,7 +26,7 @@
 .next_and_audio__next {
   @extend %transition;
   cursor: pointer;
-  background-image: url(../../assets/img/icons/next-word-icon.png);
+  background-image: url(../../../assets/img/icons/next-word-icon.png);
   animation-duration: 1s;
   animation-name: opacity_button;
   width: 20px;

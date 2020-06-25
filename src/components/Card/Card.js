@@ -1,7 +1,7 @@
 import React from 'react';
-import SpanButton from "../SpanButton/SpanButton";
-import ProgressBar from "../ProgressBar/ProgressBar";
-import CustomInput from "../CustomInput/CustomInput";
+import SpanButton from "./SpanButton/SpanButton";
+import ProgressBar from "./ProgressBar/ProgressBar";
+import CustomInput from "./CustomInput/CustomInput";
 import splitSentence from "./helpers/splitSentence.helper";
 import checkWord from "./helpers/checkWord.helper";
 import getInputWidth from "./helpers/getInputWidth.helper";
@@ -162,7 +162,6 @@ class Card extends React.Component {
     }
 
     showWord = async () => {
-        console.log(this.state.inputDataCheck)
         this.setState({
             valueInputWord: this.state.inputDataCheck,
             inputClassColor: ''
