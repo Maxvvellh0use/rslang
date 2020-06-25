@@ -7,6 +7,7 @@ import checkWord from "./helpers/checkWord.helper";
 import getInputWidth from "./helpers/getInputWidth.helper";
 import './Card.scss'
 import Words from "../../data/Words";
+import { startProgress } from "./const";
 
 class Card extends React.Component {
 
@@ -29,7 +30,10 @@ class Card extends React.Component {
         valueInputWord: '',
         inputBackground: null,
         spansLetters: '',
-        spanLettersClass: ''
+        spanLettersClass: '',
+        startWords:0,
+        totalWords: 50,
+        progressBarWords: startProgress
     }
 
    getWordModel = async () => {
@@ -66,7 +70,7 @@ class Card extends React.Component {
             inputWidth: `${widthInput}px`,
             valueInputWord: '',
             inputClassColor: '',
-            spanLettersClass: ''
+            spanLettersClass: '',
         })
         this.audioListener();
     }
@@ -122,6 +126,8 @@ class Card extends React.Component {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
+        const changeOfProgress = 3;
+        const changeOfWords = 1;
         if (!correctLetters.length) {
             await this.playWordAudio();
             audio.addEventListener('ended', this.createCard);
@@ -129,7 +135,9 @@ class Card extends React.Component {
                 inputClassColor: ' white',
                 spansLetters: '',
                 spanLettersClass: ' z-index3',
-                spanCheckValue: this.checkLetters()
+                spanCheckValue: this.checkLetters(),
+                progressBarWords: this.state.progressBarWords + changeOfProgress,
+                startWords: this.state.startWords + changeOfWords
             })
         } else {
             this.inputWord.current.blurInput();
@@ -194,7 +202,10 @@ class Card extends React.Component {
                 </section>
                 <section>
                     <div className="progress_section">
-                        <ProgressBar />
+                        <ProgressBar
+                            startWords={this.state.startWords}
+                            totalWords={this.state.totalWords}
+                            width={this.state.progressBarWords} />
                     </div>
                 </section>
             </main>
