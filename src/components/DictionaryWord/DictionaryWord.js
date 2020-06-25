@@ -11,7 +11,7 @@ export default class DictionaryWord extends React.Component {
     selected: false,
     selectedClassName: `${DEFAULT_CLASS}_selected`,
     id: null,
-    dictionaryWord: new DictionaryWordModel(),
+    dictionaryWord: new DictionaryWordModel({}),
   };
 
   render() {

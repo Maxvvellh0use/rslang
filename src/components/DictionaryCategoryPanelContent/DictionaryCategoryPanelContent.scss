@@ -5,10 +5,13 @@
 .dictionary {
 
   &__panel-content {
-    width: 900px;
+    width: 600px;
     height: 100%;
     border-radius: 10px;
     position: absolute;
+
+    overflow-y: scroll;
+    
 
     &_learning {
       background-color: lightgreen;

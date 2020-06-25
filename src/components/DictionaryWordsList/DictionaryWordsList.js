@@ -13,11 +13,11 @@ export default class DictionaryWordsList extends React.Component {
 
   render() {
     const { id, className, dictionaryWordsList, ...attributes } = this.props;
-
+    console.log(dictionaryWordsList);
     return (
-      <ul {...attributes} className={className} id={id}>
+      <ul {...attributes} className={className}>
         {dictionaryWordsList.map((word) => (
-          <DictionaryWord key={word.id} dictionaryWord={word} />
+          <DictionaryWord key={word.wordId} dictionaryWord={word} />
         ))}
       </ul>
     );

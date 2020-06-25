@@ -2,14 +2,10 @@ import React from 'react';
 import './DictionaryContainer.scss';
 import DictionaryCategoryTab from '../DictionaryCategoryTab/DictionaryCategoryTab';
 import DictionaryCategoryPanelContent from '../DictionaryCategoryPanelContent/DictionaryCategoryPanelContent';
-
-export const dictionaryTabName = {
-  learning: 'learning words',
-  difficult: 'difficult words',
-  removed: 'removed words',
-};
+import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryWordModel'; 
 
 export default class DictionaryContainer extends React.Component {
+
   handleClick(event) {
     const panel = document.querySelector('.dictionary__panel');
     const tabs = document.querySelectorAll('.dictionary__tab');
@@ -50,20 +46,52 @@ export default class DictionaryContainer extends React.Component {
     }
   }
   render() {
+    const allWords = [
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+    ]
+
+    const learnedWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.learning);
+    const difficultWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.difficult);
+    const removedWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.removed);
+
+
+
     return (
       <div className="dictionary__container">
         <div className="dictionary__panel">
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_learning"
             name={dictionaryTabName.learning}
+            dictionaryWordsList = {learnedWords}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_difficult"
             name={dictionaryTabName.difficult}
+            dictionaryWordsList = {difficultWords}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_removed"
             name={dictionaryTabName.removed}
+            dictionaryWordsList = {removedWords}
           />
         </div>
         <div className="dictionary__tabs">
@@ -72,7 +100,7 @@ export default class DictionaryContainer extends React.Component {
             id="tab-dictionary-learning"
             onClick={this.handleClick}
             name={dictionaryTabName.learning}
-            counter="25"
+            counter={learnedWords.length}
             selected={true}
           />
           <DictionaryCategoryTab
@@ -80,7 +108,7 @@ export default class DictionaryContainer extends React.Component {
             id="tab-dictionary-difficult"
             onClick={this.handleClick}
             name={dictionaryTabName.difficult}
-            counter="15"
+            counter={difficultWords.length}
           />
 
           <DictionaryCategoryTab
@@ -88,7 +116,7 @@ export default class DictionaryContainer extends React.Component {
             id="tab-dictionary-removed"
             onClick={this.handleClick}
             name={dictionaryTabName.removed}
-            counter="5"
+            counter={removedWords.length}
           />
         </div>
       </div>

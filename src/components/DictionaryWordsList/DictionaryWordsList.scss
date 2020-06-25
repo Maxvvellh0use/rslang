@@ -1,0 +1,17 @@
+
+
+.dictionary {
+
+  &__word-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-self: center;
+
+    list-style: none;
+    margin: 0;
+    padding: 10px;     
+  }
+}
