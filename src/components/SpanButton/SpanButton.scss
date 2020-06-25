@@ -1,6 +1,7 @@
 @import "../../style/placeholders";
 
-.description_and_audio__audio_button, %transition {
+.next_and_audio__audio_button  {
+  @extend %transition;
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -10,14 +11,32 @@
   background-size: 30px;
   animation-duration: 1s;
   animation-name: opacity_button;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
-.active_audio_button, %transition {
+.active_audio_button {
   background-image: url(../../assets/img/icons/audio-on-icon.png);
   animation-duration: 1s;
   animation-name: opacity_button;
 }
 
+.next_and_audio__next {
+  @extend %transition;
+  cursor: pointer;
+  background-image: url(../../assets/img/icons/next-word-icon.png);
+  animation-duration: 1s;
+  animation-name: opacity_button;
+  width: 20px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 
 
 @keyframes opacity_button {

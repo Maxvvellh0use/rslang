@@ -14,18 +14,26 @@
     width: 100%;
 }
 
+.sentence_wrapper {
+    max-height: 120px;
+}
+
 .card_word {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
     background: $color-card-background;
     border-radius: 5px;
     width: 100%;
     max-width: 500px;
+    height: 230px;
     margin: auto;
     box-shadow: $box-shadow-card;
     font-size: 20px;
+}
+
+.card_word__main {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card_word__main__sentence {
@@ -49,10 +57,10 @@
     font-weight: bold;
 }
 
-.description_and_audio {
+.next_and_audio {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 20px;
 }
 
@@ -75,14 +83,14 @@
 }
 
 .white {
-    color: white;
+    color: $color-input-default;
 }
 
 .green_letter {
-    color: lightgreen;
+    color: $color-valid-letter;
 }
 
 .red_letter {
-    color: palevioletred;
+    color: $color-invalid-letter;
 }
 

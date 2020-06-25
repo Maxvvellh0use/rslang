@@ -172,7 +172,7 @@ class Card extends React.Component {
                                        onFocus={this.clearInput}
                                        value={this.state.valueInputWord}
                                        ref={this.inputWord} type="text"/>;
-        let classNameButton = 'description_and_audio__audio_button';
+        let classNameButton = 'next_and_audio__audio_button';
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
         }
@@ -182,16 +182,21 @@ class Card extends React.Component {
                     <div className="card_wrapper">
                         <div className="card_word">
                             <div className="card_word__main">
-                                <div className="card_word__main__sentence">
-                                    <form onSubmit={this.submitForm} className="card_word__form">
-                                        <div>{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
-                                    </form>
+                                <div className="sentence_wrapper">
+                                    <div className="card_word__main__sentence">
+                                        <form onSubmit={this.submitForm} className="card_word__form">
+                                            <div>{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
+                                        </form>
+                                    </div>
+                                    <div className="card_word__main__sentence_translation">
+                                        <p>{this.state.sentenceTranslation}</p>
+                                    </div>
                                 </div>
-                                <div className="card_word__main__sentence_translation">
-                                    <p>{this.state.sentenceTranslation}</p>
-                                </div>
-                                <div className="description_and_audio">
-                                    <SpanButton className={classNameButton} onClick={this.playWordAudio} />
+                                <div className="next_and_audio">
+                                    <SpanButton className="next_and_audio__next"
+                                                onClick={this.createCard} />
+                                    <SpanButton className={classNameButton}
+                                                onClick={this.playWordAudio} />
                                 </div>
                             </div>
                         </div>
