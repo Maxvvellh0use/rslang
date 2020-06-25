@@ -3,11 +3,16 @@
 .progress_section {
   position: absolute;
   bottom: 10px;
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
   left: 0;
   right: 0;
   text-align: center;
+}
+
+.progress_block__number {
+  font-size: 25px;
+  padding: 0 5px;
 }
 
 .progress_block {
@@ -16,7 +21,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   margin-top: 20vh;
 }
 

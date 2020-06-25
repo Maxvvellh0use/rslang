@@ -1,4 +1,4 @@
-export const widthCoefficient = 12;
+export const widthCoefficient = 20;
 export const startProgress = 0;
 
 export const firstLetter = 0;
