@@ -5,3 +5,13 @@
   -o-transition: all ease-in-out 0.2s;
   transition: all ease-in-out 0.2s;
 }
+
+%no-userselect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-touch-callout: none;  
+  -webkit-tap-highlight-color: transparent; 
+}

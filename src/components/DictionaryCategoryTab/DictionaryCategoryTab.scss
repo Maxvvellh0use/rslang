@@ -2,18 +2,26 @@
 @import "../../style/placeholders";
 @import "../../style/mixins";
 
-.dictionary__tabs {
+.dictionary {
   &__tab {
-    display: block;
-    min-width: 90px;
-    min-height: 80px;      
+    position: relative;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     flex-shrink: 1;
+    justify-content: space-between;
+    align-items: center;
+
+    min-width: 90px;
+    min-height: 80px;      
     border-radius: 10px;
     opacity: 0.6;
     background-color: lightgrey;
 
+    padding: 10px;
+
     @extend %transition;
+    @extend %no-userselect;
 
     &_selected {
       @extend %transition;
@@ -35,4 +43,17 @@
       background-color: pink;
     }
   }
+
+  &__tab__header {
+    
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 20px; 
+  }
+  &__tab__counter {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 40px; 
+  }
+
 }
