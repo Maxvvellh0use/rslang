@@ -71,6 +71,7 @@ class Card extends React.Component {
             valueInputWord: '',
             inputClassColor: '',
             spanLettersClass: '',
+            spanCheckValue: ''
         })
         this.audioListener();
     }
