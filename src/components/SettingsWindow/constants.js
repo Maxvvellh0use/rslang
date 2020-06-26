@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export const TEXT = {
     HEADING: 'Settings',
     ENGLISH_LEVEL: 'Choose your English level:',
@@ -14,6 +15,10 @@ export const NOTIFICATIONS = {
 }
 export const ENGLISH_LEVELS_ARRAY = ['Beginner', 'Intermediate', 'Advanced'];
 export const TIPS_ARRAY = [
+=======
+export const ENGLISH_LEVELS = ['Beginner', 'Intermediate', 'Advanced'];
+export const TIPS = [
+>>>>>>> refactor: rebase
     { type: 'checkbox', name: 'translation', text: 'translation of a word' },
     { type: 'checkbox', name: 'meaningSentense', text: 'sentence with the meaning of the word' },
     { type: 'checkbox', name: 'exampleSentense', text: 'sentense using this word' },
