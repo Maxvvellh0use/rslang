@@ -7,14 +7,5 @@ import { backEndTest } from './backEndTest';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-<<<<<<< HEAD
 // // example of using
 // backEndTest();
-
-=======
-// example of using
-// backEndTest();
->>>>>>> feat: add notifications
-
-
-
