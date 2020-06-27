@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 @import '../../style/constants.scss' ;
-=======
-@import "../../style/abstract/constants";
-@import "../../style/abstract/placeholders";
->>>>>>> refactor: rebase
 
 .settings-window {
     position: fixed;
@@ -12,7 +7,6 @@
     bottom: 0;
     left: 0;
 
-<<<<<<< HEAD
     width: 100%;
     max-width: 465px;
     height: fit-content;
@@ -22,34 +16,19 @@
 
     border-radius: 10px;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, .6);
-=======
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-    padding: 15px;
-
-    border: 1px solid black;
-    border-radius: 5px;
->>>>>>> refactor: rebase
 
     &__text {
         margin: 8px 0 4px;
     }
 
     &__words-number {
-<<<<<<< HEAD
         padding: 0 2px 0 5px;
-=======
-        width: 25%;
-        padding-left: 5px;
->>>>>>> refactor: rebase
 
         &::-webkit-inner-spin-button {
             opacity: 1;
         }
     }
 
-<<<<<<< HEAD
     .input-field {
         box-sizing: border-box;
         width: 120px;
@@ -59,8 +38,6 @@
         border-radius: 5px;
     }
 
-=======
->>>>>>> refactor: rebase
     &__tips {
         display: flex;
         flex-direction: column;
@@ -74,7 +51,6 @@
         }
     }
 
-<<<<<<< HEAD
     &__loader-image {
         position: absolute;
         top: 0;
@@ -83,9 +59,5 @@
         left: 0;
 
         margin: auto;
-=======
-    &__button {
-        margin-top: 15px;
->>>>>>> refactor: rebase
     }
 }
