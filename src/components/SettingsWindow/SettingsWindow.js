@@ -3,7 +3,6 @@ import EnglishLevels from './EnglishLevels/EnglishLevels';
 import Tips from './Tips/Tips';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
-import AuthenticatedUserModel from '../../models/AuthenticatedUserModel';
 import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
@@ -31,19 +30,13 @@ class SettingsWindow extends Component {
     }
 
     async componentDidMount() {
-        this.newUser = new AuthenticatedUserModel(
-            'sasha@sasha.sasha1',
-            '12345678aA$',
-            '5ef7babdcd1af100179dcbf0',
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjdiYWJkY2QxYWYxMDAxNzlkY2JmMCIsImlhdCI6MTU5MzI5MzUxMSwiZXhwIjoxNTkzMzA3OTExfQ.TK1mG4TSGLDA8bsmHaJprs4oMNrZH9C_-QEpxtXOdos");
         try {
-            const settingsRequest = await UserSettings.getUserSettings(this.newUser);
+            const settingsRequest = await UserSettings.getUserSettings(props.user);
             const settings = settingsRequest.optional;
-            this.setState({ settings, isLoaded: true });
-        } catch (error) {
-            this.setState({ isLoaded: true })
+            this.setState({ settings });
         }
-
+        catch (e) { }
+        this.setState({ isLoaded: true })
     }
 
     formChangeHandler = (event) => {
@@ -68,7 +61,7 @@ class SettingsWindow extends Component {
 
     async updateUserSettings(settings) {
         await UserSettings.updateUserSettings({
-            authUser: this.newUser,
+            authUser: props.user,
             wordsPerDay: 1,
             optional: settings,
         })
@@ -82,6 +75,7 @@ class SettingsWindow extends Component {
         const tips = settings.tips;
         const noCheckedTips = !Object.values(tips).includes(true);
         const dailyGreaterMax = dailyNumber > maxNumber;
+
         let notification;
 
         if (dailyGreaterMax) {
