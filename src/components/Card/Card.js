@@ -10,13 +10,7 @@ import Words from "../../data/Words";
 import { startProgress } from "./const";
 
 class Card extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.inputWord = React.createRef();
-        this.handleChangeInput = this.handleChangeInput.bind(this);
-    }
-
+    inputWord = React.createRef();
     state = {
         isActiveButton: false,
         inputDataCheck: '',
@@ -172,16 +166,17 @@ class Card extends React.Component {
     }
 
     render = () => {
-        const inputWord = <CustomInput class={"input_word" + this.state.inputClassColor}
-                                       dataCheck={this.state.inputDataCheck}
-                                       spanValue={this.state.spanCheckValue}
-                                       spanClass= {"card_word__form__span_word_check" + this.state.spanLettersClass}
-                                       style={{width: this.state.inputWidth}}
-                                       maxLength={this.state.wordLength}
-                                       onChange={this.handleChangeInput}
-                                       onFocus={this.clearInput}
-                                       value={this.state.valueInputWord}
-                                       ref={this.inputWord} type="text"/>;
+        const inputWord = <CustomInput
+            class={"input_word" + this.state.inputClassColor}
+            dataCheck={this.state.inputDataCheck}
+            spanValue={this.state.spanCheckValue}
+            spanClass= {"card_word__form__span_word_check" + this.state.spanLettersClass}
+            style={{width: this.state.inputWidth}}
+            maxLength={this.state.wordLength}
+            onChange={this.handleChangeInput}
+            onFocus={this.clearInput}
+            value={this.state.valueInputWord}
+            ref={this.inputWord} type="text"/>;
         let classNameButton = 'next_and_audio__audio_button';
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
