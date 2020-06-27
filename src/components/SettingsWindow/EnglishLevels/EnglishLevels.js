@@ -1,5 +1,5 @@
 import React from 'react';
-import { ENGLISH_LEVELS } from '../../../constants/constants'
+import { ENGLISH_LEVELS } from '../constants'
 
 const EnglishLevels = (props) => {
     const englishLevels = ENGLISH_LEVELS.map((level, index) => {

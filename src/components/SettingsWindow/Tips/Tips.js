@@ -1,5 +1,5 @@
 import React from 'react';
-import { TIPS } from '../../../constants/constants'
+import { TIPS } from '../constants'
 
 const Tips = (props) => {
     const tipsCheckboxes = TIPS.map((tip, index) => {

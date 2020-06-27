@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EnglishLevels from './EnglishLevels/EnglishLevels'
 import Tips from './Tips/Tips'
-import { ENGLISH_LEVELS } from '../../constants/constants'
+import { ENGLISH_LEVELS } from './constants'
 import './SettingsWindow.scss'
 
 class SettingsWindow extends Component {
@@ -54,6 +54,7 @@ class SettingsWindow extends Component {
     render() {
         return (
             <form className="settings-window">
+                <h2 className="settings-window__heading">Settings</h2>
                 <p className="settings-window__text">Choose your English level:</p>
                 <EnglishLevels
                     className="settings-window__english-levels"
