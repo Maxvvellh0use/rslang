@@ -1,14 +1,15 @@
 import React from 'react';
-import { TIPS } from '../constants'
+import { TIPS_ARRAY } from '../constants'
 
 const Tips = (props) => {
-    const tipsCheckboxes = TIPS.map((tip, index) => {
+    const tipsCheckboxes = TIPS_ARRAY.map((tip, index) => {
         return (
             <label key={index}>
                 <input
+                    readOnly={true}
                     name={tip.name}
                     type={tip.type}
-                    defaultChecked={props.isActive[tip.name]}>
+                    checked={props.isActive[tip.name]}>
                 </input>
                 {tip.text}
             </label>

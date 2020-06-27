@@ -5,25 +5,35 @@
     bottom: 0;
     left: 0;
 
-    width: fit-content;
+    width: 100%;
+    max-width: 465px;
     height: fit-content;
+    min-height: 440px;
     margin: auto;
     padding: 15px;
 
-    border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, .6);
 
     &__text {
         margin: 8px 0 4px;
     }
 
     &__words-number {
-        width: 25%;
-        padding-left: 5px;
+        padding: 0 2px 0 5px;
 
         &::-webkit-inner-spin-button {
             opacity: 1;
         }
+    }
+
+    .input-field {
+        box-sizing: border-box;
+        width: 120px;
+        height: 30px;
+
+        border: 1px solid black;
+        border-radius: 5px;
     }
 
     &__tips {
@@ -39,7 +49,13 @@
         }
     }
 
-    &__button {
-        margin-top: 15px;
+    &__loader-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        margin: auto;
     }
 }

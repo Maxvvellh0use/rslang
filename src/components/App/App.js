@@ -9,6 +9,7 @@ import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
 >>>>>>> feat: add settings heading
 
+
 function App() {
   return (
     <div>

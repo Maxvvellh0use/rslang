@@ -1,8 +1,8 @@
 import React from 'react';
-import { ENGLISH_LEVELS } from '../constants'
+import { ENGLISH_LEVELS_ARRAY } from '../constants'
 
 const EnglishLevels = (props) => {
-    const englishLevels = ENGLISH_LEVELS.map((level, index) => {
+    const englishLevels = ENGLISH_LEVELS_ARRAY.map((level, index) => {
         return (<option
             key={index}>
             {level}
