@@ -1,0 +1,104 @@
+@import "../../style/constants";
+
+.card_word__form p input {
+    width: 30px;
+}
+
+.card_word__section {
+    margin-top: 20vh;
+}
+
+.card_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sentence_wrapper {
+    max-height: 120px;
+    margin: 20px;
+}
+
+.card_word {
+    background: $color-card-background;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 700px;
+    height: 330px;
+    margin: auto;
+    box-shadow: $box-shadow-card;
+    font-size: 20px;
+}
+
+.card_word__main {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card_word__main__sentence {
+    width: 100%;
+    font-size: 35px;
+}
+
+.card_word__main__sentence_translation {
+    width: 100%;
+    font-size: 20px;
+}
+
+.card_word__main__word_translation {
+    align-self: center;
+    width: 100%;
+    max-width: 700px;
+    margin: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.next_and_audio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    user-select: none;
+}
+
+
+.input_word {
+    position: relative;
+    z-index: 2;
+    height: 40px;
+    font-size: 35px;
+    text-align: center;
+}
+
+.card_word__form__span_word_check {
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+}
+
+.show_word {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+}
+
+.z-index3 {
+    z-index: 3;
+}
+
+.white {
+    color: $color-input-default;
+}
+
+.green_letter {
+    color: $color-valid-letter;
+}
+
+.red_letter {
+    color: $color-invalid-letter;
+}
+

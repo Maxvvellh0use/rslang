@@ -1,0 +1,50 @@
+@import "../../../style/placeholders";
+
+.next_and_audio__audio_button  {
+  @extend %transition;
+  cursor: pointer;
+  padding-left: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url(../../../assets/img/icons/audion-off-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  animation-duration: 1s;
+  animation-name: opacity_button;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.active_audio_button {
+  background-image: url(../../../assets/img/icons/audio-on-icon.png);
+  animation-duration: 1s;
+  animation-name: opacity_button;
+}
+
+.next_and_audio__next {
+  @extend %transition;
+  cursor: pointer;
+  background-image: url(../../../assets/img/icons/next-word-icon.png);
+  animation-duration: 1s;
+  animation-name: opacity_button;
+  width: 20px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
+@keyframes opacity_button {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
