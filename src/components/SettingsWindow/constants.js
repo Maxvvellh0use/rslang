@@ -7,8 +7,9 @@ export const TEXT = {
     TIPS: 'Choose what will be displayed on cards:',
 }
 export const NOTIFICATIONS = {
-    NUMBER_OF_WORDS: { type: 'error', text: 'Maximum number of words cannot be more than daily number of words' },
-    CHECKBOX: { type: 'error', text: 'At least one hint must be selected' },
+    CANNOT_BE_GREATER: { type: 'error', text: 'Daily number of words cannot be greater than maximum number of words' },
+    NO_CHECKED: { type: 'error', text: 'At least one hint must be selected' },
+    UNKNOWN: {type: 'error', text: 'Something went wrong :('},
     SUCCESS: { type: 'success', text: 'Settings changed successfully' },
 }
 export const ENGLISH_LEVELS_ARRAY = ['Beginner', 'Intermediate', 'Advanced'];

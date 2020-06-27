@@ -3,9 +3,13 @@ import './Notification.scss';
 
 const Notification = (props) => {
     const notification = props.notification;
-    const text = notification.text;
-    const className = `notification_${notification.type}`;
-
+    let text = '';
+    let typeClass = '';
+    if (notification) {
+        text = notification.text;
+        typeClass = notification.type
+    }
+    const className = `notification notification_${typeClass}`;
     return (
         <p className={className}>{text}</p>
     )

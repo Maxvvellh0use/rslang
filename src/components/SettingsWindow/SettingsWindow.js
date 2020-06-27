@@ -13,8 +13,7 @@ class SettingsWindow extends Component {
         super(props)
         this.state = {
             isLoaded: false,
-            notification: '',
-            showNotification: false,
+            notification: null,
             settings: {
                 englishLevel: ENGLISH_LEVELS_ARRAY[0],
                 dailyNumber: 20,
@@ -28,22 +27,26 @@ class SettingsWindow extends Component {
             }
         }
 
-        this.formChangeHandler = this.formChangeHandler.bind(this);
         this.buttonClickHandler = this.buttonClickHandler.bind(this);
     }
 
     async componentDidMount() {
         this.newUser = new AuthenticatedUserModel(
-            'sasha@sasha.sasha',
+            'sasha@sasha.sasha1',
             '12345678aA$',
-            '5ef71087f3e215001785d6d5',
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjcxMDg3ZjNlMjE1MDAxNzg1ZDZkNSIsImlhdCI6MTU5MzI2NzEwNSwiZXhwIjoxNTkzMjgxNTA1fQ._XLQDItcLS6sdtDpkHViy-qXGsNmKUZ9-il0O8ef5Tw");
-        const settingsRequest = await UserSettings.getUserSettings(this.newUser);
-        const settings = settingsRequest.optional;
-        this.setState({ settings, isLoaded: true });
+            '5ef7babdcd1af100179dcbf0',
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjdiYWJkY2QxYWYxMDAxNzlkY2JmMCIsImlhdCI6MTU5MzI5MzUxMSwiZXhwIjoxNTkzMzA3OTExfQ.TK1mG4TSGLDA8bsmHaJprs4oMNrZH9C_-QEpxtXOdos");
+        try {
+            const settingsRequest = await UserSettings.getUserSettings(this.newUser);
+            const settings = settingsRequest.optional;
+            this.setState({ settings, isLoaded: true });
+        } catch (error) {
+            this.setState({ isLoaded: true })
+        }
+
     }
 
-    formChangeHandler(event) {
+    formChangeHandler = (event) => {
         const target = event.target;
         const name = target.name;
         const checkBoxType = target.type === 'checkbox';
@@ -60,38 +63,50 @@ class SettingsWindow extends Component {
             ? tips[name] = value
             : settings[name] = value
 
-        this.setState({ settings });
+        this.setState({ settings, notification: null });
+    }
+
+    async updateUserSettings(settings) {
+        await UserSettings.updateUserSettings({
+            authUser: this.newUser,
+            wordsPerDay: 1,
+            optional: settings,
+        })
     }
 
     async buttonClickHandler(event) {
+        event.preventDefault();
         const settings = this.state.settings;
         const dailyNumber = settings.dailyNumber;
         const maxNumber = settings.maxNumber;
         const tips = settings.tips;
         const noCheckedTips = !Object.values(tips).includes(true);
-        event.preventDefault();
-        if (dailyNumber > maxNumber) {
-            this.setState({ notification: NOTIFICATIONS.NUMBER_OF_WORDS })
+        const dailyGreaterMax = dailyNumber > maxNumber;
+        let notification;
+
+        if (dailyGreaterMax) {
+            notification = NOTIFICATIONS.CANNOT_BE_GREATER;
         }
         else if (noCheckedTips) {
-            this.setState({ notification: NOTIFICATIONS.CHECKBOX })
+            notification = NOTIFICATIONS.NO_CHECKED;
         }
         else {
-            await UserSettings.updateUserSettings({
-                authUser: this.newUser,
-                wordsPerDay: 1,
-                optional: settings,
-            })
-            this.setState({ notification: NOTIFICATIONS.SUCCESS })
+            try {
+                await this.updateUserSettings(settings);
+                notification = NOTIFICATIONS.SUCCESS;
+            }
+            catch (error) {
+                notification = NOTIFICATIONS.UNKNOWN;
+            }
         }
-        this.setState({ showNotification: true })
+
+        this.setState({ notification })
     }
 
     render() {
         const settings = this.state.settings;
         const isLoaded = this.state.isLoaded;
         const notification = this.state.notification;
-        const showNotification = this.state.showNotification
         return (
             <form className="settings-window">
                 {isLoaded ?
@@ -111,7 +126,7 @@ class SettingsWindow extends Component {
                             onChange={this.formChangeHandler}
                             value={settings.dailyNumber}
                             min="10"
-                            max="60"
+                            max={"60" && settings.maxNumber}
                         />
                         <p className="settings-window__text">{TEXT.MAX_NUMBER}</p>
                         <input
@@ -129,13 +144,9 @@ class SettingsWindow extends Component {
                             isActive={settings.tips}
                             onChange={this.formChangeHandler}
                         />
-                        {showNotification
-                            ? <Notification
-                                className='settings-window__text notification'
-                                notification={notification}
-                            />
-                            : null
-                        }
+                        <Notification
+                            notification={notification}
+                        />
                         <button
                             className="settings-window__button"
                             onClick={this.buttonClickHandler}>
