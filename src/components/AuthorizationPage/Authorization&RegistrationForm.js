@@ -6,7 +6,7 @@ import Users from '../../data/Users'
 import Authentication from '../../data/Authentication'
 import UserModel from '../../models/UserModel'
 
-class Form extends Component {
+class AuthorizationForm extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -183,4 +183,4 @@ class Form extends Component {
  }
 }
 
-export default Form;
+export default AuthorizationForm;
