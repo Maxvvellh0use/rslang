@@ -22,8 +22,10 @@ export default class DictionaryCategoryPanelContent extends React.Component {
       { ...attributes }
       >
         <h1>{name}</h1>
-        <br></br>
-        <DictionaryWordsList dictionaryWordsList={dictionaryWordsList} />
+        <div className="dictionary__panel-content__scroll">
+          <DictionaryWordsList dictionaryWordsList={dictionaryWordsList} />
+        </div>
+        <p>Some testing info</p>
       </div>
     );
   }

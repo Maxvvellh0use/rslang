@@ -10,7 +10,7 @@
     border-radius: 10px;
     position: absolute;
 
-    overflow-y: scroll;
+    
     
 
     &_learning {
@@ -28,6 +28,12 @@
       background-color: pink;
       @include transform(rotateX(-90deg) translateY(400px));
       @include transform-origin(bottom center);
+    }
+
+    &__scroll {
+      position: relative;
+      overflow-y: scroll;
+      max-height: 90%;
     }
   }
 }

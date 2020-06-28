@@ -34,6 +34,7 @@ export default class DictionaryWord extends React.Component {
       >
         <p>{dictionaryWord.word}</p>
         <p>{dictionaryWord.wordTranslate}</p>
+        <p>{dictionaryWord.wordId}</p>
       </li>
     );
   }

@@ -3,7 +3,7 @@ import './DictionaryContainer.scss';
 import DictionaryCategoryTab from '../DictionaryCategoryTab/DictionaryCategoryTab';
 import DictionaryCategoryPanelContent from '../DictionaryCategoryPanelContent/DictionaryCategoryPanelContent';
 import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryWordModel'; 
-
+import { findElement } from '../../helpers/dictionaryHelper';
 export default class DictionaryContainer extends React.Component {
 
   handleClick(event) {
@@ -45,6 +45,46 @@ export default class DictionaryContainer extends React.Component {
         break;
     }
   }
+
+  handleMousedown(event) {
+    const cardToDrag = findElement(event.target, 'dictionary__word');
+    if(!cardToDrag)  return;
+    //console.log(cardToDrag);
+
+    document.querySelector('.dictionary__container').append(cardToDrag);
+    cardToDrag.style.position = 'absolute';
+    cardToDrag.style.zIndex = 1000;
+
+    let shiftX = event.clientX - cardToDrag.getBoundingClientRect().left;
+    let shiftY = event.clientY - cardToDrag.getBoundingClientRect().top;
+
+
+      moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX, pageY) {
+        cardToDrag.style.left = pageX - cardToDrag.offsetWidth / 2 + 'px';
+        cardToDrag.style.top = pageY - cardToDrag.offsetHeight / 2 + 'px';
+      }
+    
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      cardToDrag.onmouseup = function() {
+        console.log('----------mouseup');
+        document.removeEventListener('mousemove', onMouseMove);
+        cardToDrag.onmouseup = null;
+      };
+
+
+    
+  }
+
+//https://medium.com/javascript-in-plain-english/using-javascript-to-create-trello-like-card-re-arrange-and-drag-and-drop-557e60125bb4
+
+
   render() {
     const allWords = [
       new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
@@ -67,6 +107,18 @@ export default class DictionaryContainer extends React.Component {
       new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
       new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
       new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
     ]
 
     const learnedWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.learning);
@@ -76,7 +128,9 @@ export default class DictionaryContainer extends React.Component {
 
 
     return (
-      <div className="dictionary__container">
+      <div
+      onMouseDown={this.handleMousedown} 
+      className="dictionary__container">
         <div className="dictionary__panel">
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_learning"
