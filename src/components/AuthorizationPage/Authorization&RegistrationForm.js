@@ -102,7 +102,7 @@ class AuthorizationForm extends Component {
         else if (error) return 'is-valid';
         return 'is-invalid';
     } 
-    async postRequest(event) {
+    async authorizationRequest(event) {
       event.preventDefault();
       let newUser = new UserModel({
         email: this.state.email,
@@ -111,18 +111,17 @@ class AuthorizationForm extends Component {
       if (this.props.type === 'Auth'){
         try {
           let newAuthUser = await Authentication.loginUser(newUser);
-          console.log('login new user: ', newAuthUser);
+          localStorage.userId = newAuthUser.id;
+          localStorage.userToken = newAuthUser.token;
         } catch (error) {
           document.querySelector('.form-errors').innerHTML = 'Ошибка авторизации!';
-          console.log("ERROR", error);
         }
       } else{
         try {
           let userId = await Users.addUser(newUser);
-          console.log('Create new user with id: ', userId); 
+          localStorage.userId = newUser;
         } catch (error) {
           document.querySelector('.form-errors').innerHTML = 'Ошибка регистрации!';
-          console.log(error);
           return;
         }
       }
@@ -143,7 +142,7 @@ class AuthorizationForm extends Component {
                         placeholder={'Пароль'} value={this.state.password}  onChange={this.handleUserInput} 
                         className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
                     <button type='submit' className='btn btn-primary authorization-button' 
-                    disabled={!this.state.authFormValid} onClick={this.postRequest.bind(this)}>
+                    disabled={!this.state.authFormValid} onClick={this.authorizationRequest.bind(this)}>
                         Войти
                     </button>
                 </div>
@@ -168,7 +167,7 @@ class AuthorizationForm extends Component {
                   placeholder={'Повтор пароля'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
                 
                 <button type='submit' className='btn btn-primary authorization-button' 
-                disabled={!this.state.registerFormValid} onClick={this.postRequest.bind(this)}>
+                disabled={!this.state.registerFormValid} onClick={this.authorizationRequest.bind(this)}>
                     Регистрация
                 </button>
             </div>
