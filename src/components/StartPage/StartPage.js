@@ -14,8 +14,8 @@ class StartPage extends React.Component {
                                 <span className="header__logo__image"></span>
                             </div>
                             <div className="header_block__log_buttons">
-                                <button type="button" className="header_block__log_buttons__sign_in">Sign In</button>
-                                <button type="button" className="header_block__log_buttons__sign_up">Sign Up</button>
+                                <button type="button" className="header_block__log_buttons__sign_in">Войти</button>
+                                <button type="button" className="header_block__log_buttons__sign_up">Зарегистрироваться</button>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@ class StartPage extends React.Component {
                                         <p className="main_content__description__text">{TEXT_START_PAGE_DESCRIPTION}</p>
                                         <span className="main_content__description__learn_icon"></span>
                                     </div>
-                                    <div className="main_content__description__button">Get started</div>
+                                    <div className="main_content__description__button">Начать!</div>
                                 </div>
                             </div>
                         </section>
@@ -38,7 +38,7 @@ class StartPage extends React.Component {
                 </main>
                 <footer className="footer_start_page">
                     <div className="footer_start_page_wrapper">
-                        <div className="main_content__description__promo_button">Go to promo page</div>
+                        <div className="main_content__description__promo_button">Промо-страница</div>
                     </div>
                 </footer>
             </div>

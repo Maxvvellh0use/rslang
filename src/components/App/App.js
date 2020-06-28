@@ -10,8 +10,8 @@ import SettingsWindow from "../SettingsWindow/SettingsWindow"
 function App() {
   return (
     <div>
-      {/*<StartPage />*/}
-      <Card/>
+      <StartPage />
+      {/*<Card />*/}
     </div>
   );
 }
