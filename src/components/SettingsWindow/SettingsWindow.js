@@ -30,8 +30,8 @@ class SettingsWindow extends Component {
         this.buttonClickHandler = this.buttonClickHandler.bind(this);
     }
 
-    componentDidMount() {
-        this.getUserSettings();
+    async componentDidMount() {
+        await this.getUserSettings();
     }
 
     async getUserSettings() {
