@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       {/*<StartPage />*/}
-      <Card />
+      <Card/>
     </div>
   );
 }
