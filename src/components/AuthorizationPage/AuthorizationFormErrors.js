@@ -3,14 +3,24 @@ export const AuthorizationFormErrors = ({formErrors}) =>
   <div className='form-errors'>
     { Object.keys(formErrors).map((fieldName, i) => {
       if(formErrors[fieldName].length > 0){
-        if(fieldName !== 'passwordRepeat') {
-          return (
-            <p key={i}>{fieldName} {formErrors[fieldName]}</p>
-          )        
+        switch(fieldName) {
+          case "email":
+            return (
+              <p key={i}>Неверный адрес эл.почты</p>
+            )
+            break;
+          case "password": case "passwordRepeat":
+            return (
+              <p key={i}>Неверный пароль</p>
+            )
+            break;
+          case "passwords":
+            return (
+              <p key={i}>Пароли не совпадают</p>
+            )
+            break;
+          default: break;
         }
-        return (
-          <p key={i}>password {formErrors[fieldName]}</p>
-        ) 
       } else {
         return '';
       }
