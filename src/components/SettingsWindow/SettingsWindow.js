@@ -25,8 +25,6 @@ class SettingsWindow extends Component {
         }
     }
 
-    buttonClickHandler = buttonClickHandler.bind(this);
-
     async componentDidMount() {
         await this.getUserSettings();
     }
@@ -70,7 +68,7 @@ class SettingsWindow extends Component {
         this.setState({ settings, notification: null });
     }
 
-    async buttonClickHandler(event) {
+    buttonClickHandler = async (event) => {
         event.preventDefault();
         const settings = this.state.settings;
         const dailyNumber = settings.dailyNumber;
