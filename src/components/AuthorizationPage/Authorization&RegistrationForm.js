@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import './AuthorizationForm.css';
-import { FormInput } from './FormInput';
-import { FormErrors } from './FormErrors';
+import './AuthorizationStyles.scss';
+import { AuthorizationFormInput } from './AuthorizationFormInput';
+import { AuthorizationFormErrors } from './AuthorizationFormErrors';
+import Users from '../../data/Users'
+import Authentication from '../../data/Authentication'
+import UserModel from '../../models/UserModel'
 
 class Form extends Component {
     constructor (props) {
@@ -99,33 +102,74 @@ class Form extends Component {
         else if (error) return 'is-valid';
         return 'is-invalid';
     } 
+    async postRequest(event) {
+      event.preventDefault();
+      let newUser = new UserModel({
+        email: this.state.email,
+        password: this.state.password
+      });
+      if (this.props.type === 'Auth'){
+        try {
+          let newAuthUser = await Authentication.loginUser(newUser);
+          console.log('login new user: ', newAuthUser);
+        } catch (error) {
+          document.querySelector('.form-errors').innerHTML = 'Ошибка авторизации!';
+          console.log("ERROR", error);
+        }
+      } else{
+        try {
+          let userId = await Users.addUser(newUser);
+          console.log('Create new user with id: ', userId); 
+        } catch (error) {
+          document.querySelector('.form-errors').innerHTML = 'Ошибка регистрации!';
+          console.log(error);
+          return;
+        }
+      }
+    }
     isAuthorization() {
         if (this.props.type === 'Auth'){
             return (
                 <div className='authorization-input-block'>
-                    <FormInput image={require('./assets/email.png')} name={'email'} type={'text'} 
-                        placeholder={'Email'} value={this.state.email}  onChange={this.handleUserInput} 
+                    <h2 className='authorization-title'>Авторизация</h2>
+                    <div className="panel panel-default error-block">
+                      <AuthorizationFormErrors formErrors={this.state.formErrors} />
+                    </div>
+                    <AuthorizationFormInput image={require('../../assets/img/icons/email.png')} name={'email'} type={'text'} 
+                        placeholder={'Адрес эл. почты'} value={this.state.email}  onChange={this.handleUserInput} 
                         className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
 
-                    <FormInput image={require('./assets/password.png')} name={'password'} type={'password'} 
-                        placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} 
+                    <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'password'} type={'password'} 
+                        placeholder={'Пароль'} value={this.state.password}  onChange={this.handleUserInput} 
                         className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
-                    <button type='submit' className='btn btn-primary authorization-button' disabled={!this.state.authFormValid}>
-                        Log in 
+                    <button type='submit' className='btn btn-primary authorization-button' 
+                    disabled={!this.state.authFormValid} onClick={this.postRequest.bind(this)}>
+                        Войти
                     </button>
                 </div>
             )
         }
         return(
             <div className='authorization-input-block'>
-                <FormInput image={require('./assets/name.png')} name={'name'} type={'text'} 
-                            placeholder={'User name'} value={this.state.name}  onChange={this.handleUserInput} className={'form-control'}/>
-                <FormInput image={require('./assets/email.png')} name={'email'} type={'email'} 
-                            placeholder={'Email'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
-                <FormInput image={require('./assets/password.png')} name={'password'} type={'password'} placeholder={'Password'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
-                <FormInput image={require('./assets/password.png')} name={'passwordRepeat'} type={'password'} placeholder={'Repeat password'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
-                <button type='submit' className='btn btn-primary authorization-button' disabled={!this.state.registerFormValid}>
-                    Log in
+                <h2 className='authorization-title'>Регистрация</h2>
+                <div className="panel panel-default error-block">
+                  <AuthorizationFormErrors formErrors={this.state.formErrors} />
+                </div>
+                <AuthorizationFormInput image={require('../../assets/img/icons/name.png')} name={'name'} type={'text'} 
+                  placeholder={'Ваше имя'} value={this.state.name}  onChange={this.handleUserInput} className={'form-control'}/>
+                
+                <AuthorizationFormInput image={require('../../assets/img/icons/email.png')} name={'email'} type={'email'} 
+                  placeholder={'Адрес эл.почты'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
+                
+                <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'password'} type={'password'} 
+                  placeholder={'Пароль'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
+                
+                <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'passwordRepeat'} type={'password'} 
+                  placeholder={'Повтор пароля'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
+                
+                <button type='submit' className='btn btn-primary authorization-button' 
+                disabled={!this.state.registerFormValid} onClick={this.postRequest.bind(this)}>
+                    Регистрация
                 </button>
             </div>
         )
@@ -133,10 +177,6 @@ class Form extends Component {
  render () {
    return (
     <form className='autorization-container'>
-        <h2 className='authorization-title'>Log in</h2>
-        <div className="panel panel-default error-block">
-        <FormErrors formErrors={this.state.formErrors} />
-        </div>
         {this.isAuthorization()}
     </form>
    )

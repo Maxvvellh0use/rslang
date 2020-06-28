@@ -1,6 +1,6 @@
 import React from "react";
 
-export const FormInput = ({image, name, type, placeholder, value, onChange, className}) =>
+export const AuthorizationFormInput = ({image, name, type, placeholder, value, onChange, className}) =>
     <div className='form-group'>
         <img src={image} alt={`${name} icon`} className='authorization-icon'/>
         <input type={type} 

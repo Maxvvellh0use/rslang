@@ -6,16 +6,23 @@
     padding: 3rem;
     padding-top: 0;
     width: 500px;
-	margin: auto;
-
+    margin: auto;
+    .form-group{
+        display: flex;
+        flex-direction: row;
+    }
     .authorization-title{
         text-align: center;
         padding: 1rem 
     }
-    .error-block{
+    .error-block,
+    .authorization-request-error{
         text-align: center;
         color: red;
         line-height: 1.2px;
+        .form-errors{
+            height: 2rem;
+        }
     }
     .authorization-icon{
         width: 20px;
