@@ -9,26 +9,23 @@ import closeImage from '../../assets/img/close.svg'
 import './SettingsWindow.scss';
 
 class SettingsWindow extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLoaded: false,
-            notification: null,
-            settings: {
-                englishLevel: ENGLISH_LEVELS_ARRAY[0],
-                dailyNumber: 20,
-                maxNumber: 40,
-                tips: {
-                    translation: true,
-                    meaningSentense: false,
-                    exampleSentense: false,
-                    autoPlay: false,
-                }
+    state = {
+        isLoaded: false,
+        notification: null,
+        settings: {
+            englishLevel: ENGLISH_LEVELS_ARRAY[0],
+            dailyNumber: 20,
+            maxNumber: 40,
+            tips: {
+                translation: true,
+                meaningSentense: false,
+                exampleSentense: false,
+                autoPlay: false,
             }
         }
-
-        this.buttonClickHandler = this.buttonClickHandler.bind(this);
     }
+
+    buttonClickHandler = buttonClickHandler.bind(this);
 
     async componentDidMount() {
         await this.getUserSettings();
@@ -41,7 +38,7 @@ class SettingsWindow extends Component {
             this.setState({ settings });
         }
         catch (error) { }
-        
+
         this.setState({ isLoaded: true })
     }
 
