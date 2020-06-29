@@ -15,15 +15,16 @@ export default class DictionaryCategoryPanelContent extends React.Component {
     const { 
       name,
       dictionaryWordsList,
+      moveWord,
       ...attributes } = this.props;
 
     return (
       <div 
-      { ...attributes }
+        { ...attributes }
       >
         <h1>{name}</h1>
-        <div className="dictionary__panel-content__scroll">
-          <DictionaryWordsList dictionaryWordsList={dictionaryWordsList} />
+        <div onDrop={console.log} className="dictionary__panel-content__scroll">
+          <DictionaryWordsList dictionaryWordsList={dictionaryWordsList} moveWord={moveWord} />
         </div>
         <p>Some testing info</p>
       </div>

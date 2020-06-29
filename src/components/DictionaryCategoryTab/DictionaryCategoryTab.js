@@ -14,6 +14,10 @@ export default class DictionaryCategoryTab extends React.Component {
     counter: 0,
   };
 
+  onDrop = (event) => {
+    this.props.onDrop(event);    
+  }
+
   render() {
     const {
       id,
@@ -25,6 +29,8 @@ export default class DictionaryCategoryTab extends React.Component {
       ...attributes
     } = this.props;
 
+    console.log(selectedClassName);
+
     return (
       <div
         {...attributes}
@@ -32,6 +38,8 @@ export default class DictionaryCategoryTab extends React.Component {
           [selectedClassName]: selected,
         })}
         id={id}
+        onDrop={this.onDrop}
+        onDragOver={event => event.preventDefault()}
       >
         <h3 className="dictionary__tab__header">{name}</h3>
         <p className="dictionary__tab__counter">{counter}</p>

@@ -4,7 +4,66 @@ import DictionaryCategoryTab from '../DictionaryCategoryTab/DictionaryCategoryTa
 import DictionaryCategoryPanelContent from '../DictionaryCategoryPanelContent/DictionaryCategoryPanelContent';
 import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryWordModel'; 
 import { findElement } from '../../helpers/dictionaryHelper';
+
+
+
+
+const allWords = [
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
+  new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
+]
+
+
+
 export default class DictionaryContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      [dictionaryTabName.learning]: [],
+      [dictionaryTabName.difficult]: [],
+      [dictionaryTabName.removed]: [],
+      selectedClass: '',
+    }
+  }
+
+  componentDidMount() {
+
+    this.setState(() => ({
+      [dictionaryTabName.learning]: allWords.filter((word) => word.dictionaryTab === dictionaryTabName.learning),
+      [dictionaryTabName.difficult]: allWords.filter((word) => word.dictionaryTab === dictionaryTabName.difficult),
+      [dictionaryTabName.removed]: allWords.filter((word) => word.dictionaryTab === dictionaryTabName.removed),
+    }));
+  }
 
   handleClick(event) {
     const panel = document.querySelector('.dictionary__panel');
@@ -12,21 +71,27 @@ export default class DictionaryContainer extends React.Component {
     tabs.forEach((tab) => tab.classList.remove('dictionary__tab_selected'));
     switch (event.target.id) {
       case 'tab-dictionary-learning':
-        panel.classList.remove('dictionary__panel_difficult-selected');
-        panel.classList.remove('dictionary__panel_removed-selected');
-        panel.classList.add('dictionary__panel_learning-selected');
-        document
-          .querySelector('.dictionary__tab_learning')
-          .classList.add('dictionary__tab_selected');
+        //panel.classList.remove('dictionary__panel_difficult-selected');
+        //panel.classList.remove('dictionary__panel_removed-selected');
+        //panel.classList.add('dictionary__panel_learning-selected');
+        // document
+        //   .querySelector('.dictionary__tab_learning')
+        //   .classList.add('dictionary__tab_selected');
         //event.target.setAttribute('SELECTED', true);
+        this.setState({
+          selectedClass: 'dictionary__panel_learning-selected',
+        });
         break;
       case 'tab-dictionary-difficult':
-        panel.classList.remove('dictionary__panel_removed-selected');
-        panel.classList.remove('dictionary__panel_learning-selected');
-        panel.classList.add('dictionary__panel_difficult-selected');
-        document
-          .querySelector('.dictionary__tab_difficult')
-          .classList.add('dictionary__tab_selected');
+        // panel.classList.remove('dictionary__panel_removed-selected');
+        // panel.classList.remove('dictionary__panel_learning-selected');
+        // panel.classList.add('dictionary__panel_difficult-selected');
+        // document
+        //   .querySelector('.dictionary__tab_difficult')
+        //   .classList.add('dictionary__tab_selected');
+        this.setState({
+          selectedClass: 'dictionary__panel_difficult-selected',
+        });
         //event.target.setAttribute('SELECTED', true);
         break;
       case 'tab-dictionary-removed':
@@ -46,131 +111,81 @@ export default class DictionaryContainer extends React.Component {
     }
   }
 
-  handleMousedown(event) {
-    const cardToDrag = findElement(event.target, 'dictionary__word');
-    if(!cardToDrag)  return;
-    //console.log(cardToDrag);
-
-    document.querySelector('.dictionary__container').append(cardToDrag);
-    cardToDrag.style.position = 'absolute';
-    cardToDrag.style.zIndex = 1000;
-
-    let shiftX = event.clientX - cardToDrag.getBoundingClientRect().left;
-    let shiftY = event.clientY - cardToDrag.getBoundingClientRect().top;
-
-
-      moveAt(event.pageX, event.pageY);
-
-      function moveAt(pageX, pageY) {
-        cardToDrag.style.left = pageX - cardToDrag.offsetWidth / 2 + 'px';
-        cardToDrag.style.top = pageY - cardToDrag.offsetHeight / 2 + 'px';
-      }
-    
-      function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-      }
-
-      document.addEventListener('mousemove', onMouseMove);
-
-      cardToDrag.onmouseup = function() {
-        console.log('----------mouseup');
-        document.removeEventListener('mousemove', onMouseMove);
-        cardToDrag.onmouseup = null;
-      };
-
-
+  onDrop = (event, toDictionaryListName) => {
+    const jsonData = event.dataTransfer.getData('object');
+    const dirctionaryWord = JSON.parse(jsonData);
+    this.moveWord(dirctionaryWord, toDictionaryListName);
     
   }
 
-//https://medium.com/javascript-in-plain-english/using-javascript-to-create-trello-like-card-re-arrange-and-drag-and-drop-557e60125bb4
-
+  moveWord (dirctionaryWord, toDictionaryListName) {
+    if (toDictionaryListName === dirctionaryWord.dictionaryTab) {
+      return;
+    } else {
+      const index = this.state[dirctionaryWord.dictionaryTab]
+        .findIndex((word) => word.wordId === dirctionaryWord.wordId);
+      if(index < 0) return;
+      this.state[dirctionaryWord.dictionaryTab].splice(index,1);
+      dirctionaryWord.dictionaryTab = toDictionaryListName;
+      this.state[toDictionaryListName].push(dirctionaryWord);
+      this.setState((state) => ({
+        ...state
+      }));
+    }
+  }
 
   render() {
-    const allWords = [
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.removed}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.difficult}),
-      new DictionaryWordModel({dictionaryTab: dictionaryTabName.learning}),
-    ]
-
-    const learnedWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.learning);
-    const difficultWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.difficult);
-    const removedWords = allWords.filter((word) => word.dictionaryTab === dictionaryTabName.removed);
-
-
-
+    
     return (
       <div
       onMouseDown={this.handleMousedown} 
       className="dictionary__container">
-        <div className="dictionary__panel">
+        <div className={`dictionary__panel ${this.state.selectedClass}`}>
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_learning"
             name={dictionaryTabName.learning}
-            dictionaryWordsList = {learnedWords}
+            dictionaryWordsList = {this.state[dictionaryTabName.learning]}
+            moveWord={this.moveWord.bind(this)}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_difficult"
             name={dictionaryTabName.difficult}
-            dictionaryWordsList = {difficultWords}
+            dictionaryWordsList = {this.state[dictionaryTabName.difficult]}
+            moveWord={this.moveWord.bind(this)}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_removed"
             name={dictionaryTabName.removed}
-            dictionaryWordsList = {removedWords}
+            dictionaryWordsList = {this.state[dictionaryTabName.removed]}
+            moveWord={this.moveWord.bind(this)}
           />
         </div>
         <div className="dictionary__tabs">
           <DictionaryCategoryTab
             className="dictionary__tab dictionary__tab_learning"
             id="tab-dictionary-learning"
-            onClick={this.handleClick}
+            onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.learning}
-            counter={learnedWords.length}
+            counter={this.state[dictionaryTabName.learning].length}
             selected={true}
+            onDrop={event => this.onDrop(event, dictionaryTabName.learning)}
           />
           <DictionaryCategoryTab
             className="dictionary__tab dictionary__tab_difficult"
             id="tab-dictionary-difficult"
-            onClick={this.handleClick}
+            onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.difficult}
-            counter={difficultWords.length}
+            counter={this.state[dictionaryTabName.difficult].length}
+            onDrop={event => this.onDrop(event, dictionaryTabName.difficult)}
           />
 
           <DictionaryCategoryTab
             className="dictionary__tab dictionary__tab_removed"
             id="tab-dictionary-removed"
-            onClick={this.handleClick}
+            onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.removed}
-            counter={removedWords.length}
+            counter={this.state[dictionaryTabName.removed].length}
+            onDrop={event => this.onDrop(event, dictionaryTabName.removed)}
           />
         </div>
       </div>

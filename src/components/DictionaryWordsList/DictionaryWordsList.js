@@ -5,6 +5,9 @@ import DictionaryWord from '../DictionaryWord/DictionaryWord';
 const DEFAULT_CLASS = 'dictionary__word-list';
 
 export default class DictionaryWordsList extends React.Component {
+
+
+
   static defaultProps = {
     className: DEFAULT_CLASS,
     dictionaryWordsList: [],
@@ -12,12 +15,15 @@ export default class DictionaryWordsList extends React.Component {
   };
 
   render() {
-    const { id, className, dictionaryWordsList, ...attributes } = this.props;
+    const { id, className, dictionaryWordsList, moveWord, ...attributes } = this.props;
     console.log(dictionaryWordsList);
     return (
-      <ul {...attributes} className={className}>
+      <ul
+        {...attributes}
+        className={className}
+      >
         {dictionaryWordsList.map((word) => (
-          <DictionaryWord key={word.wordId} dictionaryWord={word} />
+          <DictionaryWord id={word.wordId} key={word.wordId} dictionaryWord={word} moveWord={moveWord} />
         ))}
       </ul>
     );
