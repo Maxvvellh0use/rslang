@@ -1,0 +1,53 @@
+@import "../../style/placeholders";
+
+.audio_call_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 28vh;
+}
+
+.repeat {
+  width: 90px;
+  height: 90px;
+  margin: auto;
+}
+
+.repeat__button {
+  @extend %my-transition;
+  display: block;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  background-image: url(../../assets/img/icons/audio-on-icon.png);
+  animation-duration: 1s;
+  animation-name: opacity_button;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
+
+.words_block {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.words_block__word {
+  margin: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  &:first-letter {
+    opacity: .4;
+  }
+}
+
+.word__span {
+  margin-left: 10px;
+}
