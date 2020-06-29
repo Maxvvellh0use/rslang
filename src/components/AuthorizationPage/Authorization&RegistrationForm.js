@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import './AuthorizationStyles.scss';
-import { AuthorizationFormInput } from './AuthorizationFormInput';
+import AuthorizationFormInput from './AuthorizationFormInput';
 import { AuthorizationFormErrors } from './AuthorizationFormErrors';
 import Users from '../../data/Users'
 import Authentication from '../../data/Authentication'
 import UserModel from '../../models/UserModel'
-
+import {emailRegExp} from './const' 
+import { passwordRegExp } from './const'
+import nameIcon from '../../assets/img/icons/name.png'
+import emailIcon from '../../assets/img/icons/email.png'
+import passwordIcon from '../../assets/img/icons/password.png'
 class AuthorizationForm extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-          name: '',
-          email: '',
-          password: '',
-          passwordRepeat: '',
-          formErrors: {email: '',  password: '', passwordRepeat: '', passwords: ''},
-          emailValid: '',
-          passwordValid: '',
-          passwordRepeatValid: '',
-          authFormValid: '',
-          registerFormValid: ''
-        }
+    state = {
+      name: '',
+      email: '',
+      password: '',
+      passwordRepeat: '',
+      formErrors: {email: '',  password: '', passwordRepeat: '', passwords: '', requestError: ''},
+      emailValid: '',
+      passwordValid: '',
+      passwordRepeatValid: '',
+      authFormValid: '',
+      registerFormValid: ''
     }
     handleUserInput = (event) => {
         const name = event.target.name;
@@ -29,7 +30,7 @@ class AuthorizationForm extends Component {
         () => { this.validateField(name, value) });
     }
     
-    validateField(fieldName, value) {
+    validateField = (fieldName, value) => {
         let fieldValidationErrors = this.state.formErrors;
         let emailValid = this.state.emailValid;
         let passwordValid = this.state.passwordValid;
@@ -38,32 +39,32 @@ class AuthorizationForm extends Component {
         let authFormValid = this.state.authFormValid;
         switch(fieldName) {
           case 'email':
-            emailValid = value.match(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i);
+            emailValid = value.match(emailRegExp);
             if (emailValid) {
               fieldValidationErrors.email = ''
               emailValid = true;
             } else {
-              fieldValidationErrors.email = ' is invalid'
+              fieldValidationErrors.email = 'Неверный адрес эл.почты'
               emailValid = false;
             }
             break;
           case 'password':
-            passwordValid = value.match(/^(?=.*[A-Z])(?=.*[!#-&*-.;:_@?[\]{}])(?=.*[0-9])(?=.*[a-z]).{8,}$/);
+            passwordValid = value.match(passwordRegExp);
             if (passwordValid) {
               fieldValidationErrors.password = ''
               passwordValid = true;
             } else {
-              fieldValidationErrors.password = ' is invalid'
+              fieldValidationErrors.password = 'Неверный пароль'
               passwordValid = false;
             }
             break;
           case 'passwordRepeat':
-            passwordRepeatValid = value.match(/^(?=.*[A-Z])(?=.*[!#-&*-.;:_@?[\]{}])(?=.*[0-9])(?=.*[a-z]).{8,}$/);
+            passwordRepeatValid = value.match(passwordRegExp);
             if (passwordRepeatValid) {
               fieldValidationErrors.passwordRepeat = ''
               passwordRepeatValid = true;
             } else {
-              fieldValidationErrors.passwordRepeat = ' is invalid'
+              fieldValidationErrors.passwordRepeat = 'Неверный пароль'
               passwordRepeatValid = false;
             }
             break;
@@ -77,7 +78,7 @@ class AuthorizationForm extends Component {
             passwordValid = true;
             passwordRepeatValid = true;
           } else {
-            fieldValidationErrors.passwords = " mismatch";
+            fieldValidationErrors.passwords = "Пароли не совпадают";
             passwordValid = false;
             passwordRepeatValid = false;
           }
@@ -97,13 +98,14 @@ class AuthorizationForm extends Component {
             registerFormValid: registerFormValid
         });
     }
-    errorClass(error) {
+    errorClass = (error) => {
         if (error === '') return '';
         else if (error) return 'is-valid';
         return 'is-invalid';
     } 
-    async authorizationRequest(event) {
+    authorizationRequest = async (event) => {
       event.preventDefault();
+      let fieldValidationErrors = this.state.formErrors;
       let newUser = new UserModel({
         email: this.state.email,
         password: this.state.password
@@ -114,19 +116,21 @@ class AuthorizationForm extends Component {
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
         } catch (error) {
-          document.querySelector('.form-errors').innerHTML = 'Ошибка авторизации!';
+          fieldValidationErrors.requestError = 'Ошибка авторизации!';
         }
       } else{
         try {
           let userId = await Users.addUser(newUser);
-          localStorage.userId = newUser;
+          localStorage.userId = userId;
         } catch (error) {
-          document.querySelector('.form-errors').innerHTML = 'Ошибка регистрации!';
-          return;
+          fieldValidationErrors.requestError = 'Ошибка регистрации!';
         }
       }
+      this.setState({
+        formErrors: fieldValidationErrors
+    });
     }
-    isAuthorization() {
+    isAuthorization = () => {
         if (this.props.type === 'Auth'){
             return (
                 <div className='authorization-input-block'>
@@ -134,11 +138,11 @@ class AuthorizationForm extends Component {
                     <div className="panel panel-default error-block">
                       <AuthorizationFormErrors formErrors={this.state.formErrors} />
                     </div>
-                    <AuthorizationFormInput image={require('../../assets/img/icons/email.png')} name={'email'} type={'text'} 
+                    <AuthorizationFormInput image={emailIcon} name={'email'} type={'text'} 
                         placeholder={'Адрес эл. почты'} value={this.state.email}  onChange={this.handleUserInput} 
                         className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
 
-                    <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'password'} type={'password'} 
+                    <AuthorizationFormInput image={passwordIcon} name={'password'} type={'password'} 
                         placeholder={'Пароль'} value={this.state.password}  onChange={this.handleUserInput} 
                         className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
                     <button type='submit' className='btn btn-primary authorization-button' 
@@ -154,16 +158,16 @@ class AuthorizationForm extends Component {
                 <div className="panel panel-default error-block">
                   <AuthorizationFormErrors formErrors={this.state.formErrors} />
                 </div>
-                <AuthorizationFormInput image={require('../../assets/img/icons/name.png')} name={'name'} type={'text'} 
+                <AuthorizationFormInput image={nameIcon} name={'name'} type={'text'} 
                   placeholder={'Ваше имя'} value={this.state.name}  onChange={this.handleUserInput} className={'form-control'}/>
                 
-                <AuthorizationFormInput image={require('../../assets/img/icons/email.png')} name={'email'} type={'email'} 
+                <AuthorizationFormInput image={emailIcon} name={'email'} type={'email'} 
                   placeholder={'Адрес эл.почты'} value={this.state.email}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.emailValid)}`}/>
                 
-                <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'password'} type={'password'} 
+                <AuthorizationFormInput image={passwordIcon} name={'password'} type={'password'} 
                   placeholder={'Пароль'} value={this.state.password}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
                 
-                <AuthorizationFormInput image={require('../../assets/img/icons/password.png')} name={'passwordRepeat'} type={'password'} 
+                <AuthorizationFormInput image={passwordIcon} name={'passwordRepeat'} type={'password'} 
                   placeholder={'Повтор пароля'} value={this.state.passwordRepeat}  onChange={this.handleUserInput} className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
                 
                 <button type='submit' className='btn btn-primary authorization-button' 
