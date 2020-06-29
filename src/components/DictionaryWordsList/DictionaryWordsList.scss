@@ -1,3 +1,5 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
 
 
 .dictionary {
@@ -12,6 +14,7 @@
 
     list-style: none;
     margin: 0;
-    padding: 10px;     
+    padding: 10px; 
+    @extend %transition;    
   }
 }

@@ -9,11 +9,12 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    background-color: lightslategray;
+    background-color: $dictionary-container-background;
     width: 800px;
     height: 820px;
     padding: 10px;  
     margin: 0 auto;  
+    overflow: hidden;
   }
 
   &__panel {

@@ -52,7 +52,10 @@ export default class DictionaryContainer extends React.Component {
       [dictionaryTabName.learning]: [],
       [dictionaryTabName.difficult]: [],
       [dictionaryTabName.removed]: [],
-      selectedClass: '',
+      selectedClass: 'dictionary__panel_learning-selected',
+      learningSelected: true,
+      difficultSelected: false,
+      removedSelected: false,
     }
   }
 
@@ -65,69 +68,55 @@ export default class DictionaryContainer extends React.Component {
     }));
   }
 
-  handleClick(event) {
-    const panel = document.querySelector('.dictionary__panel');
-    const tabs = document.querySelectorAll('.dictionary__tab');
-    tabs.forEach((tab) => tab.classList.remove('dictionary__tab_selected'));
-    switch (event.target.id) {
-      case 'tab-dictionary-learning':
-        //panel.classList.remove('dictionary__panel_difficult-selected');
-        //panel.classList.remove('dictionary__panel_removed-selected');
-        //panel.classList.add('dictionary__panel_learning-selected');
-        // document
-        //   .querySelector('.dictionary__tab_learning')
-        //   .classList.add('dictionary__tab_selected');
-        //event.target.setAttribute('SELECTED', true);
+  handleClick(event) {   
+    const selectedTab =  findElement(event.target, 'dictionary__tab');
+    switch (selectedTab.id) {
+      case 'tab-dictionary-learning':        
         this.setState({
           selectedClass: 'dictionary__panel_learning-selected',
+          learningSelected: true,
+          difficultSelected: false,
+          removedSelected: false,
         });
         break;
-      case 'tab-dictionary-difficult':
-        // panel.classList.remove('dictionary__panel_removed-selected');
-        // panel.classList.remove('dictionary__panel_learning-selected');
-        // panel.classList.add('dictionary__panel_difficult-selected');
-        // document
-        //   .querySelector('.dictionary__tab_difficult')
-        //   .classList.add('dictionary__tab_selected');
+      case 'tab-dictionary-difficult':        
         this.setState({
           selectedClass: 'dictionary__panel_difficult-selected',
+          learningSelected: false,
+          difficultSelected: true,
+          removedSelected: false,
+        });        
+        break;
+      case 'tab-dictionary-removed':        
+        this.setState({
+          selectedClass: 'dictionary__panel_removed-selected',
+          learningSelected: false,
+          difficultSelected: false,
+          removedSelected: true,
         });
-        //event.target.setAttribute('SELECTED', true);
         break;
-      case 'tab-dictionary-removed':
-        panel.classList.remove('dictionary__panel_learning-selected');
-        panel.classList.remove('dictionary__panel_difficult-selected');
-        panel.classList.add('dictionary__panel_removed-selected');
-        document
-          .querySelector('.dictionary__tab_removed')
-          .classList.add('dictionary__tab_selected');
-        //event.target.setAttribute('SELECTED', true);
-        break;
-      default:
-        // panel.classList.remove('dictionary__panel_learning-selected');
-        // panel.classList.remove('dictionary__panel_difficult-selected');
-        // panel.classList.remove('dictionary__panel_removed-selected');
+      default:        
         break;
     }
   }
 
   onDrop = (event, toDictionaryListName) => {
     const jsonData = event.dataTransfer.getData('object');
-    const dirctionaryWord = JSON.parse(jsonData);
-    this.moveWord(dirctionaryWord, toDictionaryListName);
+    const dictionaryWord = JSON.parse(jsonData);
+    this.moveWord(dictionaryWord, toDictionaryListName);
     
   }
 
-  moveWord (dirctionaryWord, toDictionaryListName) {
-    if (toDictionaryListName === dirctionaryWord.dictionaryTab) {
+  moveWord (dictionaryWord, toDictionaryListName) {
+    if (toDictionaryListName === dictionaryWord.dictionaryTab) {
       return;
     } else {
-      const index = this.state[dirctionaryWord.dictionaryTab]
-        .findIndex((word) => word.wordId === dirctionaryWord.wordId);
+      const index = this.state[dictionaryWord.dictionaryTab]
+        .findIndex((word) => word.wordId === dictionaryWord.wordId);
       if(index < 0) return;
-      this.state[dirctionaryWord.dictionaryTab].splice(index,1);
-      dirctionaryWord.dictionaryTab = toDictionaryListName;
-      this.state[toDictionaryListName].push(dirctionaryWord);
+      this.state[dictionaryWord.dictionaryTab].splice(index,1);
+      dictionaryWord.dictionaryTab = toDictionaryListName;
+      this.state[toDictionaryListName].push(dictionaryWord);
       this.setState((state) => ({
         ...state
       }));
@@ -167,7 +156,7 @@ export default class DictionaryContainer extends React.Component {
             onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.learning}
             counter={this.state[dictionaryTabName.learning].length}
-            selected={true}
+            selected={this.state.learningSelected}
             onDrop={event => this.onDrop(event, dictionaryTabName.learning)}
           />
           <DictionaryCategoryTab
@@ -176,6 +165,7 @@ export default class DictionaryContainer extends React.Component {
             onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.difficult}
             counter={this.state[dictionaryTabName.difficult].length}
+            selected={this.state.difficultSelected}
             onDrop={event => this.onDrop(event, dictionaryTabName.difficult)}
           />
 
@@ -185,6 +175,7 @@ export default class DictionaryContainer extends React.Component {
             onClick={this.handleClick.bind(this)}
             name={dictionaryTabName.removed}
             counter={this.state[dictionaryTabName.removed].length}
+            selected={this.state.removedSelected}
             onDrop={event => this.onDrop(event, dictionaryTabName.removed)}
           />
         </div>

@@ -1,8 +1,8 @@
 
 export const dictionaryTabName = {
-  learning: 'learning words',
-  difficult: 'difficult words',
-  removed: 'removed words',
+  learning: 'Изучаемые слова',
+  difficult: 'Сложные слова',
+  removed: 'Удаленные слова',
 };
 let counter = 0;
 export default class DictionaryWordModel {

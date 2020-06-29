@@ -1,4 +1,5 @@
-
+@import "../../style/constants";
+@import "../../style/placeholders";
 
 .dictionary {
 
@@ -10,7 +11,13 @@
     padding: 10px;
     margin-bottom: 10px;
 
-    background-color: gold;
+    border-radius: 5px;
+    @extend %card-shadow;
+
+    cursor: move;  
+
+    background-color: $dictionary-word-card-background;
+    border: 1px solid $dictionary-word-card-border;
 
     p {
       display: inline-block;

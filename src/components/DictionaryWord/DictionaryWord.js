@@ -1,7 +1,8 @@
 import React from 'react';
 import cx from 'clsx';
 import './DictionaryWord.scss';
-import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryWordModel';
+import DictionaryWordModel from '../../models/DictionaryWordModel';
+import DictionaryDropdownMenu from '../DictionaryDropdownMenu/DictionaryDropdownMenu';
 
 const DEFAULT_CLASS = 'dictionary__word';
 
@@ -43,7 +44,10 @@ export default class DictionaryWord extends React.Component {
         <p>{dictionaryWord.word}</p>
         <p>{dictionaryWord.wordTranslate}</p>
         <p>{dictionaryWord.wordId}</p>
-        <button onClick={() => moveWord(dictionaryWord, dictionaryTabName.learning)}>To learning</button>
+        <DictionaryDropdownMenu
+          currentTabName={dictionaryWord.dictionaryTab}
+          dictionaryWord={dictionaryWord}
+          moveWord={moveWord} />
       </li>
     );
   }

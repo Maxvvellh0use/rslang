@@ -23,7 +23,10 @@ export default class DictionaryWordsList extends React.Component {
         className={className}
       >
         {dictionaryWordsList.map((word) => (
-          <DictionaryWord id={word.wordId} key={word.wordId} dictionaryWord={word} moveWord={moveWord} />
+          <DictionaryWord 
+          id={word.wordId} 
+          key={word.wordId} 
+          dictionaryWord={word} moveWord={moveWord} />
         ))}
       </ul>
     );

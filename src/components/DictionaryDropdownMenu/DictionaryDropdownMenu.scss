@@ -1,0 +1,64 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+
+.dictionary {
+  &__dropdown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../assets/img/icons/menu-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+
+    opacity: 0.6;
+    @extend %transition;
+
+
+    &:hover {
+      opacity: 1;
+      @extend %transition;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      width: 150px;
+
+      position: absolute;
+      top: 20px;
+      right: 0px;
+      border-radius: 5px;
+
+      background-color: #FFF5EE;
+
+      z-index: 10;
+      @extend %card-shadow;
+      @extend %transition;
+    }
+
+    li {
+      padding: 8px 16px;
+      border-bottom: 1px solid #e5e5e5;
+      border-radius: 5px;
+      z-index: 10;
+      @extend %transition;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+    li:hover {
+      background-color: #a2dcfd;
+      color: #FFF5EE;
+      z-index: 10;
+      @extend %transition;
+    }
+  }
+}

@@ -15,7 +15,7 @@ export default class DictionaryCategoryTab extends React.Component {
   };
 
   onDrop = (event) => {
-    this.props.onDrop(event);    
+    this.props.onDrop(event);
   }
 
   render() {
@@ -29,8 +29,6 @@ export default class DictionaryCategoryTab extends React.Component {
       ...attributes
     } = this.props;
 
-    console.log(selectedClassName);
-
     return (
       <div
         {...attributes}
@@ -42,8 +40,7 @@ export default class DictionaryCategoryTab extends React.Component {
         onDragOver={event => event.preventDefault()}
       >
         <h3 className="dictionary__tab__header">{name}</h3>
-        <p className="dictionary__tab__counter">{counter}</p>
-        <p>{selected ? 'true' : 'false'}</p>
+        <p className="dictionary__tab__counter">{counter}</p>        
       </div>
     );
   }

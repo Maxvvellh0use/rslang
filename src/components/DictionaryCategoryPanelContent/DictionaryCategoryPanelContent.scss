@@ -10,22 +10,19 @@
     border-radius: 10px;
     position: absolute;
 
-    
-    
-
     &_learning {
-      background-color: lightgreen;
+      background-color: $dictionary-learning-panel-background;
       @include transform(rotateX(-270deg) translateY(-400px));
       @include transform-origin(top left);
     }
 
     &_difficult {
-      background-color: lightskyblue;
+      background-color: $dictionary-difficult-panel-background;
       @include translateZ(400px);
     }
 
     &_removed {
-      background-color: pink;
+      background-color: $dictionary-removed-panel-background;
       @include transform(rotateX(-90deg) translateY(400px));
       @include transform-origin(bottom center);
     }
@@ -35,5 +32,6 @@
       overflow-y: scroll;
       max-height: 90%;
     }
+    
   }
 }
