@@ -1,21 +1,21 @@
 export const TEXT = {
-    HEADING: 'Settings',
-    ENGLISH_LEVEL: 'Choose your English level:',
-    DAILY_NUMBER: 'Enter the daily number of words you want to learn:',
-    MAX_NUMBER: 'Enter the maximum number of words you want to learn daily:',
-    SUBMIT: 'Submit',
-    TIPS: 'Choose what will be displayed on cards:',
+    HEADING: 'Настройки',
+    ENGLISH_LEVEL: 'Выберите ваш уровень английского:',
+    DAILY_NUMBER: 'Укажите количество новых слов, которое вы хотите изучать ежедневно:',
+    MAX_NUMBER: 'Укажите максимальное количество новых слов, которое вы хотите изучать ежедневно:',
+    SUBMIT: 'Принять',
+    TIPS: 'Выберите информацию, которая будет выводиться на карточках:',
 }
 export const NOTIFICATIONS = {
-    CANNOT_BE_GREATER: { type: 'error', text: 'Daily number of words cannot be greater than maximum number of words' },
-    NO_CHECKED: { type: 'error', text: 'At least one hint must be selected' },
-    UNKNOWN: {type: 'error', text: 'Something went wrong :('},
-    SUCCESS: { type: 'success', text: 'Settings changed successfully' },
+    CANNOT_BE_GREATER: { type: 'error', text: 'Ежедневное количество слов не может быть больше максимального количества слов' },
+    NO_CHECKED: { type: 'error', text: 'Как минимум одна подсказка должна быть выбрана' },
+    UNKNOWN: {type: 'error', text: 'Что-то пошло не так :('},
+    SUCCESS: { type: 'success', text: 'Настройки изменены успешно!' },
 }
-export const ENGLISH_LEVELS_ARRAY = ['Beginner', 'Intermediate', 'Advanced'];
+export const ENGLISH_LEVELS_ARRAY = ['Начальный', 'Средний', 'Продвинутый'];
 export const TIPS_ARRAY = [
-    { type: 'checkbox', name: 'translation', text: 'translation of a word' },
-    { type: 'checkbox', name: 'meaningSentense', text: 'sentence with the meaning of the word' },
-    { type: 'checkbox', name: 'exampleSentense', text: 'sentense using this word' },
-    { type: 'checkbox', name: 'autoPlay', text: 'auto play word pronunciation' }
+    { type: 'checkbox', name: 'translation', text: 'перевод слова' },
+    { type: 'checkbox', name: 'meaningSentense', text: 'предложение со значением слова' },
+    { type: 'checkbox', name: 'exampleSentense', text: 'предложение с использованием слова' },
+    { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' }
 ];

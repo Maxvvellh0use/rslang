@@ -5,7 +5,6 @@ import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
 import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
 import loaderImage from '../../assets/img/loader.svg';
-import closeImage from '../../assets/img/close.svg'
 import './SettingsWindow.scss';
 
 class SettingsWindow extends Component {
@@ -106,13 +105,6 @@ class SettingsWindow extends Component {
             <form className='settings-window'>
                 {isLoaded ?
                     <React.Fragment>
-                        <img
-                            className='settings-window__close'
-                            alt='Close'
-                            src={closeImage}
-                            onClick={this.props.onClick}
-                        />
-
                         <h2 className='settings-window__heading'>{TEXT.HEADING}</h2>
 
                         <p className='settings-window__text'>{TEXT.ENGLISH_LEVEL}</p>
