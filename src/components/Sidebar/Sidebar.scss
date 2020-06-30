@@ -25,8 +25,12 @@
     margin-right: 17px;
 }
 
-a, a:hover, a:focus {
-    color: inherit;
+a {
+    color: #1a3b71;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
@@ -97,6 +101,6 @@ ul ul a {
     font-size: .75rem;
 }
 
-.active-styled {
+.active {
     color: #ff934d;
 }
