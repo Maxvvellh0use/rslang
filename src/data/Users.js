@@ -15,6 +15,7 @@ export default class Users {
     const url = `${serverPath}/users`;
     const data = {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
