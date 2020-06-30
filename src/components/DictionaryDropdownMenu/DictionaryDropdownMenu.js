@@ -32,8 +32,14 @@ export default class DictionaryDropdownMenu extends React.Component {
 
   hideDropdownMenu = () => {
     this.setState({ displayMenu: false }, () => {
+      console.log('----------hide');
       document.removeEventListener('click', this.hideDropdownMenu);
     });
+  }
+
+  componentWillUnmount(){
+    console.log('----------will unmount');
+    document.removeEventListener('click', this.hideDropdownMenu);
   }
 
   render() {

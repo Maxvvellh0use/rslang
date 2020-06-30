@@ -16,7 +16,6 @@ export default class DictionaryWordsList extends React.Component {
 
   render() {
     const { id, className, dictionaryWordsList, moveWord, ...attributes } = this.props;
-    console.log(dictionaryWordsList);
     return (
       <ul
         {...attributes}

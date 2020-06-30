@@ -2,16 +2,23 @@
 @import "../../style/placeholders";
 @import "../../style/mixins";
 
+.dictionary__panel_learning-selected {
+  .dictionary__panel-content_learning {
+    z-index: 100;
+  }
+}
+
 .dictionary {
 
   &__panel-content {
-    width: 600px;
-    height: 100%;
-    border-radius: 10px;
-    position: absolute;
+    width: 100%;
+    height: 100%;    
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    position: absolute;    
 
     &_learning {
-      background-color: $dictionary-learning-panel-background;
+      background-color: $dictionary-learning-panel-background;      
       @include transform(rotateX(-270deg) translateY(-400px));
       @include transform-origin(top left);
     }
@@ -22,16 +29,28 @@
     }
 
     &_removed {
-      background-color: $dictionary-removed-panel-background;
+      background-color: $dictionary-removed-panel-background;      
       @include transform(rotateX(-90deg) translateY(400px));
       @include transform-origin(bottom center);
     }
+
 
     &__scroll {
       position: relative;
       overflow-y: scroll;
       max-height: 90%;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
+
+    &__title {      
+      text-align: center;
+      @extend %textshadow ;
+      
+    }
+
     
   }
 }

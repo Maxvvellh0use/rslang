@@ -22,7 +22,7 @@ export default class DictionaryCategoryPanelContent extends React.Component {
       <div 
         { ...attributes }
       >
-        <h1>{name}</h1>
+        <h1 className='dictionary__panel-content__title'>{name}</h1>
         <div onDrop={console.log} className="dictionary__panel-content__scroll">
           <DictionaryWordsList dictionaryWordsList={dictionaryWordsList} moveWord={moveWord} />
         </div>
