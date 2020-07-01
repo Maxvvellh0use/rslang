@@ -1,19 +1,22 @@
 .navbar_wrapper {
     display: flex;
     align-items: stretch;
+    position: sticky;
+    top: 0px;
+}
+.nav_logo {
+    width: 75%;
 }
 
 .sidebar {
-    min-width: 50px;
-    max-width: 50px;
+    width: 3rem;
     min-height: 100vh;
-    text-align: center;
     white-space: nowrap;
-    overflow-x: hidden;
+    box-shadow: 2px 0px 5px 0px rgba(158,158,158,0.7);
 }
 
 .expand {
-    max-width: 250px;
+    width: 10rem;
     text-align: left;
 }
 
@@ -22,7 +25,7 @@
 }
 
 .nav_icon {
-    margin-right: 17px;
+    margin-right: 1.0625rem;
 }
 
 a {
@@ -41,23 +44,18 @@ a:hover, a:focus {
     transition: all 0.3s;
 }
 
-.sidebar .sidebar_expand {
-    padding: 10px;
-    background: #fffcf9;
-}
-
 .sidebar ul.components {
     border-bottom: 1px solid #47748b;
 }
 
 .sidebar ul p {
     color: #fff;
-    padding: 10px;
+    padding: .625rem;
 }
 
 .sidebar ul li a {
-    padding: 15px;
-    font-size: 1.1em;
+    padding: .9375rem;
+    font-size: 1em;
     display: block;
     position: relative;
 }
@@ -68,15 +66,17 @@ a:hover, a:focus {
 
 .sidebar_expand:hover {
     background: #ebe6e2;
+    cursor: pointer;
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: .9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
 }
 
 .nav_text_icon {
+    opacity: 0;
     font-weight: 700;
 }
 
@@ -90,6 +90,7 @@ ul ul a {
     margin: 0 .625rem;
     pointer-events: none;
     transition: opacity .3s;
+    opacity: 0;
 }
 
 .hint_label {
