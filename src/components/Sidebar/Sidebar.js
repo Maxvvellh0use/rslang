@@ -23,12 +23,6 @@ class Sidebar extends React.Component {
         })
     }
 
-    boxClick = () => {
-        this.setState({
-            active: !this.state.active
-        })
-    }
-
     enterHover = (e) => {
         if (!this.state.expand) {
             e.currentTarget.parentElement.lastChild.style.opacity = 1;
@@ -45,92 +39,92 @@ class Sidebar extends React.Component {
     render = () => {
         return (
             <BrowserRouter>
-            <section className="navbar_wrapper">
-                <nav className={"sidebar" + (this.state.expand ? ' expand' : '')}>
-                    <ul className="list-unstyled components">
-                        <li>
-                            <a className="sidebar_expand" onClick={this.toggleMenu}>
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <ArrowRightIcon style={{display: this.state.expand ? 'none' : 'inline'}} />
-                                    <ArrowLeftIcon style={{display: this.state.expand ? 'inline' : 'none'}} />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>
-                                    <img className="nav_logo" src={logoIcon} />
-                                </span>
-                                <div className="hint">
-                                    <span className="hint_label">Развернуть</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <NavLink exact to="/words">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <WordsIcon alt="wordsicon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Слова</span>
-                                <div className="hint">
-                                    <span className="hint_label">Слова</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink exact to="/games">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <GamesIcon alt="gamesicon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Игры</span>
-                                <div className="hint">
-                                    <span className="hint_label">Игры</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink exact to="/settings">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <SettingsIcon alt="settingsicon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Настройки</span>
-                                <div className="hint">
-                                    <span className="hint_label">Настройки</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/stats">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <StatsIcon alt="statsicon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Статистика</span>
-                                <div className="hint">
-                                    <span className="hint_label">Статистика</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/about">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <AboutIcon alt="abouticon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>О команде</span>
-                                <div className="hint">
-                                    <span className="hint_label">О команде</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/startpage">
-                                <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
-                                    <LogOutIcon alt="abouticon" />
-                                </span>
-                                <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Выход</span>
-                                <div className="hint">
-                                    <span className="hint_label">Выход</span>
-                                </div>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
-            </section>
+                <section className="navbar_wrapper">
+                    <nav className={"sidebar" + (this.state.expand ? ' expand' : '')}>
+                        <ul className="list-unstyled components">
+                            <li>
+                                <a className="sidebar_expand" onClick={this.toggleMenu}>
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <ArrowRightIcon style={{display: this.state.expand ? 'none' : 'inline'}} />
+                                        <ArrowLeftIcon style={{display: this.state.expand ? 'inline' : 'none'}} />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>
+                                        <img className="nav_logo" src={logoIcon} />
+                                    </span>
+                                    <div className="hint">
+                                        <span className="hint_label">Развернуть</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <NavLink exact to="/words">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <WordsIcon alt="wordsicon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Слова</span>
+                                    <div className="hint">
+                                        <span className="hint_label">Слова</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink exact to="/games">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <GamesIcon alt="gamesicon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Игры</span>
+                                    <div className="hint">
+                                        <span className="hint_label">Игры</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink exact to="/settings">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <SettingsIcon alt="settingsicon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Настройки</span>
+                                    <div className="hint">
+                                        <span className="hint_label">Настройки</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/stats">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <StatsIcon alt="statsicon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Статистика</span>
+                                    <div className="hint">
+                                        <span className="hint_label">Статистика</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/about">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <AboutIcon alt="abouticon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>О команде</span>
+                                    <div className="hint">
+                                        <span className="hint_label">О команде</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/startpage">
+                                    <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
+                                        <LogOutIcon alt="abouticon" />
+                                    </span>
+                                    <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>Выход</span>
+                                    <div className="hint">
+                                        <span className="hint_label">Выход</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
             </BrowserRouter>
         )
     }
