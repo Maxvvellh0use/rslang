@@ -1,6 +1,7 @@
 import React from 'react';
 import './Startpage.scss'
 import {TEXT_START_PAGE_DESCRIPTION, TEXT_START_PAGE_H2} from "./const";
+import { Link } from "react-router-dom";
 
 function StartPageMain(props) {
     return (
@@ -14,7 +15,10 @@ function StartPageMain(props) {
                                 <p className="main_content__description__text">{TEXT_START_PAGE_DESCRIPTION}</p>
                                 <span className="main_content__description__learn_icon"></span>
                             </div>
-                            <div className="main_content__description__button">Начать!</div>
+                            <Link className="main_content__description__button" to="/sign_in">
+                                <div>Начать!</div>
+                            </Link>
+
                         </div>
                     </div>
                 </section>

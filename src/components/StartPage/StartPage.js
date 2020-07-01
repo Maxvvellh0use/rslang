@@ -1,11 +1,9 @@
 import React from "react";
 import './Startpage.scss';
-import { browserHistory } from 'react-router';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import AuthorizationForm from "../AuthorizationPage/Authorization&RegistrationForm";
 import StartPageMain from "./StartPageMain";
@@ -22,20 +20,20 @@ class StartPage extends React.Component {
 
 
     render = () => {
-        // if (this.state.authSuccess) {
-        //     return (
-        //         <Router>
-        //             <Switch>
-        //                 <Route exact path="/">
-        //                     <SettingsWindow />
-        //                 </Route>
-        //                 <Route path="/settings">
-        //                     <SettingsWindow authSuccess={this.state.authSuccess}/>
-        //                 </Route>
-        //             </Switch>
-        //         </Router>
-        //     )
-        // }
+        if (this.state.authSuccess) {
+            return (
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <SettingsWindow />
+                        </Route>
+                        <Route path="/settings">
+                            <SettingsWindow />
+                        </Route>
+                    </Switch>
+                </Router>
+            )
+        }
 
         return (
             <Router>

@@ -28,4 +28,7 @@ code {
 a {
   text-decoration: none;
   color: $color-link-card;
+  &:hover {
+    text-decoration: none !important;
+  }
 }
