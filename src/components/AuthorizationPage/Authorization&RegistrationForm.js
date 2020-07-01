@@ -10,8 +10,9 @@ import { passwordRegExp } from './const'
 import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
-import { Link, Router, Redirect } from "react-router-dom";
+import { Link, Router, Redirect, withRouter } from "react-router-dom";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
+
 class AuthorizationForm extends Component {
 
 
@@ -124,9 +125,7 @@ class AuthorizationForm extends Component {
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
           localStorage.authSuccess = true;
-          await this.setState({
-              redirectSettings: true
-          });
+          this.props.history.push('/settings')
         } catch (error) {
           fieldValidationErrors.requestError = 'Ошибка авторизации!';
         }
@@ -138,9 +137,9 @@ class AuthorizationForm extends Component {
           fieldValidationErrors.requestError = 'Ошибка регистрации!';
         }
       }
-      this.setState({
-        formErrors: fieldValidationErrors
-    });
+      // this.setState({
+      //   formErrors: fieldValidationErrors
+      // });
     }
 
     isAuthorization = () => {
@@ -223,9 +222,12 @@ class AuthorizationForm extends Component {
     }
 
  render = () => {
-     if (this.state.redirectSettings) {
-         return <Redirect push to="/settings" />;
-     }
+        if (localStorage.authSuccess) {
+            this.props.history.push('/settings')
+            return (
+                <SettingsWindow />
+            )
+        }
      return (
            <form className='autorization-container'>
                {this.isAuthorization()}
@@ -234,4 +236,4 @@ class AuthorizationForm extends Component {
  }
 }
 
-export default AuthorizationForm;
+export default withRouter(AuthorizationForm);
