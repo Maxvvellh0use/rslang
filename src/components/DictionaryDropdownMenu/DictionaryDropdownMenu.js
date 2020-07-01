@@ -17,10 +17,7 @@ export default class DictionaryDropdownMenu extends React.Component {
 
     this.state = {
       displayMenu: false,
-    };
-
-    this.showDropdownMenu = this.showDropdownMenu.bind(this);
-    this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
+    };   
   };
 
   showDropdownMenu = (event) => {
@@ -31,14 +28,12 @@ export default class DictionaryDropdownMenu extends React.Component {
   }
 
   hideDropdownMenu = () => {
-    this.setState({ displayMenu: false }, () => {
-      console.log('----------hide');
+    this.setState({ displayMenu: false }, () => {      
       document.removeEventListener('click', this.hideDropdownMenu);
     });
   }
 
-  componentWillUnmount(){
-    console.log('----------will unmount');
+  componentWillUnmount(){    
     document.removeEventListener('click', this.hideDropdownMenu);
   }
 

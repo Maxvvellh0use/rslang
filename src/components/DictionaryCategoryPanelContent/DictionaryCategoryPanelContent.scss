@@ -15,7 +15,12 @@
     height: 100%;    
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
-    position: absolute;    
+    position: absolute;  
+    display: flex;
+    flex-direction: column; 
+    flex-wrap: nowrap;
+    justify-content: space-between; 
+
 
     &_learning {
       background-color: $dictionary-learning-panel-background;      
@@ -38,19 +43,19 @@
     &__scroll {
       position: relative;
       overflow-y: scroll;
-      max-height: 90%;
-
+      max-height: 90%;      
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
-    &__title {      
+    &__title {   
+      position: relative; 
+      display: block;
       text-align: center;
       @extend %textshadow ;
-      
-    }
-
-    
+      margin-bottom: 20px;  
+      color: $dictionary-word-card-font-color-primary;    
+    }    
   }
 }

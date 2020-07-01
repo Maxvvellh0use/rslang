@@ -13,6 +13,11 @@ export default class DictionaryWordModel {
       wordTranslate = 'Test word translation',  
       textExample = 'Word text example',
       textExampleTranslate = 'Word text example translation',
+      textMeaning = 'Text meaning',
+      textMeaningTranslate = 'Text meaning translation',
+      transcription = 'Transcription',
+      audioPath = '',
+      imagePath = '',
       dictionaryTab = dictionaryTabName.learning,
     }
   ) {
@@ -21,6 +26,12 @@ export default class DictionaryWordModel {
     this.wordTranslate = wordTranslate;
     this.textExample = textExample;
     this.textExampleTranslate = textExampleTranslate;
+    this.textMeaning = textMeaning;
+    this.textMeaningTranslate = textMeaningTranslate;
+    this.transcription = transcription;
+    this.audioPath = audioPath;
+    this.imagePath = imagePath;
     this.dictionaryTab = dictionaryTab;
+      
   }
 }
