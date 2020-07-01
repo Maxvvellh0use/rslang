@@ -1,0 +1,19 @@
+@import "../../../style/constants.scss" ;
+
+.notification {
+    display: flex;
+    align-items: center;
+
+    min-height: 24px;
+    margin: 0;
+
+    font-size: 13px;
+
+    &_error {
+        color: $color-red;
+    }
+
+    &_success {
+        color: $color-green;
+    }
+}

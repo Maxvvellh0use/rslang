@@ -1,0 +1,71 @@
+@import "../../style/constants.scss" ;
+
+.settings-window {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    max-width: 465px;
+    height: fit-content;
+    min-height: 372px;
+    margin: auto;
+    padding: 15px;
+
+    border-radius: $border-radius-window;
+    background-color: $color-card-background;
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, .6);
+
+    &__close {
+        position: absolute;
+        right: 15px;
+
+        width: 13px;
+
+        cursor: pointer;
+    }
+
+    &__heading {
+        margin: 0;
+    }
+
+    &__text {
+        margin: 8px 0 4px;
+    }
+
+    &__words-number {
+        padding: 0 2px 0 5px;
+
+        &::-webkit-inner-spin-button {
+            opacity: 1;
+        }
+    }
+
+    .input-field {
+        box-sizing: border-box;
+        width: 120px;
+        height: 30px;
+
+        border: 1px solid $color-black;
+        border-radius: 5px;
+    }
+
+    &__tips {
+        display: flex;
+        flex-direction: column;
+
+        & input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        & label {
+            margin: 0;
+        }
+    }
+
+    &__button {
+        cursor: pointer;
+    }
+}
