@@ -6,11 +6,10 @@ import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
 
 
-
-function App() {
+function App(props) {
   return (
     <div>
-      <StartPage />
+      <StartPage history={props.history}/>
       {/*<Card />*/}
     </div>
   );

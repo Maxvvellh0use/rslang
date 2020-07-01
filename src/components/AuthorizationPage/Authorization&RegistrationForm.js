@@ -10,7 +10,12 @@ import { passwordRegExp } from './const'
 import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
+import { Link, Router, Redirect } from "react-router-dom";
+import SettingsWindow from "../SettingsWindow/SettingsWindow";
 class AuthorizationForm extends Component {
+
+
+
     state = {
       name: '',
       email: '',
@@ -21,7 +26,8 @@ class AuthorizationForm extends Component {
       passwordValid: '',
       passwordRepeatValid: '',
       authFormValid: '',
-      registerFormValid: ''
+      registerFormValid: '',
+      redirectSettings: localStorage.authSuccess,
     }
     handleUserInput = (event) => {
         const name = event.target.name;
@@ -98,13 +104,15 @@ class AuthorizationForm extends Component {
             registerFormValid: registerFormValid
         });
     }
+
     errorClass = (error) => {
         if (error === '') return '';
         else if (error) return 'is-valid';
         return 'is-invalid';
     }
+
     authorizationRequest = async (event) => {
-      event.preventDefault();
+        event.preventDefault();
       let fieldValidationErrors = this.state.formErrors;
       let newUser = new UserModel({
         email: this.state.email,
@@ -115,6 +123,10 @@ class AuthorizationForm extends Component {
           let newAuthUser = await Authentication.loginUser(newUser);
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
+          localStorage.authSuccess = true;
+          await this.setState({
+              redirectSettings: true
+          });
         } catch (error) {
           fieldValidationErrors.requestError = 'Ошибка авторизации!';
         }
@@ -130,6 +142,7 @@ class AuthorizationForm extends Component {
         formErrors: fieldValidationErrors
     });
     }
+
     isAuthorization = () => {
         if (this.props.type === 'Auth'){
             return (
@@ -153,12 +166,14 @@ class AuthorizationForm extends Component {
                                             value={this.state.password}
                                             onChange={this.handleUserInput}
                                             className={`form-control ${this.errorClass(this.state.passwordValid)}`}/>
-                    <button type='submit'
-                            className='btn btn-primary authorization-button'
-                            disabled={!this.state.authFormValid}
-                            onClick={this.authorizationRequest.bind(this)}>
-                        Войти
-                    </button>
+
+                        <button type='submit'
+                                className='btn btn-primary authorization-button'
+                                disabled={!this.state.authFormValid}
+                                onClick={this.authorizationRequest}>
+                            Войти
+                        </button>
+
                 </div>
             )
         }
@@ -197,21 +212,24 @@ class AuthorizationForm extends Component {
                                         value={this.state.passwordRepeat}
                                         onChange={this.handleUserInput}
                                         className={`form-control ${this.errorClass(this.state.passwordRepeatValid)}`}/>
-
                 <button type='submit'
                         className='btn btn-primary authorization-button'
                         disabled={!this.state.registerFormValid}
-                        onClick={this.authorizationRequest.bind(this)}>
+                        onClick={this.authorizationRequest}>
                     Регистрация
                 </button>
             </div>
         )
     }
- render () {
-   return (
-    <form className='autorization-container'>
-        {this.isAuthorization()}
-    </form>
+
+ render = () => {
+     if (this.state.redirectSettings) {
+         return <Redirect push to="/settings" />;
+     }
+     return (
+           <form className='autorization-container'>
+               {this.isAuthorization()}
+           </form>
    )
  }
 }

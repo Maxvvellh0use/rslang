@@ -1,5 +1,6 @@
 import React from "react";
 import './Startpage.scss';
+import { browserHistory } from 'react-router';
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,48 +9,58 @@ import {
 } from "react-router-dom";
 import AuthorizationForm from "../AuthorizationPage/Authorization&RegistrationForm";
 import StartPageMain from "./StartPageMain";
+import SettingsWindow from "../SettingsWindow/SettingsWindow";
+import Header from "./Header";
+import Footer from "./Footer";
 
 class StartPage extends React.Component {
 
-    render() {
+    state = {
+        authSuccess: localStorage.authSuccess,
+        isMounted: false,
+    }
+
+
+    render = () => {
+        // if (this.state.authSuccess) {
+        //     return (
+        //         <Router>
+        //             <Switch>
+        //                 <Route exact path="/">
+        //                     <SettingsWindow />
+        //                 </Route>
+        //                 <Route path="/settings">
+        //                     <SettingsWindow authSuccess={this.state.authSuccess}/>
+        //                 </Route>
+        //             </Switch>
+        //         </Router>
+        //     )
+        // }
+
         return (
             <Router>
                 <div>
-                    <header className="header_start_page">
-                        <div className="wrapper header_wrapper">
-                            <div className="header_block">
-                                <Link to="/">
-                                    <div className="header_block__logo"/>
-                                </Link>
-                                <div className="header_block__log_buttons">
-                                    <Link to="/sign_in">
-                                        <button type="button" className="header_block__log_buttons__sign_in">
-                                        Войти</button>
-                                    </Link>
-                                    <Link to="/sign_up">
-                                        <button type="button" className="header_block__log_buttons__sign_up">
-                                        Зарегистрироваться</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
                     <Switch>
                         <Route exact path="/">
+                            <Header />
                             <StartPageMain />
+                            <Footer />
                         </Route>
                         <Route path="/sign_in">
-                            <AuthorizationForm type="Auth" />
+                            <Header />
+                            <AuthorizationForm type="Auth"/>
+                            <Footer />
                         </Route>
                         <Route path="/sign_up">
-                            <AuthorizationForm />
+                            <Header />
+                            <AuthorizationForm/>
+                            <Footer />
+                        </Route>
+                        <Route path="/settings">
+                            <SettingsWindow history={this.props.history}
+                                            authSuccess={this.state.authSuccess}/>
                         </Route>
                     </Switch>
-                    <footer className="footer_start_page">
-                        <div className="footer_start_page_wrapper">
-                            <div className="main_content__description__promo_button">Промо-страница</div>
-                        </div>
-                    </footer>
                 </div>
             </Router>
         );
