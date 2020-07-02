@@ -112,9 +112,16 @@ class AuthorizationForm extends Component {
         return 'is-invalid';
     }
 
+    showError = () => {
+        const fieldValidationErrors = this.state.formErrors;
+        fieldValidationErrors.requestError = 'Ошибка авторизации!';
+        this.setState({
+            formErrors: fieldValidationErrors
+        });
+    }
+
     authorizationRequest = async (event) => {
         event.preventDefault();
-      let fieldValidationErrors = this.state.formErrors;
       let newUser = new UserModel({
         email: this.state.email,
         password: this.state.password
@@ -127,19 +134,16 @@ class AuthorizationForm extends Component {
           localStorage.authSuccess = true;
           this.props.history.push('/settings')
         } catch (error) {
-          fieldValidationErrors.requestError = 'Ошибка авторизации!';
+          this.showError();
         }
       } else{
         try {
           let userId = await Users.addUser(newUser);
           localStorage.userId = userId;
         } catch (error) {
-          fieldValidationErrors.requestError = 'Ошибка регистрации!';
+          this.showError();
         }
       }
-      // this.setState({
-      //   formErrors: fieldValidationErrors
-      // });
     }
 
     isAuthorization = () => {
