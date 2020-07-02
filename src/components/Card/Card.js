@@ -201,7 +201,7 @@ class Card extends React.Component {
                                     <SpanButton className="next_and_audio__next"
                                                 onClick={this.submitForm} />
                                     <div className="show_word">
-                                        <a href="#" onClick={this.showWord}>Показать ответ</a>
+                                        <span className="show_word__button" onClick={this.showWord}>Показать ответ</span>
                                     </div>
                                         <SpanButton className={classNameButton}
                                                     onClick={this.playWordAudio} />

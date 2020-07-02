@@ -10,7 +10,7 @@ import { passwordRegExp } from './const'
 import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
-import { Link, Router, Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 
 class AuthorizationForm extends Component {

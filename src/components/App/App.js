@@ -9,8 +9,8 @@ import SettingsWindow from "../SettingsWindow/SettingsWindow"
 function App(props) {
   return (
     <div>
-      <StartPage history={props.history}/>
-      {/*<Card />*/}
+      {/*<StartPage history={props.history}/>*/}
+      <Card />
     </div>
   );
 }
