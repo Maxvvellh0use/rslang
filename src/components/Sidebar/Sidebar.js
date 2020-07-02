@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Sidebar.scss';
-import { NavLink, BrowserRouter } from 'react-router-dom';
+import { NavLink, BrowserRouter, Route } from 'react-router-dom';
 import { ReactComponent as WordsIcon } from '../../assets/img/icons_navbar/words.svg';
 import { ReactComponent as GamesIcon } from '../../assets/img/icons_navbar/games.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/img/icons_navbar/settings.svg';
@@ -11,6 +11,8 @@ import { ReactComponent as ArrowRightIcon } from '../../assets/img/icons_navbar/
 import { ReactComponent as ArrowLeftIcon } from '../../assets/img/icons_navbar/arrow-left.svg';
 import { ReactComponent as LogOutIcon } from '../../assets/img/icons_navbar/logout.svg';
 import logoIcon from '../../assets/img/logo-start-page.png';
+import Card from "../Card/Card";
+import SettingsWindow from "../SettingsWindow/SettingsWindow"
 
 class Sidebar extends React.Component {
     state = {
@@ -124,6 +126,8 @@ class Sidebar extends React.Component {
                             </li>
                         </ul>
                     </nav>
+                    <Route exact path="/words" component={Card} />
+                    <Route exact path="/settings" component={SettingsWindow} />
                 </section>
             </BrowserRouter>
         )
