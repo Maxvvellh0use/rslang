@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Sidebar.scss';
-import { NavLink, BrowserRouter, Route } from 'react-router-dom';
+import { NavLink, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ReactComponent as WordsIcon } from '../../assets/img/icons_navbar/words.svg';
 import { ReactComponent as GamesIcon } from '../../assets/img/icons_navbar/games.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/img/icons_navbar/settings.svg';
@@ -126,8 +126,10 @@ class Sidebar extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                    <Route exact path="/words" component={Card} />
-                    <Route exact path="/settings" component={SettingsWindow} />
+                    <Switch>
+                        <Route path="/words" component={Card} />
+                        <Route path="/settings" component={SettingsWindow} />
+                    </Switch>
                 </section>
             </BrowserRouter>
         )
