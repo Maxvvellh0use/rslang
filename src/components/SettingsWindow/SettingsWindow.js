@@ -4,6 +4,7 @@ import Tips from './Tips/Tips';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
 import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
+import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
 
@@ -90,13 +91,14 @@ class SettingsWindow extends Component {
             try {
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
+                this.props.history.push('/main');
             }
             catch (error) {
                 notification = NOTIFICATIONS.UNKNOWN;
             }
         }
 
-        this.setState({ notification })
+        // this.setState({ notification })
     }
 
     render() {
@@ -163,4 +165,4 @@ class SettingsWindow extends Component {
     }
 }
 
-export default SettingsWindow
+export default withRouter(SettingsWindow)

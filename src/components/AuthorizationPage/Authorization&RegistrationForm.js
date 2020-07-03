@@ -121,6 +121,7 @@ class AuthorizationForm extends Component {
     authorizationRequest = async (event) => {
         event.preventDefault();
       let newUser = new UserModel({
+        name: this.state.name,
         email: this.state.email,
         password: this.state.password
       });
@@ -136,9 +137,9 @@ class AuthorizationForm extends Component {
         }
       } else{
         try {
-            console.log(newUser)
           let userId = await Users.addUser(newUser);
           localStorage.userId = userId;
+          this.props.history.push('/sign_in');
         } catch (error) {
           this.showError('Ошибка регистрации!');
         }

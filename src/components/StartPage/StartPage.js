@@ -10,6 +10,7 @@ import StartPageMain from "./StartPageMain";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import Header from "./Header";
 import Footer from "./Footer";
+import Sidebar from "../Sidebar/Sidebar";
 
 class StartPage extends React.Component {
 
@@ -55,6 +56,9 @@ class StartPage extends React.Component {
                         <Route path="/settings">
                             <SettingsWindow history={this.props.history}
                                             authSuccess={this.state.authSuccess}/>
+                        </Route>
+                        <Route path="/main">
+                            <Sidebar history={this.props.history}/>
                         </Route>
                     </Switch>
                 </div>
