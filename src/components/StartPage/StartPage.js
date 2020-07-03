@@ -30,6 +30,9 @@ class StartPage extends React.Component {
                         <Route path="/settings">
                             <SettingsWindow />
                         </Route>
+                        <Route path="/main">
+                            <Sidebar />
+                        </Route>
                     </Switch>
                 </Router>
             )
