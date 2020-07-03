@@ -20,15 +20,16 @@ class StartPage extends React.Component {
 
 
     render = () => {
+        const user = {id: localStorage.userId, token: localStorage.token}
         if (this.state.authSuccess) {
             return (
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <SettingsWindow />
+                            <SettingsWindow user={user} />
                         </Route>
                         <Route path="/settings">
-                            <SettingsWindow />
+                            <SettingsWindow user={user} />
                         </Route>
                     </Switch>
                 </Router>
@@ -55,7 +56,8 @@ class StartPage extends React.Component {
                             <Footer />
                         </Route>
                         <Route path="/settings">
-                            <SettingsWindow history={this.props.history}
+                            <SettingsWindow user={user}
+                                            history={this.props.history}
                                             authSuccess={this.state.authSuccess}/>
                         </Route>
                     </Switch>

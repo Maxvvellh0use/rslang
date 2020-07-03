@@ -226,10 +226,11 @@ class AuthorizationForm extends Component {
     }
 
  render = () => {
+        const user = {id: localStorage.userId, token: localStorage.token}
         if (localStorage.authSuccess) {
             this.props.history.push('/settings')
             return (
-                <SettingsWindow />
+                <SettingsWindow user={user} />
             )
         }
      return (

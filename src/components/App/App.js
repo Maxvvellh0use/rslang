@@ -9,8 +9,8 @@ import Sidebar from '../Sidebar/Sidebar';
 function App(props) {
   return (
     <div>
-      {/*<StartPage history={props.history}/>*/}
-      <Card />
+      <StartPage history={props.history}/>
+      {/*<Card />*/}
     </div>
   );
 }
