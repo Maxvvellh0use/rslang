@@ -15,8 +15,6 @@ import SettingsWindow from "../SettingsWindow/SettingsWindow";
 
 class AuthorizationForm extends Component {
 
-
-
     state = {
       name: '',
       email: '',
@@ -138,6 +136,7 @@ class AuthorizationForm extends Component {
         }
       } else{
         try {
+            console.log('register!')
           let userId = await Users.addUser(newUser);
           localStorage.userId = userId;
         } catch (error) {
@@ -226,11 +225,10 @@ class AuthorizationForm extends Component {
     }
 
  render = () => {
-        const user = {id: localStorage.userId, token: localStorage.token}
         if (localStorage.authSuccess) {
             this.props.history.push('/settings')
             return (
-                <SettingsWindow user={user} />
+                <SettingsWindow />
             )
         }
      return (

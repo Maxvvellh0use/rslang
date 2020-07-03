@@ -21,16 +21,18 @@ class SettingsWindow extends Component {
                 exampleSentense: false,
                 autoPlay: false,
             }
-        }
+        },
+        user: {id: localStorage.userId, token: localStorage.userToken}
     }
 
     async componentDidMount() {
+        console.log(this.props.user)
         await this.getUserSettings();
     }
 
     async getUserSettings() {
         try {
-            const settingsRequest = await UserSettings.getUserSettings(this.props.user);
+            const settingsRequest = await UserSettings.getUserSettings(this.state.user);
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }
@@ -41,7 +43,7 @@ class SettingsWindow extends Component {
 
     async updateUserSettings(settings) {
         await UserSettings.updateUserSettings({
-            authUser: this.props.user,
+            authUser: this.state.user,
             wordsPerDay: 1,
             optional: settings,
         })
