@@ -2,9 +2,6 @@ import React from "react";
 import './ProgressBar.scss'
 
 class ProgressBar extends React.Component{
-    constructor(props) {
-        super(props);
-    }
 
     state = {
         progressBarWidth: this.props.width,

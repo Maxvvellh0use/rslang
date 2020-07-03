@@ -35,6 +35,7 @@
 
 .header_block__log_buttons button {
     margin: 10px;
+    border-radius: $border-radius-button;
 }
 
 .main_content__description__wrapper {
@@ -43,7 +44,7 @@
 }
 
 .main_content__description {
-    margin-top: 40px;
+    margin-top: 15vh;
 }
 
 .main_content__description__h2 {
@@ -83,7 +84,13 @@
     background-position-y: center;
 }
 
-.main_content__description__button, %transition  {
+.main_content__description__button {
+    @extend %my-transition;
+    &:hover {
+        cursor: pointer;
+        color: $color-button-start-page;
+        background: $color-body;
+    }
     border: 4px solid $color-button-start-page;
     align-self: center;
     margin-top: 40px;
@@ -94,11 +101,12 @@
     user-select: none;
     color: $color-text-button-start-page;
     background: $color-button-start-page;
-    &:hover {
-        cursor: pointer;
-        background: $color-button-start-page;
-        color: $color-text-button-start-page;
-    }
+}
+
+.footer_start_page {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer_start_page_wrapper {
@@ -108,7 +116,8 @@
     height: 120px;
 }
 
-.main_content__description__promo_button, %transition  {
+.main_content__description__promo_button {
+    @extend %my-transition;
     font-size: 30px;
     border-radius: 5px;
     border: 4px solid $color-button-start-page;
@@ -117,8 +126,7 @@
     background: $color-button-start-page;
     &:hover {
         cursor: pointer;
-        background: $color-button-start-page;
-        color: aliceblue;
+        transform: scale(1.07);
     }
 }
 
@@ -126,6 +134,11 @@
     margin-top: 80px;
     background: $color-footer-start-page;
     height: 120px;
+}
+
+.show_word__button {
+    cursor: pointer;
+    color: $color-link-card;
 }
 
 

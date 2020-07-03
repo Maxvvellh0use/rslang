@@ -1,7 +1,7 @@
 @import "../../../style/placeholders";
 
 .next_and_audio__audio_button  {
-  @extend %transition;
+  @extend %my-transition;
   cursor: pointer;
   padding-left: 10px;
   width: 30px;
@@ -24,7 +24,7 @@
 }
 
 .next_and_audio__next {
-  @extend %transition;
+  @extend %my-transition;
   cursor: pointer;
   background-image: url(../../../assets/img/icons/next-word-icon.png);
   animation-duration: 1s;
