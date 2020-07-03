@@ -136,7 +136,7 @@ class AuthorizationForm extends Component {
         }
       } else{
         try {
-            console.log('register!')
+            console.log(newUser)
           let userId = await Users.addUser(newUser);
           localStorage.userId = userId;
         } catch (error) {
