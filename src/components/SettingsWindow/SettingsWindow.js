@@ -27,7 +27,6 @@ class SettingsWindow extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props.user)
         await this.getUserSettings();
     }
 
