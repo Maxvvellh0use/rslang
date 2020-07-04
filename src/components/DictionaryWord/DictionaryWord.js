@@ -3,8 +3,10 @@ import cx from 'clsx';
 import './DictionaryWord.scss';
 import DictionaryWordModel from '../../models/DictionaryWordModel';
 import DictionaryDropdownMenu from '../DictionaryDropdownMenu/DictionaryDropdownMenu';
+import fallbackImage from '../../assets/img/learn_start_page_icon.png';
 
 const DEFAULT_CLASS = 'dictionary__word';
+//const onerrorImagePath = 'assets/img/learn_start_page_icon.png';
 
 export default class DictionaryWord extends React.Component {
   static defaultProps = {
@@ -13,6 +15,7 @@ export default class DictionaryWord extends React.Component {
     selectedClassName: `${DEFAULT_CLASS}_selected`,
     id: null,
     dictionaryWord: new DictionaryWordModel({}),
+    
   };
 
   constructor(props) {
@@ -43,7 +46,7 @@ export default class DictionaryWord extends React.Component {
       dictionaryWord,
       moveWord,
       ...attributes
-    } = this.props;
+    } = this.props;    
 
     return (
       <li
@@ -73,31 +76,30 @@ export default class DictionaryWord extends React.Component {
               this.state.showSentenceTranslation ? (
                 <p className='dictionary__word__meaning'>{dictionaryWord.textMeaningTranslate}</p>
               ) : (
-                  <p className='dictionary__word__meaning'>{dictionaryWord.textMeaning}</p>)
+                  <p className='dictionary__word__meaning'
+                  dangerouslySetInnerHTML={{__html: dictionaryWord.textMeaning}}></p>)
             ) : (null)}
 
             {this.state.dictionarySettings.showExample ? (
               this.state.showSentenceTranslation ? (
                 <p className='dictionary__word__example'>{dictionaryWord.textExampleTranslate}</p>
               ) : (
-                  <p className='dictionary__word__example'>{dictionaryWord.textExample}</p>)
+                  <p className='dictionary__word__example'  
+                    dangerouslySetInnerHTML={{__html: dictionaryWord.textExample}} ></p>)
             ) : (null)}
           </div>
 
           <div>
             {this.state.dictionarySettings.showImage ? (
               <div className='dictionary__word__image-container'>
-                <img src={dictionaryWord.imagePath} alt='img' className='dictionary__word__image'></img>
+                <img src={dictionaryWord.imagePath}
+                  onError={(e)=>{e.target.src=fallbackImage}}
+                  alt='img' className='dictionary__word__image'></img>
                 <div className='dictionary__word__image'></div>
               </div>
             ) : (null)}
           </div>
-
         </div>
-
-
-
-
 
         <div className='dictionary__word__translate-button'
           onClick={() => this.setState({ showSentenceTranslation: !this.state.showSentenceTranslation })}
@@ -112,4 +114,3 @@ export default class DictionaryWord extends React.Component {
 }
 
 // this.audioPath = audioPath;
-// this.imagePath = imagePath;

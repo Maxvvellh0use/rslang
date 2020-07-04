@@ -26,8 +26,7 @@ export default class AggregatedWords {
         Accept: 'application/json',
       },
     };
-    const response = await DataHelper.makeRequest(url, data, errorMessage);    
+    const response = await DataHelper.makeRequest(url, data, errorMessage); 
     return response[0].paginatedResults.map((element) => new AggregatedWordModel({...element, id: element._id}));
   }
-
 }

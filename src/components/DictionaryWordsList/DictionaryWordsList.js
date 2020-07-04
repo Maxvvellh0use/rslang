@@ -25,7 +25,8 @@ export default class DictionaryWordsList extends React.Component {
           <DictionaryWord 
           id={word.wordId} 
           key={word.wordId} 
-          dictionaryWord={word} moveWord={moveWord} />
+          dictionaryWord={word} 
+          moveWord={moveWord} />
         ))}
       </ul>
     );

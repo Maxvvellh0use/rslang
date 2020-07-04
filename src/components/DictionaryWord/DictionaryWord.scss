@@ -9,7 +9,7 @@
     flex-direction: column;
 
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 50px;
     margin-bottom: 10px;
 
     border-radius: 5px;
@@ -30,6 +30,7 @@
       flex-direction: row;
       flex-grow: 1;
       flex-shrink: 1;      
+      justify-content: space-between;
     }
 
     &__main-container {
@@ -37,6 +38,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-items: center;
+      padding-left: 5px;
     }
 
     &__name {
@@ -55,7 +57,7 @@
 
     &__translate {
       font-weight: 700;
-      padding: 0;
+      padding-left: 5px;
       margin: 0;
       text-transform: lowercase;
     }
@@ -63,7 +65,8 @@
     &__meaning,
     &__example {
       color: $dictionary-word-card-font-color-secondary;
-      padding: 0;
+      font-size: 18px;
+      padding: 5px;
       margin: 0;
     }
 

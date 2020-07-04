@@ -1,3 +1,4 @@
+import UserWordStatisticsModel from './UserWordStatisticsModel';
 
 export const dictionaryTabName = {
   learning: 'Изучаемые слова',
@@ -17,8 +18,8 @@ export default class DictionaryWordModel {
       textMeaningTranslate = 'Text meaning translation',
       transcription = 'Transcription',
       audioPath = '',
-      imagePath = '',
-      dictionaryTab = dictionaryTabName.learning,
+      imagePath = '',      
+      statistics = new UserWordStatisticsModel({}),
     }
   ) {
     this.wordId = wordId;
@@ -30,8 +31,15 @@ export default class DictionaryWordModel {
     this.textMeaningTranslate = textMeaningTranslate;
     this.transcription = transcription;
     this.audioPath = audioPath;
-    this.imagePath = imagePath;
-    this.dictionaryTab = dictionaryTab;
-      
+    this.imagePath = imagePath;    
+    this.statistics = statistics;  
   }
+
+  get dictionaryTab() {       
+    return this.statistics.optional.dictionaryTab;
+  }
+  set dictionaryTab(value) {
+    this.statistics.optional.dictionaryTab = value;
+  }
+
 }

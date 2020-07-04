@@ -4,9 +4,12 @@ import '../../style/index.scss';
 import DictionaryPage from "../DictionaryPage/DictionaryPage";
 
 function App() {
+
+  const authUser = null;
+
   return (
     <div>
-      <DictionaryPage />
+      <DictionaryPage authUser={authUser}/>
     </div>
   );
 }
