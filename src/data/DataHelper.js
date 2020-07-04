@@ -1,6 +1,5 @@
 export default class DataHelper {
   static makeRequest = async (url, data = {}, errorMessage) => {
-    console.log({url, data})
     const rawResponse = await fetch(url, data);
     if (!rawResponse.ok) {
       switch (rawResponse.status) {
