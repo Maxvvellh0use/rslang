@@ -38,6 +38,10 @@ class Sidebar extends React.Component {
         e.currentTarget.parentElement.lastChild.style.opacity = 0;
     }
 
+    logout = () => {
+        localStorage.clear()
+    }
+
     render = () => {
         return (
             <section className="navbar_wrapper">
@@ -113,7 +117,7 @@ class Sidebar extends React.Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/startpage">
+                            <NavLink to="/" onClick={this.logout}>
                                 <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
                                     <LogOutIcon alt="abouticon" />
                                 </span>
