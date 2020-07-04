@@ -1,0 +1,30 @@
+.progress-container{
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 50px;
+    .today-progress-container{
+        .today-progress-first-row,
+        .today-progress-second-row{
+             display: grid;
+             grid-template-columns: repeat(3, 1fr);
+             grid-template-rows: auto;
+             grid-gap: 1rem;
+            .info-box{
+                background-color: #F5F5F5;
+                border-radius: 10px;
+                text-align: center;
+                margin: 5%; 
+                .box-title{
+                    padding: 5px;
+                }
+                .box-number{
+                    padding: 5px;            
+                }
+            }
+        }
+        .separator{
+            height: 1.5px;
+            background-color: #ebebeb;
+        }
+    }
+}

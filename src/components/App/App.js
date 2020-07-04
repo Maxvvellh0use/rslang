@@ -5,12 +5,13 @@ import StartPage from "../StartPage/StartPage";
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import Sidebar from '../Sidebar/Sidebar';
+import Progress from '../MainPage/Progress'
 
 function App(props) {
   return (
     <div>
       {/*<StartPage history={props.history}/>*/}
-      <Card />
+      <Progress />
     </div>
   );
 }

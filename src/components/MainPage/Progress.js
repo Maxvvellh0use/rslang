@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TodayProgress from '../Progress/TodayProgress/TodayProgress'
+import TodayProgress from '../MainPage/TodayProgress/TodayProgress'
+import './Progress.scss'
 class Progress extends Component {
     state = {
       
