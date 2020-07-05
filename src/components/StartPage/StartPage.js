@@ -25,7 +25,7 @@ class StartPage extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <SettingsWindow />
+                            <Sidebar />
                         </Route>
                         <Route path="/settings">
                             <SettingsWindow />
