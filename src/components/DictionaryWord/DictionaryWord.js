@@ -3,6 +3,7 @@ import cx from 'clsx';
 import './DictionaryWord.scss';
 import DictionaryWordModel from '../../models/DictionaryWordModel';
 import DictionaryDropdownMenu from '../DictionaryDropdownMenu/DictionaryDropdownMenu';
+import DictionarySound from '../DictionarySound/DictionarySound';
 import fallbackImage from '../../assets/img/learn_start_page_icon.png';
 
 const DEFAULT_CLASS = 'dictionary__word';
@@ -62,7 +63,7 @@ export default class DictionaryWord extends React.Component {
                 <p className='dictionary__word__transcription'>{dictionaryWord.transcription}</p>
               ) : (null)}
 
-              <div className='dictionary__word__audio'></div>
+              <DictionarySound audioPath={dictionaryWord.audioPath}/>
             </div>
 
             <p className='dictionary__word__translate'>{dictionaryWord.wordTranslate}</p>
@@ -108,4 +109,3 @@ export default class DictionaryWord extends React.Component {
   }
 }
 
-// this.audioPath = audioPath;
