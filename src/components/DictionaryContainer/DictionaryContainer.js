@@ -6,6 +6,7 @@ import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryW
 import { findElement } from '../../helpers/dictionaryHelper';
 import UserWords from '../../data/UserWords';
 import AggregatedWords from '../../data/AggregatedWords';
+import DictionaryToolPanel from '../DictionaryToolPanel/DictionaryToolPanel';
 
 export default class DictionaryContainer extends React.Component {
   constructor(props) {
@@ -18,6 +19,12 @@ export default class DictionaryContainer extends React.Component {
       learningSelected: true,
       difficultSelected: false,
       removedSelected: false,
+      wordSettings: {
+        showExampleText: true,
+        showImage: true,
+        showTranscription: true,
+      },
+      showToolPanel: true,
     }
   }
 
@@ -81,10 +88,11 @@ export default class DictionaryContainer extends React.Component {
     }));
   }
 
-  handleClick(event) {
+  handleClick = (event) => {
     const selectedTab = findElement(event.target, 'dictionary__tab');
     switch (selectedTab.id) {
       case 'tab-dictionary-learning':
+        if(this.state.learningSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_learning-selected',
           learningSelected: true,
@@ -93,6 +101,7 @@ export default class DictionaryContainer extends React.Component {
         });
         break;
       case 'tab-dictionary-difficult':
+        if(this.state.difficultSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_difficult-selected',
           learningSelected: false,
@@ -101,6 +110,7 @@ export default class DictionaryContainer extends React.Component {
         });
         break;
       case 'tab-dictionary-removed':
+        if(this.state.removedSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_removed-selected',
           learningSelected: false,
@@ -111,6 +121,9 @@ export default class DictionaryContainer extends React.Component {
       default:
         break;
     }
+
+    this.setState({ showToolPanel: false });
+    setTimeout(() => this.setState({ showToolPanel: true }), 600);
   }
 
   onDrop = (event, toDictionaryListName) => {
@@ -119,7 +132,7 @@ export default class DictionaryContainer extends React.Component {
     this.moveWord(dictionaryWord, toDictionaryListName);
   }
 
-  moveWord(dictionaryWord, toDictionaryListName) {
+  moveWord = (dictionaryWord, toDictionaryListName) => {
     if (toDictionaryListName === dictionaryWord.dictionaryTab) {
       return;
     } else {
@@ -145,7 +158,40 @@ export default class DictionaryContainer extends React.Component {
       this.setState((state) => ({
         ...state
       }));
+    }
+  }
 
+  handleToolPanelClick = (event) => {
+    switch (event.target.id) {
+      case 'tool-panel-subtitle':
+        this.setState({
+          wordSettings: {
+            showExampleText: this.state.wordSettings.showExampleText,
+            showImage: this.state.wordSettings.showImage,
+            showTranscription: !this.state.wordSettings.showTranscription,
+          }
+        });
+        break;
+      case 'tool-panel-image':
+        this.setState({
+          wordSettings: {
+            showExampleText: this.state.wordSettings.showExampleText,
+            showImage: !this.state.wordSettings.showImage,
+            showTranscription: this.state.wordSettings.showTranscription,
+          }
+        });
+        break;
+      case 'tool-panel-text':
+        this.setState({
+          wordSettings: {
+            showExampleText: !this.state.wordSettings.showExampleText,
+            showImage: this.state.wordSettings.showImage,
+            showTranscription: this.state.wordSettings.showTranscription,
+          }
+        });
+        break;
+      default:
+        break;
     }
   }
 
@@ -157,7 +203,6 @@ export default class DictionaryContainer extends React.Component {
 
     return (
       <div {...attributes}
-        onMouseDown={this.handleMousedown}
         className="dictionary__container">
         <div className={`dictionary__panel ${this.state.selectedClass}`}>
           <DictionaryCategoryPanelContent
@@ -166,6 +211,7 @@ export default class DictionaryContainer extends React.Component {
             dictionaryWordsList={this.state[dictionaryTabName.learning]}
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
+            wordSettings={this.state.wordSettings}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_difficult"
@@ -173,6 +219,7 @@ export default class DictionaryContainer extends React.Component {
             dictionaryWordsList={this.state[dictionaryTabName.difficult]}
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
+            wordSettings={this.state.wordSettings}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_removed"
@@ -180,6 +227,7 @@ export default class DictionaryContainer extends React.Component {
             dictionaryWordsList={this.state[dictionaryTabName.removed]}
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
+            wordSettings={this.state.wordSettings}
           />
         </div>
 
@@ -213,11 +261,10 @@ export default class DictionaryContainer extends React.Component {
             onDrop={event => this.onDrop(event, dictionaryTabName.removed)}
           />
         </div>
-        <div className='dictionary__tool-panel'>
-          <div className='dictionary__tool-panel__tool dictionary__tool-panel__tool_subtitle'></div>
-          <div className='dictionary__tool-panel__tool dictionary__tool-panel__tool_image'></div>
-          <div className='dictionary__tool-panel__tool dictionary__tool-panel__tool_text'></div>
-        </div>
+        {this.state.showToolPanel && <DictionaryToolPanel
+          handleToolPanelClick={this.handleToolPanelClick.bind(this)}
+          wordSettings={this.state.wordSettings}
+        />}
       </div>
     );
   }

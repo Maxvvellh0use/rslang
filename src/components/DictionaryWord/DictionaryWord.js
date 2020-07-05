@@ -21,13 +21,7 @@ export default class DictionaryWord extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      dictionarySettings: {
-        showTranscription: true,
-        showMeaning: true,
-        showExample: true,
-        showImage: true,
-      },
+    this.state = {      
       showSentenceTranslation: false,
     };
   };
@@ -45,6 +39,7 @@ export default class DictionaryWord extends React.Component {
       selectedClassName,
       dictionaryWord,
       moveWord,
+      wordSettings,
       ...attributes
     } = this.props;    
 
@@ -63,7 +58,7 @@ export default class DictionaryWord extends React.Component {
             <div className='dictionary__word__main-container'>
               <p className='dictionary__word__name'>{dictionaryWord.word}</p>
 
-              {this.state.dictionarySettings.showTranscription ? (
+              {wordSettings.showTranscription ? (
                 <p className='dictionary__word__transcription'>{dictionaryWord.transcription}</p>
               ) : (null)}
 
@@ -72,7 +67,7 @@ export default class DictionaryWord extends React.Component {
 
             <p className='dictionary__word__translate'>{dictionaryWord.wordTranslate}</p>
 
-            {this.state.dictionarySettings.showMeaning ? (
+            {wordSettings.showExampleText ? (
               this.state.showSentenceTranslation ? (
                 <p className='dictionary__word__meaning'>{dictionaryWord.textMeaningTranslate}</p>
               ) : (
@@ -80,7 +75,7 @@ export default class DictionaryWord extends React.Component {
                   dangerouslySetInnerHTML={{__html: dictionaryWord.textMeaning}}></p>)
             ) : (null)}
 
-            {this.state.dictionarySettings.showExample ? (
+            {wordSettings.showExampleText ? (
               this.state.showSentenceTranslation ? (
                 <p className='dictionary__word__example'>{dictionaryWord.textExampleTranslate}</p>
               ) : (
@@ -90,7 +85,7 @@ export default class DictionaryWord extends React.Component {
           </div>
 
           <div>
-            {this.state.dictionarySettings.showImage ? (
+            {wordSettings.showImage ? (
               <div className='dictionary__word__image-container'>
                 <img src={dictionaryWord.imagePath}
                   onError={(e)=>{e.target.src=fallbackImage}}

@@ -33,7 +33,7 @@
       opacity: 1;
       cursor: default;
       z-index: 5;
-      transform: scale(1.07)
+      @extend %scale;
     }
     &:hover {
       @extend %transition;
@@ -45,8 +45,7 @@
       border-top-right-radius: 10px;
     }
     &_difficult {
-      background-color: $dictionary-difficult-panel-background;
-      //margin: 5px 0;
+      background-color: $dictionary-difficult-panel-background;      
     }
     &_removed {
       background-color: $dictionary-removed-panel-background;

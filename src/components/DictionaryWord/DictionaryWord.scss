@@ -14,6 +14,7 @@
 
     border-radius: 5px;
     @extend %card-shadow;
+    @extend %transition;
 
     cursor: move;
 
@@ -53,6 +54,7 @@
       padding: 0 15px 0 0;
       margin: 0;
       text-transform: lowercase;
+      @extend %transition;
     }
 
     &__translate {
@@ -68,6 +70,7 @@
       font-size: 18px;
       padding: 5px;
       margin: 0;
+      @extend %transition;
     }
 
     &__audio {
@@ -79,12 +82,19 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
+      @extend %transition;
+
+      &:hover {
+        @extend %scale;
+        @extend %transition;
+      }
     }
 
     &__image-container {
       position: relative;
       width: 200px;
       height: 200px;
+      @extend %transition;
     }
     &__image {
       display: block;
@@ -111,10 +121,12 @@
       z-index: 10;
       opacity: 0.6;
       @extend %transition;
+      
 
       &:hover {
         opacity: 1;
         @extend %transition;
+        @extend %scale;
       }
     }
   }

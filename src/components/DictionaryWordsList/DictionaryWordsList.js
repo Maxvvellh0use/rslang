@@ -15,7 +15,7 @@ export default class DictionaryWordsList extends React.Component {
   };
 
   render() {
-    const { id, className, dictionaryWordsList, moveWord, ...attributes } = this.props;
+    const { id, className, dictionaryWordsList, moveWord, wordSettings, ...attributes } = this.props;
     return (
       <ul
         {...attributes}
@@ -26,7 +26,8 @@ export default class DictionaryWordsList extends React.Component {
           id={word.wordId} 
           key={word.wordId} 
           dictionaryWord={word} 
-          moveWord={moveWord} />
+          moveWord={moveWord}
+          wordSettings={wordSettings} />
         ))}
       </ul>
     );

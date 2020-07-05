@@ -1,0 +1,54 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+@import "../../style/mixins";
+
+.dictionary__tool-panel {
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 30px;
+  width: 100px;
+  @extend %transition;
+
+
+  &__tool {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;      
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 20;
+
+    border-bottom: 2px solid red;
+
+    opacity: 0.6;
+    @extend %transition;
+
+    &:hover {
+      opacity: 1;
+      @extend %transition;
+      @extend %scale;
+    }
+
+    &_selected {
+      border-bottom: 2px solid rgb(0, 92, 0);
+      
+    }
+    
+    &_text {      
+      background-image: url(../../assets/img/icons/text_snippet.svg);      
+    }
+    &_subtitle {
+      background-image: url(../../assets/img/icons/subtitles.svg);      
+    }
+    &_image {
+      background-image: url(../../assets/img/icons/image.svg);      
+    }
+  }
+}
