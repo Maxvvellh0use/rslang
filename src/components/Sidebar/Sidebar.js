@@ -117,7 +117,7 @@ class Sidebar extends React.Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/" onClick={this.logout}>
+                            <NavLink to="/" exact onClick={this.logout}>
                                 <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
                                     <LogOutIcon alt="abouticon" />
                                 </span>
