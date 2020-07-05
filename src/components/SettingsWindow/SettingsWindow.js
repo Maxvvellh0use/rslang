@@ -23,10 +23,13 @@ class SettingsWindow extends Component {
                 autoPlay: false,
             }
         },
-        user: {id: localStorage.userId, token: localStorage.userToken}
+        user: {
+            id: localStorage.userId,
+            token: localStorage.userToken
+        }
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         await this.getUserSettings();
     }
 
@@ -36,7 +39,9 @@ class SettingsWindow extends Component {
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }
-        catch (error) { }
+        catch (error) {
+            console.log(error)
+        }
 
         this.setState({ isLoaded: true })
     }
@@ -82,22 +87,24 @@ class SettingsWindow extends Component {
 
         if (dailyGreaterMax) {
             notification = NOTIFICATIONS.CANNOT_BE_GREATER;
+            this.setState({ notification })
         }
         else if (noCheckedTips) {
             notification = NOTIFICATIONS.NO_CHECKED;
+            this.setState({ notification })
         }
         else {
             try {
+                console.log(settings)
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
                 this.props.history.push('/main');
             }
             catch (error) {
                 notification = NOTIFICATIONS.UNKNOWN;
+                this.setState({ notification })
             }
         }
-
-        // this.setState({ notification })
     }
 
     render() {

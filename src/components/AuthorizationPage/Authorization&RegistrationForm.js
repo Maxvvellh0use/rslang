@@ -12,6 +12,7 @@ import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
 import { withRouter } from "react-router-dom";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
+import UserSettings from "../../data/UserSettings";
 
 class AuthorizationForm extends Component {
 
@@ -131,7 +132,13 @@ class AuthorizationForm extends Component {
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
           localStorage.authSuccess = true;
-          this.props.history.push('/settings')
+          const user = {
+              id: localStorage.userId,
+              token: localStorage.userToken
+          }
+          const isANewUser = this.isANewUser(user);
+          isANewUser ? this.props.history.push('/main')
+              : this.props.history.push('/settings');
         } catch (error) {
           this.showError('Ошибка авторизации!');
         }
@@ -144,6 +151,12 @@ class AuthorizationForm extends Component {
           this.showError('Ошибка регистрации!');
         }
       }
+    }
+
+    isANewUser = async (user) => {
+        const settingsRequest = await UserSettings.getUserSettings(user);
+        const settings = settingsRequest.optional;
+        return settings;
     }
 
     isAuthorization = () => {
