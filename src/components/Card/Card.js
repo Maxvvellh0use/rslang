@@ -5,9 +5,11 @@ import CustomInput from "./CustomInput/CustomInput";
 import splitSentence from "./helpers/splitSentence.helper";
 import checkWord from "./helpers/checkWord.helper";
 import getInputWidth from "./helpers/getInputWidth.helper";
+import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
 import { startProgress } from "./const";
+import Spinner from "../Spinner/Spinner";
 
 class Card extends React.Component {
     inputWord = React.createRef();
@@ -27,6 +29,10 @@ class Card extends React.Component {
         spanLettersClass: '',
         startWords:0,
         totalWords: 50,
+        transcription: '',
+        imagePath: '',
+        imageLoad: false,
+        spinner: true,
         progressBarWords: startProgress
     }
 
@@ -42,6 +48,7 @@ class Card extends React.Component {
     }
 
     createCard = async () => {
+        this.showSpinner();
         const wordModel = await this.getWordModel();
         const word = wordModel.word;
         const wordTranslation = wordModel.wordTranslate;
@@ -51,6 +58,8 @@ class Card extends React.Component {
         const splitSentenceObject = splitSentence(sentence);
         const startSentence = splitSentenceObject.startSentence;
         const endSentence = splitSentenceObject.endSentence;
+        const transcription = wordModel.transcription;
+        const imagePath = wordModel.imagePath;
         const wordLength = word.length
         const widthInput = getInputWidth(wordLength);
         this.setState({
@@ -65,20 +74,57 @@ class Card extends React.Component {
             valueInputWord: '',
             inputClassColor: '',
             spanLettersClass: '',
-            spanCheckValue: ''
+            spanCheckValue: '',
+            transcription: transcription,
+            imagePath: imagePath,
         })
+        this.imagePreload();
         this.audioListener();
     }
 
     componentDidMount = async () => {
         try {
+            await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
             this.inputWord.current.focusInput();
+            await this.playWordAudio();
         }
        catch (e) {
            console.log('ERROR');
        }
+    }
+
+    imagePreload = () => {
+        const image = new Image();
+        image.src = this.state.imagePath;
+        image.addEventListener('load', () => {
+            this.setState({ imageLoad: true });
+            this.hideSpinner();
+        })
+    }
+
+    hideSpinner = () => {
+        this.setState( {
+            spinner: false,
+        })
+    }
+
+    showSpinner = () => {
+        this.setState( {
+            spinner: true,
+        })
+    }
+
+    getUserSettings = async () => {
+        localStorage.userId = '5eff81a98a12520017380c71'
+        localStorage.userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZmY4MWE5OGExMjUyMDAxNzM4MGM3MSIsImlhdCI6MTU5Mzk1NDE1OSwiZXhwIjoxNTkzOTY4NTU5fQ.mWeBu6s7D9c1O4p7DwMdgaJOhWOmmAy2QK8nETATfiw'
+        const user = {
+            id: localStorage.userId,
+            token: localStorage.userToken
+        }
+        const userSettings = await UserSettings.getUserSettings(user);
+        console.log(userSettings)
     }
 
     audioListener = () => {
@@ -132,7 +178,7 @@ class Card extends React.Component {
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters(),
                 progressBarWords: this.state.progressBarWords + changeOfProgress,
-                startWords: this.state.startWords + changeOfWords
+                startWords: this.state.startWords + changeOfWords,
             })
         } else {
             this.inputWord.current.blurInput();
@@ -181,6 +227,11 @@ class Card extends React.Component {
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
         }
+        if (this.state.spinner) {
+            return (
+                <Spinner className="spinner_card" />
+            )
+        }
         return (
             <main>
                 <section className="card_word__section">
@@ -196,6 +247,11 @@ class Card extends React.Component {
                                     <div className="card_word__main__sentence_translation">
                                         <p>{this.state.sentenceTranslation}</p>
                                     </div>
+                                </div>
+                                <div className="transcription_and_image">
+                                    <span className="transcription_and_image__transcription">{this.state.transcription}</span>
+                                    <img src={this.state.imagePath} className="transcription_and_image__image"
+                                         alt="Word image"/>
                                 </div>
                                 <div className="next_and_audio">
                                     <SpanButton className="next_and_audio__next"
