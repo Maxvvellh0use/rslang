@@ -1,6 +1,7 @@
 import React from 'react';
 import './DictionaryCategoryPanelContent.scss';
 import DictionaryWordsList from '../DictionaryWordsList/DictionaryWordsList';
+import DictionarySpinner from '../DictionarySpinner/DictionarySpinner';
 
 const DEFAULT_CLASS = 'dictionary__panel-content';
 
@@ -10,6 +11,7 @@ export default class DictionaryCategoryPanelContent extends React.Component {
     dictionaryWordsList: [],
     name: 'Panel Content',
     user: 'my words',
+    isLoaded: false,
   };
 
   render() {
@@ -19,6 +21,7 @@ export default class DictionaryCategoryPanelContent extends React.Component {
       moveWord,
       userName,
       wordSettings,
+      isLoaded,
       ...attributes } = this.props;
 
     return (
@@ -26,13 +29,20 @@ export default class DictionaryCategoryPanelContent extends React.Component {
         {...attributes}
       >
         <h1 className='dictionary__panel-content__title'>{name}</h1>
-        <div onDrop={console.log} className="dictionary__panel-content__scroll">
-          <DictionaryWordsList
-            dictionaryWordsList={dictionaryWordsList}
-            moveWord={moveWord}
-            wordSettings={wordSettings}
-          />
-        </div>
+        {isLoaded ?
+          (
+            <div className="dictionary__panel-content__scroll">
+              <DictionaryWordsList
+                dictionaryWordsList={dictionaryWordsList}
+                moveWord={moveWord}
+                wordSettings={wordSettings}
+              />
+            </div>
+          ) :
+          (
+            <DictionarySpinner />
+          )
+        }
         <p className='dictionary__panel-content__footer'>{userName}</p>
       </div>
     );

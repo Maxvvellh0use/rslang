@@ -25,6 +25,7 @@ export default class DictionaryContainer extends React.Component {
         showTranscription: true,
       },
       showToolPanel: true,
+      isLoaded: false,
     }
   }
 
@@ -85,6 +86,7 @@ export default class DictionaryContainer extends React.Component {
       [dictionaryTabName.learning]: learningWords,
       [dictionaryTabName.difficult]: difficultWords,
       [dictionaryTabName.removed]: removedWords,
+      isLoaded: true,
     }));
   }
 
@@ -212,6 +214,7 @@ export default class DictionaryContainer extends React.Component {
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
             wordSettings={this.state.wordSettings}
+            isLoaded={this.state.isLoaded}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_difficult"
@@ -220,6 +223,7 @@ export default class DictionaryContainer extends React.Component {
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
             wordSettings={this.state.wordSettings}
+            isLoaded={this.state.isLoaded}
           />
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_removed"
@@ -228,6 +232,7 @@ export default class DictionaryContainer extends React.Component {
             moveWord={this.moveWord.bind(this)}
             userName={authUser.email}
             wordSettings={this.state.wordSettings}
+            isLoaded={this.state.isLoaded}
           />
         </div>
 

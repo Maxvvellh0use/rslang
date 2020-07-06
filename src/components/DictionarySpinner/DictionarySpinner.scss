@@ -1,0 +1,49 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+@import "../../style/mixins";
+
+.dictionary__spinner {
+  position: relative;  
+  display: block;
+  width: 200px;
+  height: 200px;  
+  align-self: center;
+  background-image: url(../../assets/img/learn_start_page_icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation: spin  3s 500ms infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    @include rotateZ(0deg);
+  }
+  15% {
+    @include rotateZ(45deg);
+  }
+  30% {
+    @include rotateZ(0deg);
+  }
+  45% {
+    @include rotateZ(-45deg);
+  }
+  60% {
+    @include rotateZ(0deg);
+  }
+  65% {
+    @include rotateZ(90deg);
+  }
+  70% {
+    @include rotateZ(180deg);
+  }
+  75% {
+    @include rotateZ(270deg);
+  }
+  80% {
+    @include rotateZ(360deg);
+  }
+  100% {
+    @include rotateZ(360deg);
+  }  
+}

@@ -4,8 +4,6 @@ import './DictionarySound.scss';
 import soundCheck from '../../assets/sounds/sound_check.mp3';
 
 const DEFAULT_CLASS = 'dictionary__sound';
-//const onerrorImagePath = 'assets/img/learn_start_page_icon.png';
-
 export default class DictionaryWord extends React.Component {
   static defaultProps = {
     className: DEFAULT_CLASS,
@@ -26,7 +24,8 @@ export default class DictionaryWord extends React.Component {
     this.setState({ isActive: true });
     const audio = new Audio(audioPath);
     audio.onended = () => this.setState({ isActive: false });
-    audio.onerror = () => this.setState({ isActive: false });
+    audio.onerror = () => {this.setState({ isActive: false })};
+    audio.load();
     audio.play();
   }
 
