@@ -80,6 +80,7 @@ class Card extends React.Component {
         })
         this.imagePreload();
         this.audioListener();
+        await this.playWordAudio();
     }
 
     componentDidMount = async () => {
@@ -99,6 +100,7 @@ class Card extends React.Component {
         const image = new Image();
         image.src = this.state.imagePath;
         image.addEventListener('load', () => {
+            console.log('load')
             this.setState({ imageLoad: true });
             this.hideSpinner();
         })
@@ -117,8 +119,6 @@ class Card extends React.Component {
     }
 
     getUserSettings = async () => {
-        localStorage.userId = '5eff81a98a12520017380c71'
-        localStorage.userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZmY4MWE5OGExMjUyMDAxNzM4MGM3MSIsImlhdCI6MTU5Mzk1NDE1OSwiZXhwIjoxNTkzOTY4NTU5fQ.mWeBu6s7D9c1O4p7DwMdgaJOhWOmmAy2QK8nETATfiw'
         const user = {
             id: localStorage.userId,
             token: localStorage.userToken
@@ -205,7 +205,8 @@ class Card extends React.Component {
     showWord = async () => {
         this.setState({
             valueInputWord: this.state.inputDataCheck,
-            inputClassColor: ''
+            inputClassColor: '',
+            spanCheckValue: '',
         })
         await this.playWordAudio()
         setTimeout(async () => {await this.createCard()}, 1000);
