@@ -13,6 +13,9 @@ import { ReactComponent as LogOutIcon } from '../../assets/img/icons_navbar/logo
 import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
+import { NAVLINK_ARRAY } from "./const";
+import NavbarLink from "./NavbarLink";
+import AskAgain from "./AskAgain";
 
 class Sidebar extends React.Component {
     state = {
@@ -62,6 +65,21 @@ class Sidebar extends React.Component {
                                 </div>
                             </a>
                         </li>
+                        {/* {
+                            NAVLINK_ARRAY.map((navlink, index) => {
+                                return (
+                                    <NavbarLink key={index}
+                                                path={navlink.path}
+                                                text={navlink.text}
+                                                icon={navlink.icon}
+                                                enterHover={this.enterHover}
+                                                leaveHover={this.leaveHover}
+                                                state={this.state}
+                                                exact={index == 5 ? true : false}
+                                    />
+                                )
+                            })
+                        } */}
                         <li>
                             <NavLink to="/main/words">
                                 <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
