@@ -11,7 +11,6 @@ import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
 import { withRouter } from "react-router-dom";
-import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import UserSettings from "../../data/UserSettings";
 import Sidebar from "../Sidebar/Sidebar";
 

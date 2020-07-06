@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Sidebar.scss';
-import { NavLink, Router, Route, Switch, withRouter } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { ReactComponent as WordsIcon } from '../../assets/img/icons_navbar/words.svg';
 import { ReactComponent as GamesIcon } from '../../assets/img/icons_navbar/games.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/img/icons_navbar/settings.svg';
@@ -13,10 +13,6 @@ import { ReactComponent as LogOutIcon } from '../../assets/img/icons_navbar/logo
 import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
-import StartPage from "../StartPage/StartPage";
-import Header from "../StartPage/Header";
-import StartPageMain from "../StartPage/StartPageMain";
-import Footer from "../StartPage/Footer";
 
 class Sidebar extends React.Component {
     state = {
@@ -45,7 +41,6 @@ class Sidebar extends React.Component {
     logout = () => {
         localStorage.clear()
         this.props.isAuthorization();
-        this.props.history.push('/');
     }
 
     render = () => {
@@ -60,7 +55,7 @@ class Sidebar extends React.Component {
                                     <ArrowLeftIcon style={{display: this.state.expand ? 'inline' : 'none'}} />
                                 </span>
                                 <span className="nav_text_icon" style={{opacity: this.state.expand ? 1 : 0}}>
-                                    <img className="nav_logo" src={logoIcon} />
+                                    <img className="nav_logo" src={logoIcon} alt='navigation logo'/>
                                 </span>
                                 <div className="hint">
                                     <span className="hint_label">Развернуть</span>
@@ -123,7 +118,7 @@ class Sidebar extends React.Component {
                             </NavLink>
                         </li>
                         <li>
-                            <a onClick={this.logout}>
+                            <NavLink exact to="/" onClick={this.logout}>
                                 <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
                                     <LogOutIcon alt="abouticon" />
                                 </span>
@@ -131,7 +126,7 @@ class Sidebar extends React.Component {
                                 <div className="hint">
                                     <span className="hint_label">Выход</span>
                                 </div>
-                            </a>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
