@@ -39,7 +39,6 @@ class SettingsWindow extends Component {
     async getUserSettings() {
         try {            
             const settingsRequest = await UserSettings.getUserSettings(this.state.user);
-            console.log(settingsRequest.optional)
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }

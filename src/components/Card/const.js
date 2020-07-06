@@ -11,3 +11,5 @@ export const firstPage = 1;
 export const maxWordNumber = 9;
 export const increaseCoefficient = 1;
 
+export const widthPercent = 100;
+

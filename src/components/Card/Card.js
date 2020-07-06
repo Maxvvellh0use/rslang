@@ -8,7 +8,7 @@ import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
-import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgress} from "./const";
+import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgress, widthPercent} from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
 
@@ -55,8 +55,6 @@ class Card extends React.Component {
 
    getWordModel = async () => {
         const group = getLvlWords(this.state.optionals.englishLevel);
-        console.log(this.state.wordRequest)
-        const wordNumber = this.state.wordRequest.wordNumber;
         const allWords = await Words.getAllWords( {
             group: group,
             page: this.state.wordRequest.pageNumber,
@@ -215,7 +213,7 @@ class Card extends React.Component {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
-        const changeOfProgress = 3;
+        const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const changeOfWords = 1;
         if (!correctLetters.length) {
             await this.playWordAudio();
@@ -257,7 +255,7 @@ class Card extends React.Component {
             spanCheckValue: '',
         })
         await this.playWordAudio()
-        setTimeout(async () => {await this.createCard()}, 1000);
+        setTimeout(async () => { await this.createCard() }, 1000);
     }
 
     render = () => {
