@@ -23,6 +23,12 @@ class Sidebar extends React.Component {
         })
     }
 
+    closeMenu = () => {
+        this.setState({
+            expand: false
+        })
+    }
+
     enterHover = (e) => {
         if (!this.state.expand) {
             e.currentTarget.parentElement.lastChild.style.opacity = 1;
@@ -66,6 +72,7 @@ class Sidebar extends React.Component {
                                                 leaveHover={this.leaveHover}
                                                 state={this.state}
                                                 exact={index == 5 ? true : false}
+                                                closeMenu={this.closeMenu}
                                     />
                                 )
                             })
