@@ -8,8 +8,9 @@ import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
-import { startProgress } from "./const";
+import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgress} from "./const";
 import Spinner from "../Spinner/Spinner";
+import getLvlWords from "./helpers/getLvlWords";
 
 class Card extends React.Component {
     inputWord = React.createRef();
@@ -27,24 +28,42 @@ class Card extends React.Component {
         inputBackground: null,
         spansLetters: '',
         spanLettersClass: '',
-        startWords:0,
-        totalWords: 50,
+        startWords: 0,
         transcription: '',
         imagePath: '',
         imageLoad: false,
         spinner: true,
-        progressBarWords: startProgress
+        progressBarWords: startProgress,
+        wordRequest: {
+            wordNumber: firstWord,
+            pageNumber: firstPage,
+        },
+        optionals: {
+            dailyNumber: null,
+            englishLevel: '',
+            maxNumber: null,
+        },
+        hints: {
+            translation: '',
+            meaningSentence: '',
+            autoPlay: '',
+            exampleSentence: '',
+            transcription: '',
+            image: '',
+        }
     }
 
    getWordModel = async () => {
-        const allWords = await Words.getAllWords({
-            group: 1,
-            page: 1,
+        const group = getLvlWords(this.state.optionals.englishLevel);
+        console.log(this.state.wordRequest)
+        const wordNumber = this.state.wordRequest.wordNumber;
+        const allWords = await Words.getAllWords( {
+            group: group,
+            page: this.state.wordRequest.pageNumber,
             wordsPerExampleSentenceLTE: 10,
             wordsPerPage: 10
         });
-        allWords.sort(() => Math.random() - 0.5);
-        return allWords[1];
+        return allWords[this.state.wordRequest.wordNumber];
     }
 
     createCard = async () => {
@@ -62,7 +81,11 @@ class Card extends React.Component {
         const imagePath = wordModel.imagePath;
         const wordLength = word.length
         const widthInput = getInputWidth(wordLength);
-        this.setState({
+        const wordNumber = this.state.wordRequest.wordNumber < maxWordNumber ? this.state.wordRequest.wordNumber
+            + increaseCoefficient : firstWord;
+        const pageNumber = this.state.wordRequest.wordNumber === maxWordNumber ? this.state.wordRequest.pageNumber
+            + increaseCoefficient : this.state.wordRequest.pageNumber;
+        await this.setState({
             inputDataCheck: word,
             wordLength: wordLength,
             wordTranslation: wordTranslation,
@@ -77,6 +100,10 @@ class Card extends React.Component {
             spanCheckValue: '',
             transcription: transcription,
             imagePath: imagePath,
+            wordRequest: {
+                wordNumber: wordNumber,
+                pageNumber: pageNumber,
+            },
         })
         this.imagePreload();
         this.audioListener();
@@ -88,11 +115,10 @@ class Card extends React.Component {
             await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
-            this.inputWord.current.focusInput();
             await this.playWordAudio();
         }
        catch (e) {
-           console.log('ERROR');
+           console.error('ERROR')
        }
     }
 
@@ -103,6 +129,7 @@ class Card extends React.Component {
             console.log('load')
             this.setState({ imageLoad: true });
             this.hideSpinner();
+            this.inputWord.current.focusInput();
         })
     }
 
@@ -125,6 +152,26 @@ class Card extends React.Component {
         }
         const userSettings = await UserSettings.getUserSettings(user);
         console.log(userSettings)
+        const userOptionals = userSettings.optional;
+        const hints = userOptionals.tips;
+        const translationHint = hints.translation ? '' : ' visibility_hidden';
+        const autoPlayHint = hints.autoPlay ? '' : ' visibility_hidden';
+        const exampleSentenceHint = hints.exampleSentense ? '' : ' visibility_hidden';
+        const meaningSentenceHint = hints.meaningSentense ? '' : ' visibility_hidden';
+        this.setState({
+            optionals: {
+                dailyNumber: userOptionals.dailyNumber,
+                englishLevel: userOptionals.englishLevel,
+                maxNumber: userOptionals.maxNumber,
+            },
+            hints: {
+                translation: translationHint,
+                autoPlay: autoPlayHint,
+                meaningSentence: meaningSentenceHint,
+                exampleSentence: exampleSentenceHint,
+            }
+        })
+        console.log(this.state.hints)
     }
 
     audioListener = () => {
@@ -160,6 +207,7 @@ class Card extends React.Component {
             inputClassColor: '',
             spanLettersClass: '',
         })
+        this.inputWord.current.focusInput();
     }
 
     submitForm = async (event) => {
@@ -241,11 +289,11 @@ class Card extends React.Component {
                             <div className="card_word__main">
                                 <div className="sentence_wrapper">
                                     <div className="card_word__main__sentence">
-                                        <form onSubmit={this.submitForm} className="card_word__form">
+                                        <form onSubmit={this.submitForm} className={"card_word__form" + this.state.hints.exampleSentence}>
                                             <div>{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
                                         </form>
                                     </div>
-                                    <div className="card_word__main__sentence_translation">
+                                    <div className={"card_word__main__sentence_translation" + this.state.hints.meaningSentence}>
                                         <p>{this.state.sentenceTranslation}</p>
                                     </div>
                                 </div>
@@ -265,7 +313,7 @@ class Card extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="card_word__main__word_translation">
+                        <div className={"card_word__main__word_translation" + this.state.hints.translation}>
                             <p>{this.state.wordTranslation}</p>
                         </div>
                     </div>
@@ -273,8 +321,8 @@ class Card extends React.Component {
                 <section>
                     <div className="progress_section">
                         <ProgressBar
+                            maxWords={this.state.optionals.maxNumber}
                             startWords={this.state.startWords}
-                            totalWords={this.state.totalWords}
                             width={this.state.progressBarWords} />
                     </div>
                 </section>

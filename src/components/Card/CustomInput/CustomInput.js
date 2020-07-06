@@ -10,6 +10,7 @@ class CustomInput extends React.Component {
     }
 
     focusInput = () => {
+        console.log('focus')
         this.textInput.current.focus();
     }
 

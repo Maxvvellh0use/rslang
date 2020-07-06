@@ -25,7 +25,7 @@ class ProgressBar extends React.Component{
                 <div className="progress_block_background">
                     <div className="progress_block__bar" style={{width: this.state.progressBarWidth + '%'}}/>
                 </div>
-                <div className="progress_block__number">{this.props.totalWords}</div>
+                <div className="progress_block__number">{this.props.maxWords}</div>
             </div>
         );
     }
