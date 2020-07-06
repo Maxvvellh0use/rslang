@@ -1,16 +1,17 @@
 @import "../../style/constants";
 @import "../../style/placeholders";
+@import "../../style/mixins";
 
 .dictionary {
   
   &__word {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    position: relative;      
 
     padding: 10px;
     padding-right: 50px;
     margin-bottom: 10px;
+
+    width: 100%;
 
     border-radius: 5px;
     @extend %card-shadow;
@@ -29,16 +30,21 @@
     &__container {
       display: flex;
       flex-direction: row;
-      flex-grow: 1;
-      flex-shrink: 1;      
+      flex: 1;          
       justify-content: space-between;
+      flex-wrap: nowrap;
+
+      @include media-mobile {
+        flex-wrap: wrap;          
+      }
+
+      
     }
 
     &__main-container {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      justify-items: center;
+      flex-wrap: wrap;      
       padding-left: 5px;
     }
 
@@ -75,9 +81,16 @@
 
     &__image-container {
       position: relative;
+      display: inline-block;
       width: 200px;
       height: 200px;
-      @extend %transition; 
+      @extend %transition;  
+      @include media-mobile {
+        
+        
+        text-align: center;
+      }     
+
     }
 
     &__image {
@@ -104,8 +117,7 @@
       cursor: pointer;
       z-index: 10;
       opacity: 0.6;
-      @extend %transition;
-      
+      @extend %transition;      
 
       &:hover {
         opacity: 1;

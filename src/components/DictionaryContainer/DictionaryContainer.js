@@ -94,7 +94,7 @@ export default class DictionaryContainer extends React.Component {
     const selectedTab = findElement(event.target, 'dictionary__tab');
     switch (selectedTab.id) {
       case 'tab-dictionary-learning':
-        if(this.state.learningSelected) return;
+        if (this.state.learningSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_learning-selected',
           learningSelected: true,
@@ -103,7 +103,7 @@ export default class DictionaryContainer extends React.Component {
         });
         break;
       case 'tab-dictionary-difficult':
-        if(this.state.difficultSelected) return;
+        if (this.state.difficultSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_difficult-selected',
           learningSelected: false,
@@ -112,7 +112,7 @@ export default class DictionaryContainer extends React.Component {
         });
         break;
       case 'tab-dictionary-removed':
-        if(this.state.removedSelected) return;
+        if (this.state.removedSelected) return;
         this.setState({
           selectedClass: 'dictionary__panel_removed-selected',
           learningSelected: false,
@@ -206,6 +206,7 @@ export default class DictionaryContainer extends React.Component {
     return (
       <div {...attributes}
         className="dictionary__container">
+
         <div className={`dictionary__panel ${this.state.selectedClass}`}>
           <DictionaryCategoryPanelContent
             className="dictionary__panel-content dictionary__panel-content_learning"
@@ -271,6 +272,7 @@ export default class DictionaryContainer extends React.Component {
           wordSettings={this.state.wordSettings}
         />}
       </div>
+
     );
   }
 }
