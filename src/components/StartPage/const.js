@@ -1,4 +1,4 @@
-export const TEXT_START_PAGE_H2 = 'Rs Lang is the smartest way to level up your vocabulary.'
-export const TEXT_START_PAGE_DESCRIPTION = `Here you can quickly and conveniently learn English
-    Training takes place in a game form with tracking progress. The application constantly adapts
-    to the user, which makes it effective and convenient.`;
+export const TEXT_START_PAGE_H2 = 'RS Lang - самый умный способ повысить уровень знания языка!'
+export const TEXT_START_PAGE_DESCRIPTION = `Здесь вы можете быстро и удобно выучить английский язык
+    Обучение проходит в игровой форме с отслеживанием прогресса. Приложение постоянно адаптируется
+    под пользователя, что делает его эффективным и удобным.`;
