@@ -36,6 +36,7 @@ class SettingsWindow extends Component {
     async getUserSettings() {
         try {
             const settingsRequest = await UserSettings.getUserSettings(this.state.user);
+            console.log(settingsRequest.optional)
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }
@@ -95,7 +96,6 @@ class SettingsWindow extends Component {
         }
         else {
             try {
-                console.log(settings)
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
                 this.props.history.push('/main');
@@ -108,6 +108,7 @@ class SettingsWindow extends Component {
     }
 
     render() {
+        console.log(this.state.user)
         const settings = this.state.settings;
         const isLoaded = this.state.isLoaded;
         const notification = this.state.notification;

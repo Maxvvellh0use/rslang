@@ -13,6 +13,10 @@ import { ReactComponent as LogOutIcon } from '../../assets/img/icons_navbar/logo
 import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
+import StartPage from "../StartPage/StartPage";
+import Header from "../StartPage/Header";
+import StartPageMain from "../StartPage/StartPageMain";
+import Footer from "../StartPage/Footer";
 
 class Sidebar extends React.Component {
     state = {
@@ -40,6 +44,8 @@ class Sidebar extends React.Component {
 
     logout = () => {
         localStorage.clear()
+        this.props.isAuthorization();
+        this.props.history.push('/');
     }
 
     render = () => {
@@ -117,7 +123,7 @@ class Sidebar extends React.Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/" exact onClick={this.logout}>
+                            <a onClick={this.logout}>
                                 <span className="nav_icon" onMouseEnter={this.enterHover} onMouseLeave={this.leaveHover}>
                                     <LogOutIcon alt="abouticon" />
                                 </span>
@@ -125,7 +131,7 @@ class Sidebar extends React.Component {
                                 <div className="hint">
                                     <span className="hint_label">Выход</span>
                                 </div>
-                            </NavLink>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -138,4 +144,4 @@ class Sidebar extends React.Component {
     }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

@@ -3,7 +3,8 @@ import './Startpage.scss';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    withRouter
 } from "react-router-dom";
 import AuthorizationForm from "../AuthorizationPage/Authorization&RegistrationForm";
 import StartPageMain from "./StartPageMain";
@@ -18,6 +19,11 @@ class StartPage extends React.Component {
         authSuccess: localStorage.authSuccess,
     }
 
+    isAuthorization = () => {
+        this.setState( {
+            authSuccess: localStorage.authSuccess,
+        } )
+    }
 
     render = () => {
         if (this.state.authSuccess) {
@@ -25,13 +31,13 @@ class StartPage extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <Sidebar />
+                            <Sidebar isAuthorization={this.isAuthorization}/>
                         </Route>
                         <Route path="/settings">
                             <SettingsWindow />
                         </Route>
                         <Route path="/main">
-                            <Sidebar />
+                            <Sidebar isAuthorization={this.isAuthorization}/>
                         </Route>
                     </Switch>
                 </Router>
@@ -48,21 +54,28 @@ class StartPage extends React.Component {
                         </Route>
                         <Route path="/sign_in">
                             <Header />
-                            <AuthorizationForm type="Auth"/>
+                            <AuthorizationForm isAuthorization={this.isAuthorization} type="Auth"/>
                             <Footer />
                         </Route>
                         <Route path="/sign_up">
                             <Header />
-                            <AuthorizationForm/>
+                            <AuthorizationForm />
                             <Footer />
                         </Route>
+                        {
+                            this.state.authSuccess &&
                         <Route path="/settings">
                             <SettingsWindow history={this.props.history}
                                             authSuccess={this.state.authSuccess}/>
                         </Route>
-                        <Route path="/main">
-                            <Sidebar history={this.props.history}/>
-                        </Route>
+                        }
+                        {
+                            this.state.authSuccess &&
+                            <Route path="/main">
+                            <Sidebar isAuthorization={this.isAuthorization}
+                                     history={this.props.history}/>
+                            </Route>
+                        }
                     </Switch>
                 </div>
             </Router>
@@ -70,4 +83,4 @@ class StartPage extends React.Component {
     }
 }
 
-export default StartPage;
+export default withRouter(StartPage);

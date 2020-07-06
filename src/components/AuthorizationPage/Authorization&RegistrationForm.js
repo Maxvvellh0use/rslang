@@ -13,6 +13,7 @@ import passwordIcon from '../../assets/img/icons/password.png'
 import { withRouter } from "react-router-dom";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import UserSettings from "../../data/UserSettings";
+import Sidebar from "../Sidebar/Sidebar";
 
 class AuthorizationForm extends Component {
 
@@ -132,11 +133,12 @@ class AuthorizationForm extends Component {
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
           localStorage.authSuccess = true;
+          this.props.isAuthorization();
           const user = {
               id: localStorage.userId,
               token: localStorage.userToken
           }
-          const isANewUser = this.isANewUser(user);
+          const isANewUser = await this.isANewUser(user);
           isANewUser ? this.props.history.push('/main')
               : this.props.history.push('/settings');
         } catch (error) {
@@ -154,9 +156,15 @@ class AuthorizationForm extends Component {
     }
 
     isANewUser = async (user) => {
-        const settingsRequest = await UserSettings.getUserSettings(user);
-        const settings = settingsRequest.optional;
-        return settings;
+        console.log(user)
+        try {
+            const settingsRequest = await UserSettings.getUserSettings(user);
+            const settings = settingsRequest.optional;
+            return settings;
+        }
+        catch (e) {
+            return false;
+        }
     }
 
     isAuthorization = () => {
@@ -178,6 +186,7 @@ class AuthorizationForm extends Component {
                     <AuthorizationFormInput image={passwordIcon}
                                             name={'password'}
                                             type={'password'}
+                                            autoComplete={'off'}
                                             placeholder={'Пароль'}
                                             value={this.state.password}
                                             onChange={this.handleUserInput}
@@ -216,6 +225,7 @@ class AuthorizationForm extends Component {
                 <AuthorizationFormInput image={passwordIcon}
                                         name={'password'}
                                         type={'password'}
+                                        autoComplete={'off'}
                                         placeholder={'Пароль'}
                                         value={this.state.password}
                                         onChange={this.handleUserInput}
@@ -224,6 +234,7 @@ class AuthorizationForm extends Component {
                 <AuthorizationFormInput image={passwordIcon}
                                         name={'passwordRepeat'}
                                         type={'password'}
+                                        autoComplete={'off'}
                                         placeholder={'Повтор пароля'}
                                         value={this.state.passwordRepeat}
                                         onChange={this.handleUserInput}
@@ -240,9 +251,9 @@ class AuthorizationForm extends Component {
 
  render = () => {
         if (localStorage.authSuccess) {
-            this.props.history.push('/settings')
+            this.props.history.push('/main')
             return (
-                <SettingsWindow />
+                <Sidebar />
             )
         }
      return (
