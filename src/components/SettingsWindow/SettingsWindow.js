@@ -86,6 +86,7 @@ class SettingsWindow extends Component {
         const hints = settings.hints;
         const noCheckedHints = !Object.values(hints).includes(true);
         const dailyGreaterMax = dailyNumber > maxNumber;
+        const pathName = this.props.history.location.pathname
 
         let notification;
 
@@ -101,7 +102,10 @@ class SettingsWindow extends Component {
             try {
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
-                this.props.history.push('/main');
+                this.setState({ notification })
+                if (pathName !== '/main/settings') {
+                    this.props.history.push('/main');
+                }
             }
             catch (error) {
                 notification = NOTIFICATIONS.UNKNOWN;
