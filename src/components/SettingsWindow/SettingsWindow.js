@@ -108,7 +108,6 @@ class SettingsWindow extends Component {
     }
 
     render() {
-        console.log(this.state.user)
         const settings = this.state.settings;
         const isLoaded = this.state.isLoaded;
         const notification = this.state.notification;
