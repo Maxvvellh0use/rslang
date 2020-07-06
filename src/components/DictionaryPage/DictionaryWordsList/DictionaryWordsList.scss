@@ -1,10 +1,8 @@
-@import "../../style/constants";
-@import "../../style/placeholders";
-@import "../../style/mixins";
-
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
 
 .dictionary {
-
   &__word-list {
     position: relative;
     display: flex;
@@ -18,15 +16,11 @@
     list-style: none;
     margin: 0;
     padding: 0 20px;
-    
-    @extend %transition;  
-    
+
+    @extend %transition;
+
     @include media-tablet {
-      padding: 0 10px;      
+      padding: 0 10px;
     }
-
-
-
-
   }
 }

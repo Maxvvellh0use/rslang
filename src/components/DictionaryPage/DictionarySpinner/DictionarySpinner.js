@@ -5,8 +5,8 @@ export default class DictionarySpinner extends React.Component {
 
   render() {
 
-    return (      
-        <div className='dictionary__spinner'></div>     
+    return (
+      <div className='dictionary__spinner'></div>
     )
   }
 }

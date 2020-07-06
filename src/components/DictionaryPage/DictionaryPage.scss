@@ -1,13 +1,13 @@
-@import '../../style/constants';
-@import '../../style/placeholders';
-@import '../../style/mixins';
+@import "../../style/constants.scss";
+@import "../../style/placeholders";
+@import "../../style/mixins";
 
 .dictionary {
   background-color: $color-body;
   position: relative;
   width: 100%;
   height: 100%;
- 
+
   &__wrapper {
     max-width: $width-wrapper;
     min-width: 320px;

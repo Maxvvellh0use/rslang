@@ -1,5 +1,6 @@
-@import "../../style/constants";
-@import "../../style/placeholders";
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
 
 .dictionary {
   &__dropdown {
@@ -8,7 +9,7 @@
     right: 10px;
     width: 30px;
     height: 30px;
-    background-image: url(../../assets/img/icons/menu-button.svg);
+    background-image: url(../../../assets/img/icons/menu-button.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -16,7 +17,6 @@
     z-index: 10;
     opacity: 0.6;
     @extend %transition;
-
 
     &:hover {
       opacity: 1;
@@ -38,9 +38,8 @@
       right: 0px;
       border-radius: 5px;
 
-      background-color:$dictionary-dropdown-background;
+      background-color: $dictionary-dropdown-background;
 
-      
       @extend %card-shadow;
       @extend %transition;
     }

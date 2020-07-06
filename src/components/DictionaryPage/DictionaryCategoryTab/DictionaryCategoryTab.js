@@ -40,7 +40,7 @@ export default class DictionaryCategoryTab extends React.Component {
         onDragOver={event => event.preventDefault()}
       >
         <h3 className="dictionary__tab__header">{name}</h3>
-        <p className="dictionary__tab__counter">{counter}</p>        
+        <p className="dictionary__tab__counter">{counter}</p>
       </div>
     );
   }

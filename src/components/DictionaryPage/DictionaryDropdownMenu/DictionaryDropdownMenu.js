@@ -1,6 +1,6 @@
 import React from 'react';
 import './DictionaryDropdownMenu.scss';
-import { dictionaryTabName } from '../../models/DictionaryWordModel';
+import { dictionaryTabName } from '../../../models/DictionaryWordModel';
 
 const DEFAULT_CLASS = 'dictionary__dropdown-menu';
 export default class DictionaryDropdownMenu extends React.Component {
@@ -14,7 +14,7 @@ export default class DictionaryDropdownMenu extends React.Component {
 
     this.state = {
       displayMenu: false,
-    };   
+    };
   };
 
   showDropdownMenu = (event) => {
@@ -25,12 +25,12 @@ export default class DictionaryDropdownMenu extends React.Component {
   }
 
   hideDropdownMenu = () => {
-    this.setState({ displayMenu: false }, () => {      
+    this.setState({ displayMenu: false }, () => {
       document.removeEventListener('click', this.hideDropdownMenu);
     });
   }
 
-  componentWillUnmount(){    
+  componentWillUnmount() {
     document.removeEventListener('click', this.hideDropdownMenu);
   }
 
@@ -40,7 +40,7 @@ export default class DictionaryDropdownMenu extends React.Component {
       moveWord,
       dictionaryWord,
       ...attributes
-    } = this.props;    
+    } = this.props;
 
     return (
       <div  {...attributes}
@@ -73,6 +73,4 @@ export default class DictionaryDropdownMenu extends React.Component {
       </div>
     );
   }
-
-
 }

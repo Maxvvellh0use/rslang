@@ -43,7 +43,9 @@ export default class DictionaryCategoryPanelContent extends React.Component {
             <DictionarySpinner />
           )
         }
-        <p className='dictionary__panel-content__footer'>{userName}</p>
+        <div className='dictionary__panel-content__footer'>
+          <p >{userName}</p>
+        </div>
       </div>
     );
   }

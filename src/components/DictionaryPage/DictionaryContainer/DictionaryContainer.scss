@@ -1,29 +1,27 @@
-@import "../../style/constants";
-@import "../../style/placeholders";
-@import "../../style/mixins";
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
 
-.dictionary {  
-
+.dictionary {
   &__container {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;    
+    flex-direction: row;
     max-width: 900px;
     min-width: 320px;
     width: 100%;
-    height: 800px;    
-    margin: 10px auto;  
+    height: 800px;
+    margin: 10px auto;
     overflow: hidden;
 
     border-radius: 10px;
 
     @extend %card-shadow;
 
-    @include media-tablet {      
-      flex-direction: column-reverse; 
+    @include media-tablet {
+      flex-direction: column-reverse;
     }
-
   }
 
   &__panel {
@@ -31,11 +29,8 @@
     display: block;
     width: 80%;
     height: 800px;
-    //width: 650px;
-    //min-width: 618px;
-    
     margin: 0;
-    padding: 0;    
+    padding: 0;
 
     @include transform-origin(0 50%);
     -webkit-transform-style: preserve-3d;
@@ -54,19 +49,16 @@
     }
 
     @include media-tablet {
-     height: 700px;
-     width: 100%;
+      height: 700px;
+      width: 100%;
     }
-
-  }  
+  }
 
   &__tabs {
     position: relative;
     display: block;
     width: 20%;
-    //width: 150px;
     height: 100%;
-    //min-height: 300px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -77,12 +69,9 @@
 
     @include media-tablet {
       height: 100px;
-      width: 100%;      
+      width: 100%;
       flex-direction: row;
       z-index: 100;
     }
-
-
-       
-  }  
+  }
 }

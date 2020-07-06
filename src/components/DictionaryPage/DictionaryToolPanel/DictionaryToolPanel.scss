@@ -1,6 +1,6 @@
-@import "../../style/constants";
-@import "../../style/placeholders";
-@import "../../style/mixins";
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
 
 .dictionary__tool-panel {
   position: absolute;
@@ -14,12 +14,11 @@
   width: 100px;
   @extend %transition;
 
-
   &__tool {
     display: inline-block;
     width: 30px;
     height: 30px;
-    cursor: pointer;      
+    cursor: pointer;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -38,17 +37,16 @@
 
     &_selected {
       border-bottom: 2px solid rgb(0, 92, 0);
-      
     }
-    
-    &_text {      
-      background-image: url(../../assets/img/icons/text_snippet.svg);      
+
+    &_text {
+      background-image: url(../../../assets/img/icons/text_snippet.svg);
     }
     &_subtitle {
-      background-image: url(../../assets/img/icons/subtitles.svg);      
+      background-image: url(../../../assets/img/icons/subtitles.svg);
     }
     &_image {
-      background-image: url(../../assets/img/icons/image.svg);      
+      background-image: url(../../../assets/img/icons/image.svg);
     }
   }
 }

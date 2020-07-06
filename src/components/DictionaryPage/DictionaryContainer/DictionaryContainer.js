@@ -2,10 +2,10 @@ import React from 'react';
 import './DictionaryContainer.scss';
 import DictionaryCategoryTab from '../DictionaryCategoryTab/DictionaryCategoryTab';
 import DictionaryCategoryPanelContent from '../DictionaryCategoryPanelContent/DictionaryCategoryPanelContent';
-import DictionaryWordModel, { dictionaryTabName } from '../../models/DictionaryWordModel';
-import { findElement } from '../../helpers/dictionaryHelper';
-import UserWords from '../../data/UserWords';
-import AggregatedWords from '../../data/AggregatedWords';
+import DictionaryWordModel, { dictionaryTabName } from '../../../models/DictionaryWordModel';
+import { findElement } from '../../../helpers/dictionaryHelper';
+import UserWords from '../../../data/UserWords';
+import AggregatedWords from '../../../data/AggregatedWords';
 import DictionaryToolPanel from '../DictionaryToolPanel/DictionaryToolPanel';
 
 export default class DictionaryContainer extends React.Component {

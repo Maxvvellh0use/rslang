@@ -1,6 +1,6 @@
 import React from 'react';
 import './DictionaryPage.scss';
-import DictionaryContainer from '../DictionaryContainer/DictionaryContainer';
+import DictionaryContainer from './DictionaryContainer/DictionaryContainer';
 import UserModel from '../../models/UserModel';
 import Authentication from '../../data/Authentication';
 import Words from '../../data/Words';
@@ -31,7 +31,6 @@ export default class DictionaryPage extends React.Component {
       }
 
       //this.populateUserWords(authUser);
-
       this.setState({
         authUser: authUser,
       });
@@ -48,7 +47,7 @@ export default class DictionaryPage extends React.Component {
     } catch (error) {
       console.log(error);
     }
-     
+
     try {
       wordGroup.forEach(async (word) => {
         await UserWords.addWord({

@@ -1,6 +1,6 @@
-@import "../../style/constants";
-@import "../../style/placeholders";
-@import "../../style/mixins";
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
 
 .dictionary {
   &__tab {
@@ -8,13 +8,10 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-      
+
     justify-content: space-between;
     align-items: center;
     text-align: center;
-
-    // min-width: 170px;
-    // min-height: 50px; 
 
     opacity: 0.7;
     background-color: lightgrey;
@@ -46,11 +43,9 @@
       @include media-tablet {
         border-top-right-radius: 0;
       }
-
     }
     &_difficult {
-      background-color: $dictionary-difficult-panel-background; 
-
+      background-color: $dictionary-difficult-panel-background;
     }
     &_removed {
       background-color: $dictionary-removed-panel-background;
@@ -58,37 +53,33 @@
       @include media-tablet {
         border-bottom-right-radius: 0;
       }
-
     }
 
-    @include media-tablet {      
+    @include media-tablet {
       padding: 10px;
-      width: 33%;      
+      width: 33%;
     }
   }
 
   &__tab__header {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 20px;     
+    font-size: 20px;
     @extend %textshadow;
-    
+
     @include media-tablet {
       font-size: 15px;
     }
-
   }
 
   &__tab__counter {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 50px; 
+    font-size: 50px;
     @extend %textshadow;
 
     @include media-tablet {
       font-size: 22px;
     }
-
   }
-
 }

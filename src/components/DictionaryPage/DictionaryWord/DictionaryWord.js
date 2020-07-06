@@ -1,13 +1,12 @@
 import React from 'react';
 import cx from 'clsx';
 import './DictionaryWord.scss';
-import DictionaryWordModel from '../../models/DictionaryWordModel';
+import DictionaryWordModel from '../../../models/DictionaryWordModel';
 import DictionaryDropdownMenu from '../DictionaryDropdownMenu/DictionaryDropdownMenu';
 import DictionarySound from '../DictionarySound/DictionarySound';
-import fallbackImage from '../../assets/img/learn_start_page_icon.png';
+import fallbackImage from '../../../assets/img/learn_start_page_icon.png';
 
 const DEFAULT_CLASS = 'dictionary__word';
-//const onerrorImagePath = 'assets/img/learn_start_page_icon.png';
 
 export default class DictionaryWord extends React.Component {
   static defaultProps = {
@@ -16,13 +15,12 @@ export default class DictionaryWord extends React.Component {
     selectedClassName: `${DEFAULT_CLASS}_selected`,
     id: null,
     dictionaryWord: new DictionaryWordModel({}),
-    
   };
 
   constructor(props) {
     super(props);
 
-    this.state = {      
+    this.state = {
       showSentenceTranslation: false,
     };
   };
@@ -42,7 +40,7 @@ export default class DictionaryWord extends React.Component {
       moveWord,
       wordSettings,
       ...attributes
-    } = this.props;    
+    } = this.props;
 
     return (
       <li
@@ -63,7 +61,7 @@ export default class DictionaryWord extends React.Component {
                 <p className='dictionary__word__transcription'>{dictionaryWord.transcription}</p>
               ) : (null)}
 
-              <DictionarySound audioPath={dictionaryWord.audioPath}/>
+              <DictionarySound audioPath={dictionaryWord.audioPath} />
             </div>
 
             <p className='dictionary__word__translate'>{dictionaryWord.wordTranslate}</p>
@@ -73,15 +71,15 @@ export default class DictionaryWord extends React.Component {
                 <p className='dictionary__word__meaning'>{dictionaryWord.textMeaningTranslate}</p>
               ) : (
                   <p className='dictionary__word__meaning'
-                  dangerouslySetInnerHTML={{__html: dictionaryWord.textMeaning}}></p>)
+                    dangerouslySetInnerHTML={{ __html: dictionaryWord.textMeaning }}></p>)
             ) : (null)}
 
             {wordSettings.showExampleText ? (
               this.state.showSentenceTranslation ? (
                 <p className='dictionary__word__example'>{dictionaryWord.textExampleTranslate}</p>
               ) : (
-                  <p className='dictionary__word__example'  
-                    dangerouslySetInnerHTML={{__html: dictionaryWord.textExample}} ></p>)
+                  <p className='dictionary__word__example'
+                    dangerouslySetInnerHTML={{ __html: dictionaryWord.textExample }} ></p>)
             ) : (null)}
           </div>
 
@@ -89,7 +87,7 @@ export default class DictionaryWord extends React.Component {
             {wordSettings.showImage ? (
               <div className='dictionary__word__image-container'>
                 <img src={dictionaryWord.imagePath}
-                  onError={(e)=>{e.target.src=fallbackImage}}
+                  onError={(e) => { e.target.src = fallbackImage }}
                   alt='img' className='dictionary__word__image'></img>
                 <div className='dictionary__word__image'></div>
               </div>
