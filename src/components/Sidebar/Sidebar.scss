@@ -43,10 +43,22 @@ a:hover, a:focus {
     background: #fffcf9;
     color: #1a3b71;
     transition: all 0.3s;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.bottom_sidebar {
+    height: 3.2rem;
 }
 
 .sidebar ul.components {
     border-bottom: 1px solid #47748b;
+}
+
+.up_line {
+    border-top: 1px solid #47748b;
 }
 
 .sidebar ul p {
@@ -109,11 +121,15 @@ ul ul a {
 
 .show {
     opacity: 1;
-    transition: 2s;
+    transition: 1.3s;
 }
 
 .active {
     color: #ff934d;
+}
+
+.logout_btn {
+    padding: .9375rem;
 }
 
 .logout {
@@ -137,6 +153,6 @@ ul ul a {
 
 .btn-success {
     margin-right: 3rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
 }

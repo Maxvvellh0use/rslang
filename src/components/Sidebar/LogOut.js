@@ -12,10 +12,10 @@ class LogOut extends React.Component {
         return (
             <div className="logout">
                 <div className="logout_box">
-                    <h1>Вы действительно хотите выйти?</h1>
+                    <h2>Вы действительно хотите выйти?</h2>
                     <div>
-                        <button onClick={this.logout} type="button" className="btn btn-success">Да</button>
-                        <button type="button" className="btn btn-danger" onClick={this.props.history.goBack}>Нет</button>
+                        <button onClick={this.logout} type="button" className="btn btn-success btn-lg">Да</button>
+                        <button type="button" className="btn btn-danger btn-lg" onClick={this.props.history.goBack}>Нет</button>
                     </div>
                 </div>
             </div>

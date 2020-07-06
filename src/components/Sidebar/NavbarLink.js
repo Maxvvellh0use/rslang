@@ -2,10 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "./Icon";
 
-const NavbarLink = ({ path, text, icon, enterHover, leaveHover, state, exact, closeMenu }) => {
+const NavbarLink = ({ path, text, icon, enterHover, leaveHover, state, exact, closeMenu, className }) => {
     return (
-        <li>
-            <NavLink exact={exact} to={path} onClick={closeMenu}>
+            <NavLink exact={exact} to={path} onClick={closeMenu} className={className}>
                 <span className="nav_icon" onMouseEnter={enterHover} onMouseLeave={leaveHover}>
                     <Icon name={icon} />
                 </span>
@@ -14,7 +13,6 @@ const NavbarLink = ({ path, text, icon, enterHover, leaveHover, state, exact, cl
                 <span className="hint_label">{text}</span>
                 </div>
             </NavLink>
-        </li>
     )
 }
 
