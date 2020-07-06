@@ -3,7 +3,7 @@ import './Startpage.scss'
 import {TEXT_START_PAGE_DESCRIPTION, TEXT_START_PAGE_H2} from "./const";
 import { Link } from "react-router-dom";
 
-function StartPageMain(props) {
+function StartPageMain() {
     return (
         <main>
             <div className="wrapper main_wrapper">

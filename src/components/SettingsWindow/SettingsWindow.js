@@ -4,6 +4,7 @@ import Tips from './Tips/Tips';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
 import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
+import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
 
@@ -21,27 +22,34 @@ class SettingsWindow extends Component {
                 exampleSentense: false,
                 autoPlay: false,
             }
+        },
+        user: {
+            id: localStorage.userId,
+            token: localStorage.userToken
         }
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         await this.getUserSettings();
     }
 
     async getUserSettings() {
         try {
-            const settingsRequest = await UserSettings.getUserSettings(this.props.user);
+            const settingsRequest = await UserSettings.getUserSettings(this.state.user);
+            console.log(settingsRequest.optional)
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }
-        catch (error) { }
+        catch (error) {
+            console.log(error)
+        }
 
         this.setState({ isLoaded: true })
     }
 
     async updateUserSettings(settings) {
         await UserSettings.updateUserSettings({
-            authUser: this.props.user,
+            authUser: this.state.user,
             wordsPerDay: 1,
             optional: settings,
         })
@@ -80,21 +88,23 @@ class SettingsWindow extends Component {
 
         if (dailyGreaterMax) {
             notification = NOTIFICATIONS.CANNOT_BE_GREATER;
+            this.setState({ notification })
         }
         else if (noCheckedTips) {
             notification = NOTIFICATIONS.NO_CHECKED;
+            this.setState({ notification })
         }
         else {
             try {
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
+                this.props.history.push('/main');
             }
             catch (error) {
                 notification = NOTIFICATIONS.UNKNOWN;
+                this.setState({ notification })
             }
         }
-
-        this.setState({ notification })
     }
 
     render() {
@@ -161,4 +171,4 @@ class SettingsWindow extends Component {
     }
 }
 
-export default SettingsWindow
+export default withRouter(SettingsWindow)

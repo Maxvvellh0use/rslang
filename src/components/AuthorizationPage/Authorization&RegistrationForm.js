@@ -11,11 +11,10 @@ import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
 import { withRouter } from "react-router-dom";
-import SettingsWindow from "../SettingsWindow/SettingsWindow";
+import UserSettings from "../../data/UserSettings";
+import Sidebar from "../Sidebar/Sidebar";
 
 class AuthorizationForm extends Component {
-
-
 
     state = {
       name: '',
@@ -123,6 +122,7 @@ class AuthorizationForm extends Component {
     authorizationRequest = async (event) => {
         event.preventDefault();
       let newUser = new UserModel({
+        name: this.state.name,
         email: this.state.email,
         password: this.state.password
       });
@@ -132,7 +132,14 @@ class AuthorizationForm extends Component {
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;
           localStorage.authSuccess = true;
-          this.props.history.push('/settings')
+          this.props.isAuthorization();
+          const user = {
+              id: localStorage.userId,
+              token: localStorage.userToken
+          }
+          const isANewUser = await this.isANewUser(user);
+          isANewUser ? this.props.history.push('/main')
+              : this.props.history.push('/settings');
         } catch (error) {
           this.showError('Ошибка авторизации!');
         }
@@ -140,10 +147,23 @@ class AuthorizationForm extends Component {
         try {
           let userId = await Users.addUser(newUser);
           localStorage.userId = userId;
+          this.props.history.push('/sign_in');
         } catch (error) {
           this.showError('Ошибка регистрации!');
         }
       }
+    }
+
+    isANewUser = async (user) => {
+        console.log(user)
+        try {
+            const settingsRequest = await UserSettings.getUserSettings(user);
+            const settings = settingsRequest.optional;
+            return settings;
+        }
+        catch (e) {
+            return false;
+        }
     }
 
     isAuthorization = () => {
@@ -165,6 +185,7 @@ class AuthorizationForm extends Component {
                     <AuthorizationFormInput image={passwordIcon}
                                             name={'password'}
                                             type={'password'}
+                                            autoComplete={'off'}
                                             placeholder={'Пароль'}
                                             value={this.state.password}
                                             onChange={this.handleUserInput}
@@ -203,6 +224,7 @@ class AuthorizationForm extends Component {
                 <AuthorizationFormInput image={passwordIcon}
                                         name={'password'}
                                         type={'password'}
+                                        autoComplete={'off'}
                                         placeholder={'Пароль'}
                                         value={this.state.password}
                                         onChange={this.handleUserInput}
@@ -211,6 +233,7 @@ class AuthorizationForm extends Component {
                 <AuthorizationFormInput image={passwordIcon}
                                         name={'passwordRepeat'}
                                         type={'password'}
+                                        autoComplete={'off'}
                                         placeholder={'Повтор пароля'}
                                         value={this.state.passwordRepeat}
                                         onChange={this.handleUserInput}
@@ -227,9 +250,9 @@ class AuthorizationForm extends Component {
 
  render = () => {
         if (localStorage.authSuccess) {
-            this.props.history.push('/settings')
+            this.props.history.push('/main')
             return (
-                <SettingsWindow />
+                <Sidebar />
             )
         }
      return (

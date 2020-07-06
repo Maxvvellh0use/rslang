@@ -12,16 +12,17 @@ export default class Users {
    *
    */
   static addUser = async (user) => {
+    console.log(user)
     const url = `${serverPath}/users`;
     const data = {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     };
+
     const response = await DataHelper.makeRequest(url, data, errorMessage);
     return response.id;
   };
