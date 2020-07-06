@@ -37,7 +37,8 @@ class StartPage extends React.Component {
                             <SettingsWindow />
                         </Route>
                         <Route path="/main">
-                            <Sidebar isAuthorization={this.isAuthorization}/>
+                            <Sidebar history={this.props.history}
+                                     isAuthorization={this.isAuthorization}/>
                         </Route>
                     </Switch>
                 </Router>

@@ -1,8 +1,8 @@
 export const NAVLINK_ARRAY = [
-    { path: '/words', text: 'Слова', icon: 'words' }, 
-    { path: '/games', text: 'Игры', icon: 'games' },
-    { path: '/settings', text: 'Настройки', icon: 'settings' },
-    { path: '/stats', text: 'Статистика', icon: "stats" },
-    { path: '/about', text: 'О команде', icon: 'about' },
-    { path: '/', text: 'Выход', icon: 'logout' }
+    { path: '/main/words', text: 'Слова', icon: 'words' }, 
+    { path: '/main/games', text: 'Игры', icon: 'games' },
+    { path: '/main/settings', text: 'Настройки', icon: 'settings' },
+    { path: '/main/stats', text: 'Статистика', icon: "stats" },
+    { path: '/main/about', text: 'О команде', icon: 'about' },
+    { path: '/main/logout', text: 'Выход', icon: 'logout' }
 ];

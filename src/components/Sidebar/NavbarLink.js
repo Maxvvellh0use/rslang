@@ -9,7 +9,7 @@ const NavbarLink = ({ path, text, icon, enterHover, leaveHover, state, exact }) 
                 <span className="nav_icon" onMouseEnter={enterHover} onMouseLeave={leaveHover}>
                     <Icon name={icon} />
                 </span>
-                <span className="nav_text_icon" style={{opacity: state.expand ? 1 : 0}}>{text}</span>
+                <span className={`nav_text_icon ${state.expand ? 'show' : 'hidden'}`}>{text}</span>
                 <div className="hint">
                 <span className="hint_label">{text}</span>
                 </div>
