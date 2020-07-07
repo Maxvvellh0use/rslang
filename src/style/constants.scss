@@ -26,3 +26,16 @@ $font-family-body: 'Lato', sans-serif !important;
 $width-wrapper: 1200px;
 
 $border-radius-button: 5px;
+$dictionary-word-card-background: aliceblue; 
+$dictionary-word-card-border: rgba(182, 182, 182, 0.568);
+$dictionary-word-card-font-color-primary: rgb(0, 50, 82);
+$dictionary-word-card-font-color-secondary: rgb(0, 143, 131);
+$dictionary-container-background: rgba(128, 144, 160, 0.473);
+$dictionary-learning-panel-background: rgb(173, 238, 173);
+$dictionary-difficult-panel-background: rgb(166, 219, 252);
+$dictionary-removed-panel-background: rgb(253, 220, 225);
+$dictionary-dropdown-selected-background: $dictionary-difficult-panel-background;
+$dictionary-dropdown-background: $color-body;
+
+$dictionary-tablet-width: 768px;
+$dictionary-mobile-width: 500px;
