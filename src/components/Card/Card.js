@@ -8,7 +8,15 @@ import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
-import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgressValue, widthPercent} from "./const";
+import {
+    firstPage,
+    firstWord,
+    increaseCoefficient,
+    maxWordNumber, nextPageCoefficient,
+    startProgressValue,
+    unitOffset,
+    widthPercent
+} from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
 
@@ -35,8 +43,8 @@ class Card extends React.Component {
         spinner: true,
         progressBarWords: null,
         wordRequest: {
-            wordNumber: firstWord,
-            pageNumber: firstPage,
+            wordNumber: null,
+            pageNumber: null,
         },
         optionals: {
             dailyNumber: null,
@@ -67,22 +75,25 @@ class Card extends React.Component {
     }
 
     correctProgress = () => {
-        localStorage.corrects = localStorage.corrects ? localStorage.corrects : startProgressValue;
+        let corrects = localStorage.corrects;
+        corrects = corrects ? corrects : startProgressValue;
+        console.log(corrects);
         localStorage.page = localStorage.page ? localStorage.page : firstPage;
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
-        const startProgress = localStorage.corrects ? localStorage.corrects : startProgressValue;
-        const wordIndex = localStorage.corrects.substring(1,2) || startProgressValue;
-        const startWords = localStorage.corrects && localStorage.corrects !== maxWordNumber ?
-            Number(localStorage.corrects) : wordIndex;
-        console.log(wordIndex)
+        const startProgress = corrects ? corrects : startProgressValue;
+        const startWords = corrects && corrects !== maxWordNumber ?
+            corrects : startProgressValue;
+        const wordIndex = Number(startWords) > maxWordNumber ? Number(startWords.substring(1,2))
+            : Number(startWords);
+        console.log('wordIndex' + wordIndex)
         const progressBarWords = startProgress * changeOfProgress;
         console.log('startWords' + startWords)
-        const wordNumber = startWords < maxWordNumber && startWords !== startProgressValue ? Number(startWords)
-            + increaseCoefficient : wordIndex;
+        const wordNumber = startWords < maxWordNumber && startWords !== startProgressValue ?
+            Number(startWords) : wordIndex;
         console.log(Number(startWords), maxWordNumber)
         console.log(Number(startWords) === maxWordNumber)
         const pageNumber = localStorage.page;
-        console.log('pageNumber' + pageNumber)
+        console.log('wordNumber' + wordNumber)
         this.setState( {
             startWords: startProgress,
             progressBarWords: progressBarWords,
@@ -252,7 +263,10 @@ class Card extends React.Component {
             audio.addEventListener('ended', this.createCard);
             localStorage.corrects = localStorage.corrects ? Number(localStorage.corrects) + changeOfWords
                 : changeOfWords;
-            localStorage.page = Number(localStorage.corrects) === maxWordNumber ? Number(localStorage.page) +
+            const corrects = !localStorage.corrects.substring(1, 2) ?
+                localStorage.corrects : Number(localStorage.corrects.substring(1, 2)) + unitOffset;
+            console.log('corrects' + corrects);
+            localStorage.page = Number(corrects) >= maxWordNumber ? Number(localStorage.page) +
             increaseCoefficient : localStorage.page;
             this.setState({
                 inputClassColor: ' white',
