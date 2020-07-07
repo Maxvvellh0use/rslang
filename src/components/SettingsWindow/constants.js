@@ -17,7 +17,9 @@ export const HINTS_ARRAY = [
     { type: 'checkbox', name: 'translation', text: 'перевод слова' },
     { type: 'checkbox', name: 'meaningSentense', text: 'предложение со значением слова' },
     { type: 'checkbox', name: 'exampleSentense', text: 'предложение с использованием слова' },
-    { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' }
+    { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' },
+    { type: 'checkbox', name: 'image', text: 'картинка-ассоциация' },
+    { type: 'checkbox', name: 'transcription', text: 'транскрипция слова' }
 ];
 export const DEFAULT = {
     ENGLISH_LEVEL: 'Начальный',

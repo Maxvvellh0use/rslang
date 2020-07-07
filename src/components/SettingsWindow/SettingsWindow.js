@@ -21,6 +21,8 @@ class SettingsWindow extends Component {
                 meaningSentense: false,
                 exampleSentense: false,
                 autoPlay: false,
+                transcription: false,
+                image: false,
             }
         },
         user: {
