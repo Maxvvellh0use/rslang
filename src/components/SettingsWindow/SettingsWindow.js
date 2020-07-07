@@ -3,7 +3,7 @@ import EnglishLevels from './EnglishLevels/EnglishLevels';
 import Hints from './Hints/Hints';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
-import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS, DEFAULT } from './constants';
+import { TEXT, NOTIFICATIONS, DEFAULT } from './constants';
 import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
