@@ -7,8 +7,9 @@ import Words from '../../data/Words';
 import UserWordStatisticsModel from '../../models/UserWordStatisticsModel';
 import UserWords from '../../data/UserWords';
 import { withRouter } from 'react-router';
+import AuthenticatedUserModel from '../../models/AuthenticatedUserModel';
 
- class DictionaryPage extends React.Component {
+class DictionaryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +20,26 @@ import { withRouter } from 'react-router';
   componentDidMount = async () => {
 
     if (!this.state.authUser) {
+      if (localStorage.getItem('user') !== null) {
+        const localAuthUser = new AuthenticatedUserModel(JSON.parse(localStorage.getItem('user')));
+
+        let userWords = [];
+        let count = 0;
+        try {
+          userWords = await UserWords.getAllUserWordsData(localAuthUser);
+          count = userWords.length;
+          if (count === 0) {
+            this.populateUserWords(localAuthUser);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        this.setState({
+          authUser: localAuthUser,
+        });
+        return;
+      }
+
       const user = new UserModel({
         email: 'user99@herokuapp.com',
         password: 'User99-password',
@@ -30,7 +51,6 @@ import { withRouter } from 'react-router';
       catch (error) {
         console.log(error);
       }
-
       //this.populateUserWords(authUser);
       this.setState({
         authUser: authUser,
@@ -42,24 +62,26 @@ import { withRouter } from 'react-router';
     let wordGroup;
     try {
       wordGroup = await Words.getAllWords({
-        group: 3,
-        page: 7,
+        group: 4,
+        page: 6,
       });
     } catch (error) {
       console.log(error);
     }
 
-    try {
-      wordGroup.forEach(async (word) => {
+
+    wordGroup.forEach(async (word) => {
+      try {
         await UserWords.addWord({
           authUser: authUser,
           wordId: word.id,
           statistics: new UserWordStatisticsModel({}),
         });
-      })
-    } catch (error) {
-      console.log(error);
-    }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
     console.log('Populating is done.')
   }
 

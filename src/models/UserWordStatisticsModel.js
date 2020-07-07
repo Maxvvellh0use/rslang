@@ -5,7 +5,7 @@ export default class UserWordStatisticsModel {
   constructor({
     difficulty = wordDifficulty.weak,
     useCounter = 1,
-    dictionaryTab = dictionaryTabName.difficult,
+    dictionaryTab = dictionaryTabName.learning,
     lastUse = new Date().toDateString(),
 
   }) {
