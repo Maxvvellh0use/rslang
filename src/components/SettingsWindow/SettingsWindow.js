@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EnglishLevels from './EnglishLevels/EnglishLevels';
-import Tips from './Tips/Tips';
+import Hints from './Hints/Hints';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
 import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
@@ -16,7 +16,7 @@ class SettingsWindow extends Component {
             englishLevel: ENGLISH_LEVELS_ARRAY[0],
             dailyNumber: 20,
             maxNumber: 40,
-            tips: {
+            hints: {
                 translation: true,
                 meaningSentense: false,
                 exampleSentense: false,
@@ -61,7 +61,7 @@ class SettingsWindow extends Component {
         const checkBoxType = target.type === 'checkbox';
         const numberType = target.type === 'number';
         const settings = { ...this.state.settings };
-        const tips = settings.tips;
+        const hints = settings.hints;
         const value = checkBoxType
             ? target.checked
             : numberType
@@ -69,7 +69,7 @@ class SettingsWindow extends Component {
                 : target.value
 
         checkBoxType
-            ? tips[name] = value
+            ? hints[name] = value
             : settings[name] = value
 
         this.setState({ settings, notification: null });
@@ -80,8 +80,8 @@ class SettingsWindow extends Component {
         const settings = this.state.settings;
         const dailyNumber = settings.dailyNumber;
         const maxNumber = settings.maxNumber;
-        const tips = settings.tips;
-        const noCheckedTips = !Object.values(tips).includes(true);
+        const hints = settings.hints;
+        const noCheckedHints = !Object.values(hints).includes(true);
         const dailyGreaterMax = dailyNumber > maxNumber;
 
         let notification;
@@ -90,7 +90,7 @@ class SettingsWindow extends Component {
             notification = NOTIFICATIONS.CANNOT_BE_GREATER;
             this.setState({ notification })
         }
-        else if (noCheckedTips) {
+        else if (noCheckedHints) {
             notification = NOTIFICATIONS.NO_CHECKED;
             this.setState({ notification })
         }
@@ -147,10 +147,10 @@ class SettingsWindow extends Component {
                             max='100'
                         />
 
-                        <p className='settings-window__text'>{TEXT.TIPS}</p>
-                        <Tips
-                            className='settings-window__tips'
-                            isActive={settings.tips}
+                        <p className='settings-window__text'>{TEXT.HINTS}</p>
+                        <Hints
+                            className='settings-window__hints'
+                            isActive={settings.hints}
                             onChange={this.formChangeHandler}
                         />
 
