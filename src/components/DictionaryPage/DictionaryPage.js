@@ -8,6 +8,8 @@ import UserWordStatisticsModel from '../../models/UserWordStatisticsModel';
 import UserWords from '../../data/UserWords';
 import { withRouter } from 'react-router';
 import AuthenticatedUserModel from '../../models/AuthenticatedUserModel';
+import { dictionaryTabName } from '../../models/DictionaryWordModel';
+import DictionarySpinner from './DictionarySpinner/DictionarySpinner';
 
 class DictionaryPage extends React.Component {
   constructor(props) {
@@ -29,7 +31,7 @@ class DictionaryPage extends React.Component {
           userWords = await UserWords.getAllUserWordsData(localAuthUser);
           count = userWords.length;
           if (count === 0) {
-            this.populateUserWords(localAuthUser);
+            await this.populateUserWords(localAuthUser);
           }
         } catch (error) {
           console.log(error);
@@ -69,13 +71,33 @@ class DictionaryPage extends React.Component {
       console.log(error);
     }
 
-
     wordGroup.forEach(async (word) => {
       try {
         await UserWords.addWord({
           authUser: authUser,
           wordId: word.id,
           statistics: new UserWordStatisticsModel({}),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    try {
+      wordGroup = await Words.getAllWords({
+        group: 3,
+        page: 2,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    wordGroup.forEach(async (word) => {
+      try {
+        await UserWords.addWord({
+          authUser: authUser,
+          wordId: word.id,
+          statistics: new UserWordStatisticsModel({dictionaryTab: dictionaryTabName.difficult}),
         });
       } catch (error) {
         console.log(error);
@@ -92,7 +114,7 @@ class DictionaryPage extends React.Component {
           <div className="dictionary__wrapper">
             <DictionaryContainer authUser={this.state.authUser} />
           </div>
-        </main>) : (null)
+        </main>) : (<DictionarySpinner/>)
     );
   }
 }
