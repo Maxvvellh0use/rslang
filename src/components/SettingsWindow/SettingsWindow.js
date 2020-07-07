@@ -3,7 +3,7 @@ import EnglishLevels from './EnglishLevels/EnglishLevels';
 import Hints from './Hints/Hints';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
-import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS } from './constants';
+import { ENGLISH_LEVELS_ARRAY, TEXT, NOTIFICATIONS, DEFAULT } from './constants';
 import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
@@ -13,9 +13,9 @@ class SettingsWindow extends Component {
         isLoaded: false,
         notification: null,
         settings: {
-            englishLevel: ENGLISH_LEVELS_ARRAY[0],
-            dailyNumber: 20,
-            maxNumber: 40,
+            englishLevel: DEFAULT.ENGLISH_LEVEL,
+            dailyNumber: DEFAULT.DAILY_NUMBER,
+            maxNumber: DEFAULT.MAX_NUMBER,
             hints: {
                 translation: true,
                 meaningSentense: false,

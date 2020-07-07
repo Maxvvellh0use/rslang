@@ -19,3 +19,8 @@ export const HINTS_ARRAY = [
     { type: 'checkbox', name: 'exampleSentense', text: 'предложение с использованием слова' },
     { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' }
 ];
+export const DEFAULT = {
+    ENGLISH_LEVEL: 'Начальный',
+    DAILY_NUMBER: 20,
+    MAX_NUMBER: 40,
+}
