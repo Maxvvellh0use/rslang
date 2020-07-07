@@ -6,8 +6,9 @@ import Authentication from '../../data/Authentication';
 import Words from '../../data/Words';
 import UserWordStatisticsModel from '../../models/UserWordStatisticsModel';
 import UserWords from '../../data/UserWords';
+import { withRouter } from 'react-router';
 
-export default class DictionaryPage extends React.Component {
+ class DictionaryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,3 +74,4 @@ export default class DictionaryPage extends React.Component {
     );
   }
 }
+export default withRouter(DictionaryPage);
