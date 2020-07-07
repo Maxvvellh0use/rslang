@@ -18,8 +18,8 @@ class SettingsWindow extends Component {
             maxNumber: DEFAULT.MAX_NUMBER,
             hints: {
                 translation: true,
-                meaningSentense: false,
-                exampleSentense: false,
+                meaningSentence: false,
+                exampleSentence: false,
                 autoPlay: false,
                 transcription: false,
                 image: false,

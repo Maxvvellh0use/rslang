@@ -15,8 +15,8 @@ export const NOTIFICATIONS = {
 export const ENGLISH_LEVELS_ARRAY = ['Начальный', 'Средний', 'Продвинутый'];
 export const HINTS_ARRAY = [
     { type: 'checkbox', name: 'translation', text: 'перевод слова' },
-    { type: 'checkbox', name: 'meaningSentense', text: 'предложение со значением слова' },
-    { type: 'checkbox', name: 'exampleSentense', text: 'предложение с использованием слова' },
+    { type: 'checkbox', name: 'meaningSentence', text: 'предложение со значением слова' },
+    { type: 'checkbox', name: 'exampleSentence', text: 'предложение с использованием слова' },
     { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' },
     { type: 'checkbox', name: 'image', text: 'картинка-ассоциация' },
     { type: 'checkbox', name: 'transcription', text: 'транскрипция слова' }
