@@ -30,7 +30,8 @@ class CustomInput extends React.Component {
                        onChange={this.props.onChange}
                        onFocus={this.props.onFocus}
                        value={this.props.value}
-                       ref={this.textInput} type="text"/>
+                       ref={this.textInput} type="text"
+                       required />
             </section>
         )
 

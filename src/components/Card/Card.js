@@ -9,12 +9,10 @@ import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
 import {
-    firstPage,
-    firstWord,
+    firstPage, firstShow,
     increaseCoefficient,
-    maxWordNumber, nextPageCoefficient,
+    maxWordNumber,
     startProgressValue,
-    unitOffset,
     widthPercent
 } from "./const";
 import Spinner from "../Spinner/Spinner";
@@ -67,8 +65,6 @@ class Card extends React.Component {
         const allWords = await Words.getAllWords( {
             group: group,
             page: this.state.wordRequest.pageNumber,
-            wordsPerExampleSentenceLTE: 10,
-            wordsPerPage: 10
         });
        console.log('wordNumber' + this.state.wordRequest.wordNumber)
         return allWords[this.state.wordRequest.wordNumber];
@@ -77,28 +73,21 @@ class Card extends React.Component {
     correctProgress = () => {
         let corrects = localStorage.corrects;
         corrects = corrects ? corrects : startProgressValue;
-        console.log(corrects);
+        const showWords = localStorage.showWords ? Number(localStorage.showWords) : startProgressValue;
         localStorage.page = localStorage.page ? localStorage.page : firstPage;
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const startProgress = corrects ? corrects : startProgressValue;
         const startWords = corrects && corrects !== maxWordNumber ?
             corrects : startProgressValue;
-        const wordIndex = Number(startWords) > maxWordNumber ? Number(startWords.substring(1,2))
-            : Number(startWords);
-        console.log('wordIndex' + wordIndex)
         const progressBarWords = startProgress * changeOfProgress;
-        console.log('startWords' + startWords)
         const wordNumber = startWords < maxWordNumber && startWords !== startProgressValue ?
-            Number(startWords) : wordIndex;
-        console.log(Number(startWords), maxWordNumber)
-        console.log(Number(startWords) === maxWordNumber)
+            Number(startWords) : startWords;
         const pageNumber = localStorage.page;
-        console.log('wordNumber' + wordNumber)
         this.setState( {
             startWords: startProgress,
             progressBarWords: progressBarWords,
             wordRequest: {
-                wordNumber: wordNumber,
+                wordNumber: wordNumber + Number(showWords),
                 pageNumber: pageNumber,
             },
         })
@@ -121,11 +110,6 @@ class Card extends React.Component {
         const imagePath = wordModel.imagePath;
         const wordLength = word.length
         const widthInput = getInputWidth(wordLength);
-        // const wordNumber = this.state.wordRequest.wordNumber < maxWordNumber ? this.state.wordRequest.wordNumber
-        //     + increaseCoefficient : firstWord;
-        // console.log('startWords' + wordNumber)
-        // const pageNumber = this.state.wordRequest.wordNumber === maxWordNumber ? this.state.wordRequest.pageNumber
-        //     + increaseCoefficient : this.state.wordRequest.pageNumber;
         await this.setState({
             inputDataCheck: word,
             wordLength: wordLength,
@@ -141,10 +125,6 @@ class Card extends React.Component {
             spanCheckValue: '',
             transcription: transcription,
             imagePath: imagePath,
-            // wordRequest: {
-            //     wordNumber: wordNumber,
-            //     pageNumber: pageNumber,
-            // },
         })
         this.imagePreload();
         this.audioListener();
@@ -152,14 +132,14 @@ class Card extends React.Component {
     }
 
     componentDidMount = async () => {
-        // try {
+        try {
             await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
-        // }
-       // catch (e) {
-       //     console.error('ERROR')
-       // }
+        }
+       catch (e) {
+           console.error('ERROR')
+       }
     }
 
     imagePreload = () => {
@@ -250,6 +230,23 @@ class Card extends React.Component {
         this.inputWord.current.focusInput();
     }
 
+    nextPage = (progressValue) => {
+        localStorage.corrects = localStorage.corrects ? Number(localStorage.corrects) + progressValue
+            : progressValue;
+        const corrects = localStorage.corrects;
+        let showWords = localStorage.showWords ? localStorage.showWords : startProgressValue;
+        if (Number(corrects) + Number(showWords) >= maxWordNumber) {
+            localStorage.oldCorrects = localStorage.oldCorrects ?
+                Number(localStorage.oldCorrects) + Number(corrects) : corrects;
+            localStorage.corrects = startProgressValue;
+            localStorage.oldShowWords = localStorage.oldShowWords ?
+                Number(localStorage.oldShowWords) + Number(showWords) : showWords;
+            localStorage.showWords = startProgressValue;
+            localStorage.page = Number(corrects) + Number(showWords) >= maxWordNumber ?
+                Number(localStorage.page) + increaseCoefficient : localStorage.page;
+        }
+    }
+
     submitForm = async (event) => {
         event.preventDefault()
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
@@ -261,13 +258,7 @@ class Card extends React.Component {
             this.inputWord.current.blurInput();
             await this.playWordAudio();
             audio.addEventListener('ended', this.createCard);
-            localStorage.corrects = localStorage.corrects ? Number(localStorage.corrects) + changeOfWords
-                : changeOfWords;
-            const corrects = !localStorage.corrects.substring(1, 2) ?
-                localStorage.corrects : Number(localStorage.corrects.substring(1, 2)) + unitOffset;
-            console.log('corrects' + corrects);
-            localStorage.page = Number(corrects) >= maxWordNumber ? Number(localStorage.page) +
-            increaseCoefficient : localStorage.page;
+            this.nextPage(1);
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
@@ -277,7 +268,7 @@ class Card extends React.Component {
                 startWords: this.state.startWords,
             })
         } else {
-            this.inputWord.current.blurInput();
+            // this.inputWord.current.blurInput();
             await this.playWordAudio();
             this.setState({
                 inputClassColor: ' white',
@@ -285,7 +276,8 @@ class Card extends React.Component {
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters()
             })
-            localStorage.errors = localStorage.errors ? localStorage.errors + changeOfWords
+            setTimeout(this.clearInput, 1000);
+            localStorage.errors = localStorage.errors ? Number(localStorage.errors) + changeOfWords
                 : changeOfWords;
         }
     }
@@ -301,12 +293,15 @@ class Card extends React.Component {
     }
 
     showWord = async () => {
+        let showWords = localStorage.showWords;
+        localStorage.showWords = showWords ? Number(showWords) + increaseCoefficient : firstShow;
         this.setState({
             valueInputWord: this.state.inputDataCheck,
             inputClassColor: '',
             spanCheckValue: '',
         })
         await this.playWordAudio()
+        this.nextPage(0);
         setTimeout(async () => { await this.createCard() }, 1000);
     }
 
