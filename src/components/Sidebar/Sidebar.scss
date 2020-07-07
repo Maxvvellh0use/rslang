@@ -43,10 +43,22 @@ a:hover, a:focus {
     background: #fffcf9;
     color: #1a3b71;
     transition: all 0.3s;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.bottom_sidebar {
+    height: 3.2rem;
 }
 
 .sidebar ul.components {
     border-bottom: 1px solid #47748b;
+}
+
+.up_line {
+    border-top: 1px solid #47748b;
 }
 
 .sidebar ul p {
@@ -103,6 +115,44 @@ ul ul a {
     font-size: .75rem;
 }
 
+.hidden {
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
+    transition: 1.3s;
+}
+
 .active {
     color: #ff934d;
+}
+
+.logout_btn {
+    padding: .9375rem;
+}
+
+.logout {
+    background: aliceblue;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 700px;
+    height: 330px;
+    margin: auto;
+    box-shadow: 2px 3px 18px 3px rgba(0, 0, 0, 0.75);
+    font-size: 20px;
+}
+
+.logout_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.btn-success {
+    margin-right: 3rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
 }
