@@ -1,12 +1,13 @@
 function getLvlWords(lvl) {
-    if (lvl === 'Начальный') {
-        return 1
-    }
-    else if (lvl === 'Средний') {
-        return 3
-    }
-    else if (lvl === 'Продвинутый') {
-        return 5
+    switch (lvl) {
+        case 'Начальный':
+            return 1;
+        case 'Средний':
+            return 3;
+        case 'Продвинутый':
+            return 5;
+        default:
+            break;
     }
 }
 export default getLvlWords

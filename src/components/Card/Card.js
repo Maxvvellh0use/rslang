@@ -8,7 +8,7 @@ import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import Words from "../../data/Words";
-import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgress, widthPercent} from "./const";
+import {firstPage, firstWord, increaseCoefficient, maxWordNumber, startProgressValue, widthPercent} from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
 
@@ -28,12 +28,12 @@ class Card extends React.Component {
         inputBackground: null,
         spansLetters: '',
         spanLettersClass: '',
-        startWords: 0,
+        startWords: null,
         transcription: '',
         imagePath: '',
         imageLoad: false,
         spinner: true,
-        progressBarWords: startProgress,
+        progressBarWords: null,
         wordRequest: {
             wordNumber: firstWord,
             pageNumber: firstPage,
@@ -55,17 +55,48 @@ class Card extends React.Component {
 
    getWordModel = async () => {
         const group = getLvlWords(this.state.optionals.englishLevel);
+        console.log('pageNumber' + this.state.wordRequest.pageNumber)
         const allWords = await Words.getAllWords( {
             group: group,
             page: this.state.wordRequest.pageNumber,
             wordsPerExampleSentenceLTE: 10,
             wordsPerPage: 10
         });
+       console.log('wordNumber' + this.state.wordRequest.wordNumber)
         return allWords[this.state.wordRequest.wordNumber];
+    }
+
+    correctProgress = () => {
+        localStorage.corrects = localStorage.corrects ? localStorage.corrects : startProgressValue;
+        localStorage.page = localStorage.page ? localStorage.page : firstPage;
+        const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
+        const startProgress = localStorage.corrects ? localStorage.corrects : startProgressValue;
+        const wordIndex = localStorage.corrects.substring(1,2) || startProgressValue;
+        const startWords = localStorage.corrects && localStorage.corrects !== maxWordNumber ?
+            Number(localStorage.corrects) : wordIndex;
+        console.log(wordIndex)
+        const progressBarWords = startProgress * changeOfProgress;
+        console.log('startWords' + startWords)
+        const wordNumber = startWords < maxWordNumber && startWords !== startProgressValue ? Number(startWords)
+            + increaseCoefficient : wordIndex;
+        console.log(Number(startWords), maxWordNumber)
+        console.log(Number(startWords) === maxWordNumber)
+        const pageNumber = localStorage.page;
+        console.log('pageNumber' + pageNumber)
+        this.setState( {
+            startWords: startProgress,
+            progressBarWords: progressBarWords,
+            wordRequest: {
+                wordNumber: wordNumber,
+                pageNumber: pageNumber,
+            },
+        })
+        console.log(this.state.progressBarWords, this.state.startWords)
     }
 
     createCard = async () => {
         this.showSpinner();
+        this.correctProgress();
         const wordModel = await this.getWordModel();
         const word = wordModel.word;
         const wordTranslation = wordModel.wordTranslate;
@@ -79,10 +110,11 @@ class Card extends React.Component {
         const imagePath = wordModel.imagePath;
         const wordLength = word.length
         const widthInput = getInputWidth(wordLength);
-        const wordNumber = this.state.wordRequest.wordNumber < maxWordNumber ? this.state.wordRequest.wordNumber
-            + increaseCoefficient : firstWord;
-        const pageNumber = this.state.wordRequest.wordNumber === maxWordNumber ? this.state.wordRequest.pageNumber
-            + increaseCoefficient : this.state.wordRequest.pageNumber;
+        // const wordNumber = this.state.wordRequest.wordNumber < maxWordNumber ? this.state.wordRequest.wordNumber
+        //     + increaseCoefficient : firstWord;
+        // console.log('startWords' + wordNumber)
+        // const pageNumber = this.state.wordRequest.wordNumber === maxWordNumber ? this.state.wordRequest.pageNumber
+        //     + increaseCoefficient : this.state.wordRequest.pageNumber;
         await this.setState({
             inputDataCheck: word,
             wordLength: wordLength,
@@ -98,10 +130,10 @@ class Card extends React.Component {
             spanCheckValue: '',
             transcription: transcription,
             imagePath: imagePath,
-            wordRequest: {
-                wordNumber: wordNumber,
-                pageNumber: pageNumber,
-            },
+            // wordRequest: {
+            //     wordNumber: wordNumber,
+            //     pageNumber: pageNumber,
+            // },
         })
         this.imagePreload();
         this.audioListener();
@@ -109,15 +141,14 @@ class Card extends React.Component {
     }
 
     componentDidMount = async () => {
-        try {
+        // try {
             await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
-            await this.playWordAudio();
-        }
-       catch (e) {
-           console.error('ERROR')
-       }
+        // }
+       // catch (e) {
+       //     console.error('ERROR')
+       // }
     }
 
     imagePreload = () => {
@@ -216,15 +247,20 @@ class Card extends React.Component {
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const changeOfWords = 1;
         if (!correctLetters.length) {
+            this.inputWord.current.blurInput();
             await this.playWordAudio();
             audio.addEventListener('ended', this.createCard);
+            localStorage.corrects = localStorage.corrects ? Number(localStorage.corrects) + changeOfWords
+                : changeOfWords;
+            localStorage.page = Number(localStorage.corrects) === maxWordNumber ? Number(localStorage.page) +
+            increaseCoefficient : localStorage.page;
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters(),
-                progressBarWords: this.state.progressBarWords + changeOfProgress,
-                startWords: this.state.startWords + changeOfWords,
+                progressBarWords: this.state.startWords * changeOfProgress,
+                startWords: this.state.startWords,
             })
         } else {
             this.inputWord.current.blurInput();
@@ -235,6 +271,8 @@ class Card extends React.Component {
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters()
             })
+            localStorage.errors = localStorage.errors ? localStorage.errors + changeOfWords
+                : changeOfWords;
         }
     }
 
@@ -270,13 +308,22 @@ class Card extends React.Component {
             onFocus={this.clearInput}
             value={this.state.valueInputWord}
             ref={this.inputWord} type="text"/>;
+        const progressSection = <div className="progress_section">
+            <ProgressBar
+                maxWords={this.state.optionals.maxNumber}
+                startWords={this.state.startWords}
+                width={this.state.progressBarWords} />
+        </div>
         let classNameButton = 'next_and_audio__audio_button';
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
         }
         if (this.state.spinner) {
             return (
-                <Spinner className="spinner_card" />
+                <main>
+                    <Spinner className="spinner_card" />
+                    {progressSection}
+                </main>
             )
         }
         return (
@@ -298,7 +345,7 @@ class Card extends React.Component {
                                 <div className="transcription_and_image">
                                     <span className="transcription_and_image__transcription">{this.state.transcription}</span>
                                     <img src={this.state.imagePath} className="transcription_and_image__image"
-                                         alt="Word image"/>
+                                         alt="Word association"/>
                                 </div>
                                 <div className="next_and_audio">
                                     <SpanButton className="next_and_audio__next"
@@ -317,12 +364,7 @@ class Card extends React.Component {
                     </div>
                 </section>
                 <section>
-                    <div className="progress_section">
-                        <ProgressBar
-                            maxWords={this.state.optionals.maxNumber}
-                            startWords={this.state.startWords}
-                            width={this.state.progressBarWords} />
-                    </div>
+                    {progressSection}
                 </section>
             </main>
         )
