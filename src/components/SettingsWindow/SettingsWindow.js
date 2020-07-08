@@ -23,6 +23,7 @@ class SettingsWindow extends Component {
                 autoPlay: false,
                 transcription: false,
                 image: false,
+                answerButton: false,
             }
         },
         user: {

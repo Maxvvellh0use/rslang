@@ -9,7 +9,7 @@ export const TEXT = {
 export const NOTIFICATIONS = {
     CANNOT_BE_GREATER: { type: 'error', text: 'Ежедневное количество слов не может быть больше максимального количества слов' },
     NO_CHECKED: { type: 'error', text: 'Как минимум одна подсказка должна быть выбрана' },
-    UNKNOWN: {type: 'error', text: 'Что-то пошло не так :('},
+    UNKNOWN: { type: 'error', text: 'Что-то пошло не так :(' },
     SUCCESS: { type: 'success', text: 'Настройки изменены успешно!' },
 }
 export const ENGLISH_LEVELS_ARRAY = ['Начальный', 'Средний', 'Продвинутый'];
@@ -19,7 +19,8 @@ export const HINTS_ARRAY = [
     { type: 'checkbox', name: 'exampleSentence', text: 'предложение с использованием слова' },
     { type: 'checkbox', name: 'autoPlay', text: 'автопроизношение слова' },
     { type: 'checkbox', name: 'image', text: 'картинка-ассоциация' },
-    { type: 'checkbox', name: 'transcription', text: 'транскрипция слова' }
+    { type: 'checkbox', name: 'transcription', text: 'транскрипция слова' },
+    { type: 'checkbox', name: 'answerButton', text: 'кнопка "Показать ответ"' }
 ];
 export const DEFAULT = {
     ENGLISH_LEVEL: 'Начальный',
