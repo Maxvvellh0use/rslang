@@ -53,6 +53,7 @@ class Card extends React.Component {
             maxNumber: null,
         },
         hints: {
+            answerButton: '',
             translation: '',
             meaningSentence: '',
             autoPlay: '',
@@ -134,7 +135,9 @@ class Card extends React.Component {
         })
         this.imagePreload();
         this.audioListener();
-        await this.playWordAudio();
+        if (this.state.hints.autoPlay) {
+            await this.playWordAudio()
+        }
     }
 
     componentDidMount = async () => {
@@ -179,11 +182,14 @@ class Card extends React.Component {
         const userSettings = await UserSettings.getUserSettings(user);
         console.log(userSettings)
         const userOptionals = userSettings.optional;
-        const hints = userOptionals.tips;
+        const hints = userOptionals.hints;
+        const answerButtonHint = hints.answerButton ? '' : ' visibility_hidden';
+        const transcriptionHint = hints.transcription ? '' : ' visibility_hidden';
+        const imageHint = hints.image ? '' : ' visibility_hidden';
         const translationHint = hints.translation ? '' : ' visibility_hidden';
-        const autoPlayHint = hints.autoPlay ? '' : ' visibility_hidden';
-        const exampleSentenceHint = hints.exampleSentense ? '' : ' visibility_hidden';
-        const meaningSentenceHint = hints.meaningSentense ? '' : ' visibility_hidden';
+        const autoPlayHint = hints.autoPlay;
+        const exampleSentenceHint = hints.exampleSentence ? '' : ' visibility_hidden';
+        const meaningSentenceHint = hints.meaningSentence ? '' : ' visibility_hidden';
         this.setState({
             optionals: {
                 dailyNumber: userOptionals.dailyNumber,
@@ -191,6 +197,10 @@ class Card extends React.Component {
                 maxNumber: userOptionals.maxNumber,
             },
             hints: {
+                autoPlayHint: autoPlayHint,
+                transcription: transcriptionHint,
+                image: imageHint,
+                answerButton: answerButtonHint,
                 translation: translationHint,
                 autoPlay: autoPlayHint,
                 meaningSentence: meaningSentenceHint,
@@ -402,15 +412,18 @@ class Card extends React.Component {
                                     </div>
                                 </div>
                                 <div className="transcription_and_image">
-                                    <span className="transcription_and_image__transcription">{this.state.transcription}</span>
-                                    <img src={this.state.imagePath} className="transcription_and_image__image"
+                                    <span className={"transcription_and_image__transcription" + this.state.hints.translation}>
+                                        {this.state.transcription}</span>
+                                    <img src={this.state.imagePath}
+                                         className={"transcription_and_image__image" + this.state.hints.image}
                                          alt="Word association"/>
                                 </div>
                                 <div className="next_and_audio">
                                     <SpanButton className="next_and_audio__next"
                                                 onClick={this.submitForm} />
                                     <div className="show_word">
-                                        <span className="show_word__button" onClick={this.showWord}>Показать ответ</span>
+                                        <span className={"show_word__button" + this.state.hints.answerButton}
+                                              onClick={this.showWord}>Показать ответ</span>
                                     </div>
                                         <SpanButton className={classNameButton}
                                                     onClick={this.playWordAudio} />
