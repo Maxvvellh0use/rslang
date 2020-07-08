@@ -17,7 +17,8 @@ import {
 } from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
-import ResultWindow from "./ResultWindow";
+import ResultWindow from "./ResultWindow/ResultWindow";
+import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 
 class Card extends React.Component {
     inputWord = React.createRef();
@@ -80,14 +81,16 @@ class Card extends React.Component {
         localStorage.page = localStorage.page ? localStorage.page : firstPage;
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const startProgress = corrects ? corrects : startProgressValue;
+        const currentProgress =  Number(localStorage.oldCorrects) ? Number(startProgress) +
+            Number(localStorage.oldCorrects) : startProgress;
         const startWords = corrects && corrects !== maxWordNumber ?
             corrects : startProgressValue;
-        const progressBarWords = startProgress * changeOfProgress;
+        const progressBarWords = currentProgress * changeOfProgress;
         const wordNumber = startWords < maxWordNumber && startWords !== startProgressValue ?
             Number(startWords) : startWords;
         const pageNumber = localStorage.page;
         this.setState( {
-            startWords: startProgress,
+            startWords: currentProgress,
             progressBarWords: progressBarWords,
             wordRequest: {
                 wordNumber: wordNumber + Number(showWords),
@@ -249,6 +252,16 @@ class Card extends React.Component {
         }
     }
 
+    showResultWindow = () => {
+        this.setState({
+            resultWindow: true,
+        })
+        // setTimeout(() => {
+        //     this.props.history.push('/main');
+        //     clearLocalStorageResults(localStorage)
+        // }, 2000)
+    }
+
     submitForm = async (event) => {
         event.preventDefault()
         this.setState({
@@ -260,21 +273,28 @@ class Card extends React.Component {
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const changeOfWords = 1;
         if (!correctLetters.length) {
+            this.nextPage(1);
+            const currentProgress =  Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
+                Number(localStorage.oldCorrects) : Number(localStorage.corrects);
+            if (currentProgress === this.state.optionals.maxNumber) {
+                await this.playWordAudio();
+                audio.addEventListener('ended', this.showResultWindow);
+                return true;
+            }
+            console.log(currentProgress)
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters(),
-                progressBarWords: this.state.startWords * changeOfProgress,
+                startWords: currentProgress,
+                progressBarWords: currentProgress * changeOfProgress,
             })
             await this.playWordAudio();
-            // audio.addEventListener('ended', this.createCard);
-            this.nextPage(1);
-            if (this.state.startWords === this.state.optionals.maxNumber) {
-                this.setState({
-                    resultWindow: true,
-                })
-            }
+            audio.addEventListener('ended', this.createCard);
+            console.log("resultWindow" + (currentProgress === this.state.optionals.maxNumber))
+            console.log(this.state.optionals.maxNumber)
+
         } else {
             await this.playWordAudio();
             this.setState({
@@ -313,8 +333,8 @@ class Card extends React.Component {
     }
 
     render = () => {
-        const totalCorrects = localStorage.corrects + localStorage.oldCorrects;
-        const totalErrors = localStorage.errors;
+        const totalCorrects = Number(localStorage.corrects) + Number(localStorage.oldCorrects);
+        const totalErrors = Number(localStorage.errors);
         const inputWord = <CustomInput
             class={"input_word" + this.state.inputClassColor}
             dataCheck={this.state.inputDataCheck}
@@ -340,10 +360,14 @@ class Card extends React.Component {
             classNameButton += ' active_audio_button';
         }
         if (this.state.resultWindow) {
-            return <ResultWindow
-                corrects={totalCorrects}
-                errors={totalErrors}
-            />
+            return (
+                <main>
+                    <ResultWindow
+                        corrects={totalCorrects}
+                        errors={totalErrors}
+                    />
+                </main>
+                )
         }
         if (this.state.spinner) {
             return (
