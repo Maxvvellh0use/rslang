@@ -1,3 +1,5 @@
+@import "../../../style/constants";
+
 .letter_check {
   display: inline-block;
   text-align: center;
@@ -8,5 +10,21 @@
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.difficulty_block {
+  position: absolute;
+  font-size: 14px;
+  height: 100%;
+  max-height: 10px;
+  line-height: 0;
+}
+
+.difficulty_block__item {
+  margin-left: 3px;
+  &:hover {
+    cursor: pointer;
+    color: $color-link-card;
+  }
 }
 

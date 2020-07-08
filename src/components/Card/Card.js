@@ -17,6 +17,7 @@ import {
 } from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
+import ResultWindow from "./ResultWindow";
 
 class Card extends React.Component {
     inputWord = React.createRef();
@@ -32,6 +33,7 @@ class Card extends React.Component {
         inputClassColor: '',
         valueInputWord: '',
         inputBackground: null,
+        difficultyClass: '',
         spansLetters: '',
         spanLettersClass: '',
         startWords: null,
@@ -56,7 +58,8 @@ class Card extends React.Component {
             exampleSentence: '',
             transcription: '',
             image: '',
-        }
+        },
+        resultWindow: false,
     }
 
    getWordModel = async () => {
@@ -91,7 +94,6 @@ class Card extends React.Component {
                 pageNumber: pageNumber,
             },
         })
-        console.log(this.state.progressBarWords, this.state.startWords)
     }
 
     createCard = async () => {
@@ -121,6 +123,7 @@ class Card extends React.Component {
             inputWidth: `${widthInput}px`,
             valueInputWord: '',
             inputClassColor: '',
+            difficultyClass: ' visibility_hidden',
             spanLettersClass: '',
             spanCheckValue: '',
             transcription: transcription,
@@ -191,7 +194,6 @@ class Card extends React.Component {
                 exampleSentence: exampleSentenceHint,
             }
         })
-        console.log(this.state.hints)
     }
 
     audioListener = () => {
@@ -249,26 +251,31 @@ class Card extends React.Component {
 
     submitForm = async (event) => {
         event.preventDefault()
+        this.setState({
+            difficultyClass: '',
+        })
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
         const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
         const changeOfWords = 1;
         if (!correctLetters.length) {
-            this.inputWord.current.blurInput();
-            await this.playWordAudio();
-            audio.addEventListener('ended', this.createCard);
-            this.nextPage(1);
             this.setState({
                 inputClassColor: ' white',
                 spansLetters: '',
                 spanLettersClass: ' z-index3',
                 spanCheckValue: this.checkLetters(),
                 progressBarWords: this.state.startWords * changeOfProgress,
-                startWords: this.state.startWords,
             })
+            await this.playWordAudio();
+            // audio.addEventListener('ended', this.createCard);
+            this.nextPage(1);
+            if (this.state.startWords === this.state.optionals.maxNumber) {
+                this.setState({
+                    resultWindow: true,
+                })
+            }
         } else {
-            // this.inputWord.current.blurInput();
             await this.playWordAudio();
             this.setState({
                 inputClassColor: ' white',
@@ -306,6 +313,8 @@ class Card extends React.Component {
     }
 
     render = () => {
+        const totalCorrects = localStorage.corrects + localStorage.oldCorrects;
+        const totalErrors = localStorage.errors;
         const inputWord = <CustomInput
             class={"input_word" + this.state.inputClassColor}
             dataCheck={this.state.inputDataCheck}
@@ -316,7 +325,10 @@ class Card extends React.Component {
             onChange={this.handleChangeInput}
             onFocus={this.clearInput}
             value={this.state.valueInputWord}
-            ref={this.inputWord} type="text"/>;
+            ref={this.inputWord}
+            difficultyClass={this.state.difficultyClass}
+            createCard={this.createCard}
+            type="text"/>;
         const progressSection = <div className="progress_section">
             <ProgressBar
                 maxWords={this.state.optionals.maxNumber}
@@ -327,11 +339,19 @@ class Card extends React.Component {
         if (this.state.isActiveButton) {
             classNameButton += ' active_audio_button';
         }
+        if (this.state.resultWindow) {
+            return <ResultWindow
+                corrects={totalCorrects}
+                errors={totalErrors}
+            />
+        }
         if (this.state.spinner) {
             return (
                 <main>
                     <Spinner className="spinner_card" />
-                    {progressSection}
+                    <section>
+                        {progressSection}
+                    </section>
                 </main>
             )
         }
@@ -344,7 +364,7 @@ class Card extends React.Component {
                                 <div className="sentence_wrapper">
                                     <div className="card_word__main__sentence">
                                         <form onSubmit={this.submitForm} className={"card_word__form" + this.state.hints.exampleSentence}>
-                                            <div>{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
+                                            <div className="sentence">{this.state.startSentence} {inputWord} {this.state.endSentence}</div>
                                         </form>
                                     </div>
                                     <div className={"card_word__main__sentence_translation" + this.state.hints.meaningSentence}>

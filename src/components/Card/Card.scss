@@ -8,6 +8,10 @@ main {
     width: 30px;
 }
 
+.sentence {
+    //margin-top: -20px;
+}
+
 .card_word__section {
     margin-top: 20vh;
 }
@@ -43,10 +47,12 @@ main {
 
 .card_word__main__sentence {
     width: 100%;
+    line-height: 65px;
     font-size: 35px;
 }
 
 .card_word__main__sentence_translation {
+    margin-top: 10px;
     width: 100%;
     font-size: 20px;
 }
@@ -54,7 +60,7 @@ main {
 .transcription_and_image {
     position: relative;
     display: flex;
-    margin: 20px;
+    margin: 40px 20px 20px;
     flex-direction: row;
     justify-content: space-between;
     height: 100%;

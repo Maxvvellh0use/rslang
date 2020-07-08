@@ -13,3 +13,5 @@ const ResultWindow = (errors, corrects) => {
         </section>
     )
 }
+
+export default ResultWindow;
