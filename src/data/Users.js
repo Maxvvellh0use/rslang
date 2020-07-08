@@ -11,8 +11,7 @@ export default class Users {
    * @returns {string} user id
    *
    */
-  static addUser = async (user) => {
-    console.log(user)
+  static addUser = async (user) => {    
     const url = `${serverPath}/users`;
     const data = {
       method: 'POST',

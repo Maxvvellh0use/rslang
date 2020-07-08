@@ -21,11 +21,13 @@ export default class Authentication {
         body: JSON.stringify(user),
       };
     const response = await DataHelper.makeRequest(url, data, errorMessage);
-    return new AuthenticatedUserModel(
-      user.email,
-      user.password,
-      response.userId,
-      response.token,
+    return new AuthenticatedUserModel({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      id: response.userId,
+      token: response.token,
+    }
     );
   };
 }

@@ -1,0 +1,85 @@
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
+
+.dictionary {
+  &__tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    opacity: 0.7;
+    background-color: lightgrey;
+
+    padding: 20px 10px;
+    cursor: pointer;
+
+    color: $dictionary-word-card-font-color-primary;
+
+    @extend %transition;
+    @extend %no-userselect;
+    @extend %card-shadow;
+
+    &_selected {
+      @extend %transition;
+      opacity: 1;
+      cursor: default;
+      z-index: 5;
+      @extend %scale;
+    }
+    &:hover {
+      @extend %transition;
+      opacity: 1;
+    }
+
+    &_learning {
+      background-color: $dictionary-learning-panel-background;
+      border-top-right-radius: 10px;
+      @include media-tablet {
+        border-top-right-radius: 0;
+      }
+    }
+    &_difficult {
+      background-color: $dictionary-difficult-panel-background;
+    }
+    &_removed {
+      background-color: $dictionary-removed-panel-background;
+      border-bottom-right-radius: 10px;
+      @include media-tablet {
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    @include media-tablet {
+      padding: 10px;
+      width: 33%;
+    }
+  }
+
+  &__tab__header {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 20px;
+    @extend %textshadow;
+
+    @include media-tablet {
+      font-size: 15px;
+    }
+  }
+
+  &__tab__counter {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 50px;
+    @extend %textshadow;
+
+    @include media-tablet {
+      font-size: 22px;
+    }
+  }
+}

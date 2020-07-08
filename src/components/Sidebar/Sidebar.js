@@ -7,6 +7,7 @@ import { ReactComponent as ArrowLeftIcon } from '../../assets/img/icons_navbar/a
 import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
+import DictionaryPage from '../DictionaryPage/DictionaryPage';
 import { NAVLINK_ARRAY } from "./const";
 import NavbarLink from "./NavbarLink";
 import LogOut from './LogOut';
@@ -100,6 +101,7 @@ class Sidebar extends React.Component {
                 <Switch>
                     <Route path="/main/words" component={Card} />
                     <Route path="/main/settings" component={SettingsWindow} />
+                    <Route path="/main/dictionary" component={DictionaryPage} />
                     <Route path="/main/logout">
                         <LogOut isAuthorization={this.props.isAuthorization} history={this.props.history} />
                     </Route>
