@@ -7,6 +7,7 @@ import { TEXT, NOTIFICATIONS, DEFAULT } from './constants';
 import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
+import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 
 class SettingsWindow extends Component {
     state = {
@@ -55,6 +56,7 @@ class SettingsWindow extends Component {
             wordsPerDay: 1,
             optional: settings,
         })
+        clearLocalStorageResults(localStorage);
     }
 
     formChangeHandler = (event) => {

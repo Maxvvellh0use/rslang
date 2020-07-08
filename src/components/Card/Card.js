@@ -63,7 +63,7 @@ class Card extends React.Component {
         resultWindow: false,
     }
 
-   getWordModel = async () => {
+    getWordModel = async () => {
         const group = getLvlWords(this.state.optionals.englishLevel);
         console.log('pageNumber' + this.state.wordRequest.pageNumber)
         const allWords = await Words.getAllWords( {
@@ -256,10 +256,22 @@ class Card extends React.Component {
         this.setState({
             resultWindow: true,
         })
-        // setTimeout(() => {
-        //     this.props.history.push('/main');
-        //     clearLocalStorageResults(localStorage)
-        // }, 2000)
+        setTimeout(() => {
+            this.props.history.push('/main');
+            clearLocalStorageResults(localStorage)
+        }, 3000)
+    }
+
+    correctWordState = (currentProgress) => {
+        const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
+        this.setState({
+            inputClassColor: ' white',
+            spansLetters: '',
+            spanLettersClass: ' z-index3',
+            spanCheckValue: this.checkLetters(),
+            startWords: currentProgress,
+            progressBarWords: currentProgress * changeOfProgress,
+        })
     }
 
     submitForm = async (event) => {
@@ -270,26 +282,20 @@ class Card extends React.Component {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
-        const changeOfProgress = widthPercent / this.state.optionals.maxNumber;
+
         const changeOfWords = 1;
         if (!correctLetters.length) {
             this.nextPage(1);
             const currentProgress =  Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
                 Number(localStorage.oldCorrects) : Number(localStorage.corrects);
             if (currentProgress === this.state.optionals.maxNumber) {
+                this.correctWordState(currentProgress)
                 await this.playWordAudio();
                 audio.addEventListener('ended', this.showResultWindow);
                 return true;
             }
             console.log(currentProgress)
-            this.setState({
-                inputClassColor: ' white',
-                spansLetters: '',
-                spanLettersClass: ' z-index3',
-                spanCheckValue: this.checkLetters(),
-                startWords: currentProgress,
-                progressBarWords: currentProgress * changeOfProgress,
-            })
+            this.correctWordState(currentProgress)
             await this.playWordAudio();
             audio.addEventListener('ended', this.createCard);
             console.log("resultWindow" + (currentProgress === this.state.optionals.maxNumber))
