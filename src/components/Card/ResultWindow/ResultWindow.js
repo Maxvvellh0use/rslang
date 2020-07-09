@@ -2,11 +2,8 @@ import React from "react";
 import "./ResultWindow.scss"
 
 const ResultWindow = (props) => {
-    console.log('corrects' + props.corrects)
-    console.log('errors' + props.errors)
     const percentageCorrect = props.errors ? Math.round((props.corrects /
         (props.corrects + props.errors)) * 100) : 100;
-    console.log('percentageCorrect' + percentageCorrect)
     return (
         <section className="result_section">
             <div className="result_window">
