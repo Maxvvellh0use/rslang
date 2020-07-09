@@ -8,10 +8,6 @@ main {
     width: 30px;
 }
 
-.sentence {
-    //margin-top: -20px;
-}
-
 .card_word__section {
     margin-top: 20vh;
 }
@@ -75,9 +71,15 @@ main {
     align-self: center;
     width: 100%;
     max-width: 700px;
-    margin: 20px;
     font-size: 30px;
     font-weight: bold;
+}
+
+.footer_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
 }
 
 .transcription_and_image__image {
@@ -137,4 +139,6 @@ main {
 .visibility_hidden {
     visibility: hidden;
 }
+
+
 

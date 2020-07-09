@@ -421,8 +421,8 @@ class Card extends React.Component {
                                         <form onSubmit={this.submitForm}
                                               className={"card_word__form" + this.state.hints.exampleSentence}>
                                             <div className="sentence">
-                                                {this.state.startSentence}
-                                                {inputWord}
+                                                {this.state.startSentence}{' '}
+                                                {inputWord}{' '}
                                                 {this.state.endSentence}
                                             </div>
                                         </form>
@@ -441,19 +441,30 @@ class Card extends React.Component {
                                          alt="Word association"/>
                                 </div>
                                 <div className="next_and_audio">
-                                    <SpanButton className="next_and_audio__next"
-                                                onClick={this.submitForm} />
+                                        <SpanButton className="next_and_audio__next"
+                                                    title="Проверить слово"
+                                                    onClick={this.submitForm} />
                                     <div className="show_word">
-                                        <span className={"show_word__button" + this.state.hints.answerButton}
-                                              onClick={this.showWord}>Показать ответ</span>
+                                        <SpanButton className={"show_word__button" + this.state.hints.answerButton}
+                                                    onClick={this.showWord}
+                                                    value="Показать ответ"/>
                                     </div>
                                         <SpanButton className={classNameButton}
+                                                    title="Прослушать слово"
                                                     onClick={this.playWordAudio} />
                                 </div>
                             </div>
                         </div>
-                        <div className={"card_word__main__word_translation" + this.state.hints.translation}>
-                            <p>{this.state.wordTranslation}</p>
+                        <div className="footer_card">
+                            <div className={"card_word__main__word_translation" + this.state.hints.translation}>
+                                <p>{this.state.wordTranslation}</p>
+                            </div>
+                            <div className="dictionary_buttons">
+                                <SpanButton className="dictionary_buttons__difficult"
+                                            title="В сложные"/>
+                                <SpanButton title="Удалить слово"
+                                            className="dictionary_buttons__remove"/>
+                            </div>
                         </div>
                     </div>
                 </section>
