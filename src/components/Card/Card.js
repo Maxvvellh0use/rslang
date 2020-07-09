@@ -26,6 +26,7 @@ class Card extends React.Component {
     _isMounted = false;
     inputWord = React.createRef();
     state = {
+        wordModel: null,
         isActiveButton: false,
         inputDataCheck: '',
         wordLength: null,
@@ -127,6 +128,7 @@ class Card extends React.Component {
         console.log(await addWordToDictionary(currentUser, wordModel, tabName));
         if (this._isMounted) {
             await this.setState({
+                wordModel: wordModel,
                 inputDataCheck: word,
                 wordLength: wordLength,
                 wordTranslation: wordTranslation,
@@ -344,10 +346,26 @@ class Card extends React.Component {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord);
         const letters = this.state.valueInputWord.split('');
         const validLetters = checkLetters.map((letter, index) => {
-            return !letter ? <span className="card_word__form__span_letter red_letter" key={index}>{letters[index]}</span> :
-                <span className="card_word__form__span_letter green_letter" key={index + 'letter'}>{letters[index]}</span>;
+            return !letter ?
+                <span className="card_word__form__span_letter red_letter" key={index}>{letters[index]}</span> :
+                <span className="card_word__form__span_letter green_letter"
+                      key={index + 'letter'}>{letters[index]}</span>;
         })
         return validLetters;
+    }
+
+    removeWordDictionary = async () => {
+        const currentUser = JSON.parse(localStorage.user);
+        const wordModel = this.state.wordModel;
+        const tabName = 'removed';
+        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+    }
+
+    difficultWordDictionary = async () => {
+        const currentUser = JSON.parse(localStorage.user);
+        const wordModel = this.state.wordModel;
+        const tabName = 'difficult';
+        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
     }
 
     showWord = async () => {
@@ -461,8 +479,10 @@ class Card extends React.Component {
                             </div>
                             <div className="dictionary_buttons">
                                 <SpanButton className="dictionary_buttons__difficult"
+                                            onClick={this.difficultWordDictionary}
                                             title="В сложные"/>
                                 <SpanButton title="Удалить слово"
+                                            onClick={this.removeWordDictionary}
                                             className="dictionary_buttons__remove"/>
                             </div>
                         </div>
