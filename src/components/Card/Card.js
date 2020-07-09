@@ -19,6 +19,8 @@ import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
 import ResultWindow from "./ResultWindow/ResultWindow";
 import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
+import addWordToDictionary from "./helpers/addWordToDictionary";
+import getWordToDictionary from "./helpers/getWordToDictionary";
 
 class Card extends React.Component {
     _isMounted = false;
@@ -119,6 +121,10 @@ class Card extends React.Component {
         const imagePath = wordModel.imagePath;
         const wordLength = word.length
         const widthInput = getInputWidth(wordLength);
+        const tabName = 'learning';
+        const currentUser = JSON.parse(localStorage.user);
+        console.log(await getWordToDictionary(tabName, currentUser))
+        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
         if (this._isMounted) {
             await this.setState({
                 inputDataCheck: word,
@@ -165,7 +171,9 @@ class Card extends React.Component {
         const image = new Image();
         image.src = this.state.imagePath;
         image.addEventListener('load', () => {
-            this.setState({ imageLoad: true });
+            this.setState({
+                imageLoad: true
+            });
             this.hideSpinner();
             this.inputWord.current.focusInput();
         })
