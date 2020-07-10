@@ -20,7 +20,6 @@ class Sidebar extends React.Component {
     }
 
     switchOverlay = () => {
-        console.log(this.state.overlay)
         this.setState({
             overlay: !this.state.overlay
         })
@@ -109,7 +108,8 @@ class Sidebar extends React.Component {
                 </nav>
                 <Switch>
                     <Route path="/main/words">
-                        <Card switchOverlay={this.switchOverlay}/>
+                        <Card history={this.props.history}
+                              switchOverlay={this.switchOverlay}/>
                     </Route>
                     <Route path="/main/settings" component={SettingsWindow} />
                     <Route path="/main/dictionary" component={DictionaryPage} />

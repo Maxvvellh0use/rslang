@@ -73,9 +73,7 @@ class Card extends React.Component {
     getWordModel = async () => {
         const group = getLvlWords(this.state.optionals.englishLevel);
         const currentUser = JSON.parse(localStorage.user);
-        console.log(currentUser.id)
         const allWords = await getAggregatedAllWords(currentUser, group);
-        console.log(allWords)
         return allWords[this.state.wordRequest.wordNumber];
     }
 
@@ -289,6 +287,7 @@ class Card extends React.Component {
     }
 
     showResultWindow = () => {
+        this.props.switchOverlay()
         this.setState({
             resultWindow: true,
         })
@@ -322,26 +321,24 @@ class Card extends React.Component {
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
         const changeOfWords = 1;
+        const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
+            Number(localStorage.oldCorrects) : Number(localStorage.corrects);
         if (!correctLetters.length) {
+            if (currentProgress === this.state.optionals.maxNumber) {
+                this.props.switchOverlay()
+                this.correctWordState(currentProgress)
+                await this.playWordAudio();
+                audio.addEventListener('ended', this.showResultWindow);
+                return true;
+            }
             this.setState({
                 difficultyClass: '',
                 submitted: true,
             })
             this.props.switchOverlay()
             this.nextPage(increaseCoefficient);
-            const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
-                Number(localStorage.oldCorrects) : Number(localStorage.corrects);
-
-            if (currentProgress === this.state.optionals.maxNumber) {
-                this.correctWordState(currentProgress)
-                await this.playWordAudio();
-                audio.addEventListener('ended', this.showResultWindow);
-                return true;
-            }
             this.correctWordState(currentProgress)
             await this.playWordAudio();
-            // audio.addEventListener('ended', this.createCard);
-
         } else {
             await this.playWordAudio();
             this.setState({
@@ -373,7 +370,7 @@ class Card extends React.Component {
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'removed';
-        console.log(await updateWordToDictionary(currentUser, wordModel, tabName));
+        await updateWordToDictionary(currentUser, wordModel, tabName);
         this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
@@ -382,7 +379,7 @@ class Card extends React.Component {
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'difficult';
-        console.log(await updateWordToDictionary(currentUser, wordModel, tabName));
+        await updateWordToDictionary(currentUser, wordModel, tabName);
         this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
