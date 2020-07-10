@@ -176,7 +176,7 @@ class Card extends React.Component {
     imagePreload = () => {
         const image = new Image();
         image.src = this.state.imagePath;
-        if (this._isMounted) {
+        // if (this._isMounted) {
             image.addEventListener('load', () => {
                 this.setState({
                     imageLoad: true
@@ -184,7 +184,7 @@ class Card extends React.Component {
                 this.hideSpinner();
                 this.inputWord.current.focusInput();
             })
-        }
+        // }
     }
 
     hideSpinner = () => {
@@ -237,13 +237,13 @@ class Card extends React.Component {
 
     audioListener = () => {
         const audio = this.state.audio;
-        if (this._isMounted) {
+        // if (this._isMounted) {
             audio.addEventListener('ended', () => {
                 this.setState({
                     isActiveButton: !this.state.isActiveButton
                 })
-            });
-        }
+        //     });
+        // }
     }
 
     playWordAudio = async () => {
