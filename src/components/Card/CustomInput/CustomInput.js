@@ -19,6 +19,7 @@ class CustomInput extends React.Component {
     }
 
     nextCard = () => {
+        this.props.switchOverlay();
         this.props.createCard();
     }
 

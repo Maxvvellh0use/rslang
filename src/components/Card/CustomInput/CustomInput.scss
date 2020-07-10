@@ -1,4 +1,5 @@
 @import "../../../style/constants";
+@import "../../../style/placeholders";
 
 .letter_check {
   display: inline-block;
@@ -21,9 +22,17 @@
 }
 
 .difficulty_block__item {
+  @extend %my-transition;
+  position: relative;
+  padding: 3px;
+  width: 110%;
+  z-index: 6;
+  background: $color-card-background;
+  border-radius: 2px;
   margin-left: 3px;
   &:hover {
     cursor: pointer;
+    box-shadow: 0px 2px 11px 0px $color-link-card;
     color: $color-link-card;
   }
 }

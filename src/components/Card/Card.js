@@ -327,6 +327,7 @@ class Card extends React.Component {
                 difficultyClass: '',
                 submitted: true,
             })
+            this.props.switchOverlay()
             this.nextPage(increaseCoefficient);
             const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
                 Number(localStorage.oldCorrects) : Number(localStorage.corrects);
@@ -405,6 +406,7 @@ class Card extends React.Component {
             class={"input_word" + this.state.inputClassColor}
             dataCheck={this.state.inputDataCheck}
             spanValue={this.state.spanCheckValue}
+            switchOverlay={this.props.switchOverlay}
             spanClass= {"card_word__form__span_word_check" + this.state.spanLettersClass}
             style={{width: this.state.inputWidth}}
             maxLength={this.state.wordLength}
