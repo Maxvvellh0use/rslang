@@ -6,6 +6,10 @@
     grid-gap: 1.5rem;
     grid-template-columns: 2fr 1fr;
     .today-progress-container{
+        .today-title{
+            margin: 5%; 
+            margin-bottom: 1%;
+        }
         .today-progress-first-row,
         .today-progress-second-row{
              display: grid;
@@ -31,6 +35,22 @@
         }
     }
     .week-progress-container{
-
+        .today-title{
+            margin: 5% auto;
+        }
+        .today-goal-block-text-img{
+            display: grid;
+            grid-gap: 1.5rem;
+            grid-template-columns: 0.4fr 2fr;
+            .today-goal-title,
+            .today-goal-text{
+                margin-bottom: 0.5rem;
+            }
+        }
+        .week-block{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+                                        
     }
 }
