@@ -1,7 +1,7 @@
 import React from 'react';
 import './AudioCall.scss';
-import Words from "../../data/Words";
-import SpanButton from "../Card/SpanButton/SpanButton";
+import Words from "../../../data/Words";
+import SpanButton from "../../Card/SpanButton/SpanButton";
 import { unitOffset, wordsQuantity } from "./const";
 import getRandomNumber from "./helpers/getRandomNumber";
 import getSortFilterWords from "./helpers/getSortFilterWords";

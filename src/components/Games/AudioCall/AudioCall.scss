@@ -1,4 +1,4 @@
-@import "../../style/placeholders";
+@import "../../../style/placeholders";
 
 .audio_call_wrapper {
   display: flex;
@@ -29,7 +29,7 @@
   width: 80px;
   height: 80px;
   cursor: pointer;
-  background-image: url(../../assets/img/icons/audio-on-icon.png);
+  background-image: url(../../../assets/img/icons/audio-on-icon.png);
   animation-duration: 1s;
   animation-name: opacity_button;
   background-repeat: no-repeat;
