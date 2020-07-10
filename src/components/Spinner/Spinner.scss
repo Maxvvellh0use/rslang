@@ -32,3 +32,17 @@
   width: 100%;
 }
 
+.spinner_buttons_dictionary {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.spinner_buttons_dictionary::after {
+  width: 25px;
+  height: 25px;
+  border: 2px solid $color-spinner;
+  border-color: $color-spinner transparent $color-spinner transparent;
+  margin: 3px;
+}
+

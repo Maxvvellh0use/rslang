@@ -96,7 +96,6 @@ main {
     user-select: none;
 }
 
-
 .input_word {
     position: relative;
     visibility: visible !important;
@@ -134,6 +133,10 @@ main {
 
 .red_letter {
     color: $color-invalid-letter;
+}
+
+.hidden {
+    display: none;
 }
 
 .visibility_hidden {

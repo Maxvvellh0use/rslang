@@ -65,6 +65,7 @@ class Card extends React.Component {
             transcription: '',
             image: '',
         },
+        spinnerDictionaryClass: ' hidden',
         resultWindow: false,
     }
 
@@ -354,18 +355,24 @@ class Card extends React.Component {
         return validLetters;
     }
 
+
+
     removeWordDictionary = async () => {
+        this.setState({ spinnerDictionaryClass: '' })
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'removed';
         console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+        this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
     difficultWordDictionary = async () => {
+        this.setState({ spinnerDictionaryClass: '' })
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'difficult';
         console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+        this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
     showWord = async () => {
@@ -478,6 +485,7 @@ class Card extends React.Component {
                                 <p>{this.state.wordTranslation}</p>
                             </div>
                             <div className="dictionary_buttons">
+                                <Spinner className={'spinner_buttons_dictionary' + this.state.spinnerDictionaryClass}/>
                                 <SpanButton className="dictionary_buttons__difficult"
                                             onClick={this.difficultWordDictionary}
                                             title="В сложные"/>
