@@ -26,10 +26,6 @@ class CustomInput extends React.Component {
         this.textInput.current.focus();
     }
 
-    blurInput = () => {
-        this.textInput.current.blur();
-    }
-
     render = () => {
         return (
             <section className="letter_check">

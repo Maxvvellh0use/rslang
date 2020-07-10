@@ -7,7 +7,6 @@ import checkWord from "./helpers/checkWord.helper";
 import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
-import Words from "../../data/Words";
 import {
     firstPage, firstShow,
     increaseCoefficient,
@@ -20,7 +19,6 @@ import getLvlWords from "./helpers/getLvlWords";
 import ResultWindow from "./ResultWindow/ResultWindow";
 import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 import addWordToDictionary from "./helpers/addWordToDictionary";
-import getWordToDictionary from "./helpers/getWordToDictionary";
 import updateWordToDictionary from "./helpers/updateWordInDictionary";
 import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 
@@ -40,6 +38,7 @@ class Card extends React.Component {
         inputClassColor: '',
         valueInputWord: '',
         inputBackground: null,
+        submitted: false,
         difficultyClass: '',
         spansLetters: '',
         spanLettersClass: '',
@@ -132,6 +131,7 @@ class Card extends React.Component {
             await this.setState({
                 wordModel: wordModel,
                 inputDataCheck: word,
+                submitted: false,
                 wordLength: wordLength,
                 wordTranslation: wordTranslation,
                 startSentence: startSentence,
@@ -157,26 +157,24 @@ class Card extends React.Component {
 
     componentDidMount = async () => {
         this._isMounted = true;
-        // try {
+        try {
             await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
-        // }
-        // catch (e) {
+        }
+        catch (e) {
             console.error('ERROR')
-        // }
+        }
     }
 
-    componentWillUnmount() {
+    componentWillUnmount = () => {
         this._isMounted = false;
-        const controller = new AbortController();
-        const signal = controller.signal;
     }
 
     imagePreload = () => {
         const image = new Image();
         image.src = this.state.imagePath;
-        // if (this._isMounted) {
+        if (this._isMounted) {
             image.addEventListener('load', () => {
                 this.setState({
                     imageLoad: true
@@ -184,11 +182,11 @@ class Card extends React.Component {
                 this.hideSpinner();
                 this.inputWord.current.focusInput();
             })
-        // }
+        }
     }
 
     hideSpinner = () => {
-        this.setState( {
+        this._isMounted && this.setState( {
             spinner: false,
         })
     }
@@ -237,13 +235,13 @@ class Card extends React.Component {
 
     audioListener = () => {
         const audio = this.state.audio;
-        // if (this._isMounted) {
-            audio.addEventListener('ended', () => {
+        if (this._isMounted) {
+        audio.addEventListener('ended', () => {
                 this.setState({
                     isActiveButton: !this.state.isActiveButton
                 })
             });
-        // }
+        }
     }
 
     playWordAudio = async () => {
@@ -263,12 +261,14 @@ class Card extends React.Component {
     }
 
     clearInput = () => {
-        this.setState({
-            valueInputWord: '',
-            inputClassColor: '',
-            spanLettersClass: '',
-        })
-        this.inputWord.current.focusInput();
+        if (this._isMounted) {
+            this.setState({
+                valueInputWord: '',
+                inputClassColor: '',
+                spanLettersClass: '',
+            })
+            this.inputWord.current.focusInput();
+        }
     }
 
     nextPage = (progressValue) => {
@@ -310,8 +310,14 @@ class Card extends React.Component {
         })
     }
 
-    submitForm = async (event) => {
-        event.preventDefault()
+    isSubmittedForm = async (event) => {
+        event.preventDefault();
+        if (!this.state.submitted) {
+            await this.submitForm()
+        }
+    }
+
+    submitForm = async () => {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
@@ -319,9 +325,10 @@ class Card extends React.Component {
         if (!correctLetters.length) {
             this.setState({
                 difficultyClass: '',
+                submitted: true,
             })
             this.nextPage(increaseCoefficient);
-            const currentProgress =  Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
+            const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
                 Number(localStorage.oldCorrects) : Number(localStorage.corrects);
 
             if (currentProgress === this.state.optionals.maxNumber) {
@@ -359,8 +366,6 @@ class Card extends React.Component {
         })
         return validLetters;
     }
-
-
 
     removeWordDictionary = async () => {
         this.setState({ spinnerDictionaryClass: '' })
@@ -448,7 +453,7 @@ class Card extends React.Component {
                             <div className="card_word__main">
                                 <div className="sentence_wrapper">
                                     <div className="card_word__main__sentence">
-                                        <form onSubmit={this.submitForm}
+                                        <form onSubmit={this.isSubmittedForm}
                                               className={"card_word__form" + this.state.hints.exampleSentence}>
                                             <div className="sentence">
                                                 {this.state.startSentence}{' '}
@@ -473,7 +478,7 @@ class Card extends React.Component {
                                 <div className="next_and_audio">
                                         <SpanButton className="next_and_audio__next"
                                                     title="Проверить слово"
-                                                    onClick={this.submitForm} />
+                                                    onClick={this.isSubmittedForm} />
                                     <div className="show_word">
                                         <SpanButton className={"show_word__button" + this.state.hints.answerButton}
                                                     onClick={this.showWord}
