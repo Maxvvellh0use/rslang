@@ -242,7 +242,7 @@ class Card extends React.Component {
                 this.setState({
                     isActiveButton: !this.state.isActiveButton
                 })
-        //     });
+            });
         // }
     }
 
