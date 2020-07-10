@@ -22,6 +22,7 @@ import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 import addWordToDictionary from "./helpers/addWordToDictionary";
 import getWordToDictionary from "./helpers/getWordToDictionary";
 import updateWordToDictionary from "./helpers/updateWordInDictionary";
+import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 
 class Card extends React.Component {
     _isMounted = false;
@@ -72,10 +73,10 @@ class Card extends React.Component {
 
     getWordModel = async () => {
         const group = getLvlWords(this.state.optionals.englishLevel);
-        const allWords = await Words.getAllWords( {
-            group: group,
-            page: this.state.wordRequest.pageNumber,
-        });
+        const currentUser = JSON.parse(localStorage.user);
+        console.log(currentUser.id)
+        const allWords = await getAggregatedAllWords(currentUser, group);
+        console.log(allWords)
         return allWords[this.state.wordRequest.wordNumber];
     }
 
@@ -112,23 +113,22 @@ class Card extends React.Component {
         }
         this.correctProgress();
         const wordModel = await this.getWordModel();
-        const word = wordModel.word;
-        const wordTranslation = wordModel.wordTranslate;
-        const sentenceTranslation = wordModel.textExampleTranslate;
-        const audioSrc = wordModel.audioPath;
-        const sentence = wordModel.textExample;
-        const splitSentenceObject = splitSentence(sentence);
-        const startSentence = splitSentenceObject.startSentence;
-        const endSentence = splitSentenceObject.endSentence;
-        const transcription = wordModel.transcription;
-        const imagePath = wordModel.imagePath;
-        const wordLength = word.length
-        const widthInput = getInputWidth(wordLength);
-        const tabName = 'learning';
-        const currentUser = JSON.parse(localStorage.user);
-        console.log(await getWordToDictionary(tabName, currentUser))
-        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
         if (this._isMounted) {
+            const word = wordModel.word;
+            const wordTranslation = wordModel.wordTranslate;
+            const sentenceTranslation = wordModel.textExampleTranslate;
+            const audioSrc = wordModel.audioPath;
+            const sentence = wordModel.textExample;
+            const splitSentenceObject = splitSentence(sentence);
+            const startSentence = splitSentenceObject.startSentence;
+            const endSentence = splitSentenceObject.endSentence;
+            const transcription = wordModel.transcription;
+            const imagePath = wordModel.imagePath;
+            const wordLength = word.length
+            const widthInput = getInputWidth(wordLength);
+            const tabName = 'learning';
+            const currentUser = JSON.parse(localStorage.user);
+            console.log(await addWordToDictionary(currentUser, wordModel, tabName));
             await this.setState({
                 wordModel: wordModel,
                 inputDataCheck: word,
@@ -147,40 +147,44 @@ class Card extends React.Component {
                 transcription: transcription,
                 imagePath: imagePath,
             })
+            this.imagePreload();
+            this.audioListener();
         }
-        this.imagePreload();
-        this.audioListener();
-        if (this.state.hints.autoPlay) {
+        if (this.state.hints.autoPlay && this._isMounted) {
             await this.playWordAudio()
         }
     }
 
     componentDidMount = async () => {
         this._isMounted = true;
-        try {
+        // try {
             await this.getUserSettings();
             await this.createCard();
             this.checkLetters();
-        }
-        catch (e) {
+        // }
+        // catch (e) {
             console.error('ERROR')
-        }
+        // }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        const controller = new AbortController();
+        const signal = controller.signal;
     }
 
     imagePreload = () => {
         const image = new Image();
         image.src = this.state.imagePath;
-        image.addEventListener('load', () => {
-            this.setState({
-                imageLoad: true
-            });
-            this.hideSpinner();
-            this.inputWord.current.focusInput();
-        })
+        if (this._isMounted) {
+            image.addEventListener('load', () => {
+                this.setState({
+                    imageLoad: true
+                });
+                this.hideSpinner();
+                this.inputWord.current.focusInput();
+            })
+        }
     }
 
     hideSpinner = () => {
@@ -201,16 +205,16 @@ class Card extends React.Component {
             token: localStorage.userToken
         }
         const userSettings = await UserSettings.getUserSettings(user);
-        const userOptionals = userSettings.optional;
-        const hints = userOptionals.hints;
-        const answerButtonHint = hints.answerButton ? '' : ' visibility_hidden';
-        const transcriptionHint = hints.transcription ? '' : ' visibility_hidden';
-        const imageHint = hints.image ? '' : ' visibility_hidden';
-        const translationHint = hints.translation ? '' : ' visibility_hidden';
-        const autoPlayHint = hints.autoPlay;
-        const exampleSentenceHint = hints.exampleSentence ? '' : ' visibility_hidden';
-        const meaningSentenceHint = hints.meaningSentence ? '' : ' visibility_hidden';
         if (this._isMounted) {
+            const userOptionals = userSettings.optional;
+            const hints = userOptionals.hints;
+            const answerButtonHint = hints.answerButton ? '' : ' visibility_hidden';
+            const transcriptionHint = hints.transcription ? '' : ' visibility_hidden';
+            const imageHint = hints.image ? '' : ' visibility_hidden';
+            const translationHint = hints.translation ? '' : ' visibility_hidden';
+            const autoPlayHint = hints.autoPlay;
+            const exampleSentenceHint = hints.exampleSentence ? '' : ' visibility_hidden';
+            const meaningSentenceHint = hints.meaningSentence ? '' : ' visibility_hidden';
             this.setState({
                 optionals: {
                     dailyNumber: userOptionals.dailyNumber,
@@ -233,21 +237,21 @@ class Card extends React.Component {
 
     audioListener = () => {
         const audio = this.state.audio;
-        audio.addEventListener('ended', () => {
-            this.setState({
-                isActiveButton: !this.state.isActiveButton
-            })
-        });
+        if (this._isMounted) {
+            audio.addEventListener('ended', () => {
+                this.setState({
+                    isActiveButton: !this.state.isActiveButton
+                })
+            });
+        }
     }
 
     playWordAudio = async () => {
         const audio = this.state.audio;
-        if (audio.paused && this._isMounted) {
-            this.setState({
-                isActiveButton: !this.state.isActiveButton
-            })
-            await audio.play();
-        }
+        audio.paused && this._isMounted && this.setState({
+            isActiveButton: !this.state.isActiveButton
+        })
+        await audio.play();
     }
 
 
@@ -319,6 +323,7 @@ class Card extends React.Component {
             this.nextPage(increaseCoefficient);
             const currentProgress =  Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
                 Number(localStorage.oldCorrects) : Number(localStorage.corrects);
+
             if (currentProgress === this.state.optionals.maxNumber) {
                 this.correctWordState(currentProgress)
                 await this.playWordAudio();
