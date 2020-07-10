@@ -21,6 +21,7 @@ import ResultWindow from "./ResultWindow/ResultWindow";
 import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 import addWordToDictionary from "./helpers/addWordToDictionary";
 import getWordToDictionary from "./helpers/getWordToDictionary";
+import updateWordToDictionary from "./helpers/updateWordInDictionary";
 
 class Card extends React.Component {
     _isMounted = false;
@@ -307,16 +308,15 @@ class Card extends React.Component {
 
     submitForm = async (event) => {
         event.preventDefault()
-        this.setState({
-            difficultyClass: '',
-        })
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
-
         const changeOfWords = 1;
         if (!correctLetters.length) {
-            this.nextPage(1);
+            this.setState({
+                difficultyClass: '',
+            })
+            this.nextPage(increaseCoefficient);
             const currentProgress =  Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
                 Number(localStorage.oldCorrects) : Number(localStorage.corrects);
             if (currentProgress === this.state.optionals.maxNumber) {
@@ -327,7 +327,7 @@ class Card extends React.Component {
             }
             this.correctWordState(currentProgress)
             await this.playWordAudio();
-            audio.addEventListener('ended', this.createCard);
+            // audio.addEventListener('ended', this.createCard);
 
         } else {
             await this.playWordAudio();
@@ -362,7 +362,7 @@ class Card extends React.Component {
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'removed';
-        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+        console.log(await updateWordToDictionary(currentUser, wordModel, tabName));
         this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
@@ -371,7 +371,7 @@ class Card extends React.Component {
         const currentUser = JSON.parse(localStorage.user);
         const wordModel = this.state.wordModel;
         const tabName = 'difficult';
-        console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+        console.log(await updateWordToDictionary(currentUser, wordModel, tabName));
         this.setState({ spinnerDictionaryClass: ' hidden' })
     }
 
@@ -384,7 +384,7 @@ class Card extends React.Component {
             spanCheckValue: '',
         })
         await this.playWordAudio()
-        this.nextPage(0);
+        this.nextPage(startProgressValue);
         setTimeout(async () => { await this.createCard() }, 1000);
     }
 
