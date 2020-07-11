@@ -8,7 +8,9 @@ import getInputWidth from "./helpers/getInputWidth.helper";
 import UserSettings from "../../data/UserSettings";
 import './Card.scss'
 import {
-    firstPage, firstShow,
+    errorAudioText,
+    firstPage,
+    firstShow,
     increaseCoefficient,
     maxWordNumber,
     startProgressValue,
@@ -125,7 +127,7 @@ class Card extends React.Component {
             const widthInput = getInputWidth(wordLength);
             const tabName = 'learning';
             const currentUser = JSON.parse(localStorage.user);
-            console.log(await addWordToDictionary(currentUser, wordModel, tabName));
+            await addWordToDictionary(currentUser, wordModel, tabName);
             await this.setState({
                 wordModel: wordModel,
                 inputDataCheck: word,
@@ -161,7 +163,7 @@ class Card extends React.Component {
             this.checkLetters();
         }
         catch (e) {
-            console.error('ERROR')
+            console.log(errorAudioText)
         }
     }
 
