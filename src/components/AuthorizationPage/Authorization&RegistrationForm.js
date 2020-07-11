@@ -89,10 +89,10 @@ class AuthorizationForm extends Component {
             passwordRepeatValid = false;
           }
         }
-        if(emailValid && passwordValid){
+        if (emailValid && passwordValid){
             authFormValid = true;
         }
-        if(emailValid && passwordValid && passwordRepeatValid){
+        if (emailValid && passwordValid && passwordRepeatValid){
             registerFormValid = true;
         }
         this.setState({

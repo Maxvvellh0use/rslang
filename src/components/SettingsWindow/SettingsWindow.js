@@ -7,6 +7,7 @@ import { TEXT, NOTIFICATIONS, DEFAULT } from './constants';
 import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
+import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
 
 class SettingsWindow extends Component {
     state = {
@@ -39,7 +40,6 @@ class SettingsWindow extends Component {
     async getUserSettings() {
         try {            
             const settingsRequest = await UserSettings.getUserSettings(this.state.user);
-            console.log(settingsRequest.optional)
             const settings = settingsRequest.optional;
             this.setState({ settings });
         }
@@ -56,6 +56,7 @@ class SettingsWindow extends Component {
             wordsPerDay: 1,
             optional: settings,
         })
+        clearLocalStorageResults(localStorage);
     }
 
     formChangeHandler = (event) => {
@@ -86,6 +87,7 @@ class SettingsWindow extends Component {
         const hints = settings.hints;
         const noCheckedHints = !Object.values(hints).includes(true);
         const dailyGreaterMax = dailyNumber > maxNumber;
+        const pathName = this.props.history.location.pathname
 
         let notification;
 
@@ -101,7 +103,10 @@ class SettingsWindow extends Component {
             try {
                 await this.updateUserSettings(settings);
                 notification = NOTIFICATIONS.SUCCESS;
-                this.props.history.push('/main');
+                this.setState({ notification })
+                if (pathName !== '/main/settings') {
+                    this.props.history.push('/main');
+                }
             }
             catch (error) {
                 notification = NOTIFICATIONS.UNKNOWN;

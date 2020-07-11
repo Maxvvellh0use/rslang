@@ -28,7 +28,7 @@ main {
     border-radius: 5px;
     width: 100%;
     max-width: 700px;
-    height: 330px;
+    height: 100%;
     margin: auto;
     box-shadow: $box-shadow-card;
     font-size: 20px;
@@ -43,24 +43,52 @@ main {
 
 .card_word__main__sentence {
     width: 100%;
+    line-height: 65px;
     font-size: 35px;
 }
 
 .card_word__main__sentence_translation {
+    margin-top: 10px;
     width: 100%;
     font-size: 20px;
+}
+
+.transcription_and_image {
+    position: relative;
+    display: flex;
+    margin: 40px 20px 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.transcription_and_image__transcription {
+    font-size: 30px;
+    align-self: center;
 }
 
 .card_word__main__word_translation {
     align-self: center;
     width: 100%;
     max-width: 700px;
-    margin: 20px;
     font-size: 30px;
     font-weight: bold;
 }
 
+.footer_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.transcription_and_image__image {
+    border-radius: 5px;
+    width: 150px;
+}
+
 .next_and_audio {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -68,17 +96,18 @@ main {
     user-select: none;
 }
 
-
 .input_word {
     position: relative;
+    visibility: visible !important;
     z-index: 2;
-    height: 40px;
+    height: 45px;
     font-size: 35px;
     text-align: center;
 }
 
 .card_word__form__span_word_check {
     position: absolute;
+    visibility: visible !important;
     margin: auto;
     z-index: 1;
 }
@@ -105,4 +134,14 @@ main {
 .red_letter {
     color: $color-invalid-letter;
 }
+
+.hidden {
+    display: none;
+}
+
+.visibility_hidden {
+    visibility: hidden;
+}
+
+
 

@@ -2,19 +2,29 @@ import React from "react";
 import './CustomInput.scss'
 
 class CustomInput extends React.Component {
-    constructor(props) {
-        super(props);
-        this.textInput = React.createRef();
-        this.focusInput = this.focusInput.bind(this);
-        this.blurInput = this.blurInput.bind(this);
+
+    textInput = React.createRef();
+
+    state = {
+        difficultyClass: this.props.difficultyClass,
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.difficultyClass !== this.props.difficultyClass) {
+            this.setState( {
+                    difficultyClass: nextProps.difficultyClass
+                }
+            )
+        }
+    }
+
+    nextCard = () => {
+        this.props.switchOverlay();
+        this.props.createCard();
     }
 
     focusInput = () => {
         this.textInput.current.focus();
-    }
-
-    blurInput = () => {
-        this.textInput.current.blur();
     }
 
     render = () => {
@@ -29,7 +39,13 @@ class CustomInput extends React.Component {
                        onChange={this.props.onChange}
                        onFocus={this.props.onFocus}
                        value={this.props.value}
-                       ref={this.textInput} type="text"/>
+                       ref={this.textInput} type="text"
+                       required />
+                       <div className={"difficulty_block" + this.state.difficultyClass}>
+                           <span className="difficulty_block__item" onClick={this.nextCard}>Снова</span>
+                           <span className="difficulty_block__item" onClick={this.nextCard}>Трудно</span>
+                           <span className="difficulty_block__item" onClick={this.nextCard}>Хорошо</span>
+                       </div>
             </section>
         )
 

@@ -14,8 +14,15 @@ import LogOut from './LogOut';
 
 class Sidebar extends React.Component {
     state = {
+        overlay: true,
         expand: false,
         displayQuestion: false
+    }
+
+    switchOverlay = () => {
+        this.setState({
+            overlay: !this.state.overlay
+        })
     }
 
     toggleMenu = () => {
@@ -45,7 +52,8 @@ class Sidebar extends React.Component {
 
     render = () => {
         return (
-            <section className="navbar_wrapper">
+            <section className='navbar_wrapper'>
+                <div className={'overlay' + (this.state.overlay ? ' hidden_block' : '')}/>
                 <nav className={"sidebar" + (this.state.expand ? ' expand' : '')}>
                     <div>
                         <ul className="list-unstyled components">
@@ -99,7 +107,10 @@ class Sidebar extends React.Component {
                     </div>
                 </nav>
                 <Switch>
-                    <Route path="/main/words" component={Card} />
+                    <Route path="/main/words">
+                        <Card history={this.props.history}
+                              switchOverlay={this.switchOverlay}/>
+                    </Route>
                     <Route path="/main/settings" component={SettingsWindow} />
                     <Route path="/main/dictionary" component={DictionaryPage} />
                     <Route path="/main/logout">

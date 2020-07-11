@@ -2,10 +2,11 @@
 
 .progress_section {
   position: absolute;
+  display: flex;
   bottom: 10px;
   max-width: 700px;
   margin: auto;
-  left: 0;
+  left: 48px;
   right: 0;
   text-align: center;
 }
@@ -22,7 +23,6 @@
   align-items: center;
   width: 100%;
   max-width: 700px;
-  margin-top: 20vh;
 }
 
 .progress {

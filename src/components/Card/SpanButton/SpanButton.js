@@ -3,7 +3,9 @@ import './SpanButton.scss'
 
 function SpanButton(props) {
     return (
-        <span className={props.className} onClick={props.onClick}/>
+        <span className={props.className}
+              title={props.title}
+              onClick={props.onClick}>{props.value}</span>
     );
 }
 
