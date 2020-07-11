@@ -8,7 +8,7 @@
   text-align: center;
   width: 150px;
   border: 1px solid $color-button-start-page;
-  margin-top: 40px;
+  margin-top: 100px;
   &:hover {
     cursor: pointer;
     color: $color-body;
@@ -18,13 +18,23 @@
 
 .description_game {
   margin-top: 20px;
+  font-weight: bold;
 }
 
 .start_screen_wrapper {
+  padding: 40px;
   text-align: center;
   margin: 30vh auto auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(../../../../assets/img/background_audioCall.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  //background-size: cover;
+}
+
+.title_start_screen {
+  font-weight: bold;
 }

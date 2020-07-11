@@ -1,5 +1,18 @@
 @import "../../../style/placeholders";
 
+body {
+  height: 100%;
+}
+
+.background_audioCall {
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: $color-audioCall-background;
+}
+
 .audio_call_wrapper {
   display: flex;
   flex-direction: column;
@@ -45,6 +58,9 @@
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  @media (max-width: 1020px) {
+    flex-direction: column;
+  }
 }
 
 .words_block__word {
@@ -67,5 +83,6 @@
 .word__span {
   margin-left: 10px;
 }
+
 
 

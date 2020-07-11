@@ -179,17 +179,29 @@ class AudioCall extends React.Component {
     render = () => {
         const wordBlocks = this.state.wordBlocks;
         if (this.state.startScreen) {
-            return <StartScreen onClick={this.hideStartScreen} />
+            return (
+                <div>
+                    <StartScreen onClick={this.hideStartScreen} />
+                </div>
+            )
         }
         if (this.state.spinner) {
-            return <Spinner className="spinner_game" />
+            return (
+                <div>
+                    <Spinner className="spinner_game" />
+                </div>
+            )
         }
         else if (this.state.resultWindow) {
-            return <ResultWindow
-                value={'Конец игры!'}
-                corrects={this.state.progress.corrects}
-                errors={this.state.progress.errors}
-            />
+            return (
+                <div>
+                    <ResultWindow
+                        value={'Конец игры!'}
+                        corrects={this.state.progress.corrects}
+                        errors={this.state.progress.errors}
+                    />
+                </div>
+            )
         }
        return (
            <section>
