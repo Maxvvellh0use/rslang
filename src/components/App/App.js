@@ -7,8 +7,8 @@ import AudioCall from "../games/AudioCall/AudioCall";
 function App(props) {
   return (
     <div>
-      {/*<StartPage history={props.history}/>*/}
-      <AudioCall />
+      <StartPage history={props.history}/>
+      {/*<AudioCall />*/}
     </div>
   );
 }
