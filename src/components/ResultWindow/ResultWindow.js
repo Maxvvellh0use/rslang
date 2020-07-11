@@ -7,7 +7,7 @@ const ResultWindow = (props) => {
     return (
         <section className="result_section">
             <div className="result_window">
-                <h3 className="result_window__title">Ура! Дневная норма выполнена!</h3>
+                <h3 className="result_window__title">{props.value}</h3>
                 <div className="result_window__description">
                     <span className="description__corrects">Карточек пройдено: {props.corrects}</span>
                     <span className="description__errors">Процент верных ответов: {percentageCorrect}%</span>

@@ -1,6 +1,6 @@
-import UserWords from "../../../data/UserWords";
-import { dictionaryTabName } from "../../../models/DictionaryWordModel";
-import UserWordStatisticsModel from "../../../models/UserWordStatisticsModel";
+import UserWords from "../../../../data/UserWords";
+import { dictionaryTabName } from "../../../../models/DictionaryWordModel";
+import UserWordStatisticsModel from "../../../../models/UserWordStatisticsModel";
 
 async function addWordToDictionary(authUser, wordModel, tabName) {
     try {

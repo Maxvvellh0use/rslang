@@ -18,9 +18,9 @@ import {
 } from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
-import ResultWindow from "./ResultWindow/ResultWindow";
+import ResultWindow from "../ResultWindow/ResultWindow";
 import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
-import addWordToDictionary from "./helpers/addWordToDictionary";
+import addWordToDictionary from "../games/AudioCall/helpers/addWordToDictionary";
 import updateWordToDictionary from "./helpers/updateWordInDictionary";
 import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 
@@ -288,8 +288,7 @@ class Card extends React.Component {
         }
     }
 
-    showResultWindow = () => {
-        this.props.switchOverlay()
+    showResultWindow = async () => {
         this.setState({
             resultWindow: true,
         })
@@ -323,24 +322,22 @@ class Card extends React.Component {
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
         const changeOfWords = 1;
-        const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
-            Number(localStorage.oldCorrects) : Number(localStorage.corrects);
+        localStorage.corrects = localStorage.corrects ? localStorage.corrects : startProgressValue;
         if (!correctLetters.length) {
-            if (currentProgress === this.state.optionals.maxNumber) {
-                this.props.switchOverlay()
-                this.correctWordState(currentProgress)
-                await this.playWordAudio();
-                audio.addEventListener('ended', this.showResultWindow);
-                return true;
-            }
             this.setState({
                 difficultyClass: '',
                 submitted: true,
             })
-            this.props.switchOverlay()
             this.nextPage(increaseCoefficient);
+            const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
+                Number(localStorage.oldCorrects) : Number(localStorage.corrects);
             this.correctWordState(currentProgress)
-            await this.playWordAudio();
+            if (currentProgress === this.state.optionals.maxNumber) {
+               await this.showResultWindow();
+            } else {
+                this.props.switchOverlay()
+                await this.playWordAudio();
+            }
         } else {
             await this.playWordAudio();
             this.setState({
@@ -430,6 +427,7 @@ class Card extends React.Component {
             return (
                 <main>
                     <ResultWindow
+                        value={'Ура! Дневная норма выполнена!'}
                         corrects={totalCorrects}
                         errors={totalErrors}
                     />
