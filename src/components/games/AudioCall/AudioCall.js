@@ -14,11 +14,13 @@ import UserSettings from "../../../data/UserSettings";
 import addWordToDictionary from "./helpers/addWordToDictionary";
 import clearLocalStorageResults from "../../Card/helpers/clearLocalStorageResuts";
 import ResultWindow from "../../ResultWindow/ResultWindow";
+import StartScreen from "./StartScreen/StartScreen";
 
 class AudioCall extends React.Component {
     audioSuccess = new Audio(audioSuccess);
     audioError = new Audio(audioError)
     state = {
+        startScreen: true,
         wordsModels: null,
         wordBlocks: null,
         currentAudio: null,
@@ -34,7 +36,10 @@ class AudioCall extends React.Component {
         }
     }
 
-    componentDidMount = async () => {
+    hideStartScreen = async () => {
+        this.setState({
+            startScreen: false,
+        })
         this.showSpinner()
         await this.getUserSettings();
         await this.getWords()
@@ -173,6 +178,9 @@ class AudioCall extends React.Component {
 
     render = () => {
         const wordBlocks = this.state.wordBlocks;
+        if (this.state.startScreen) {
+            return <StartScreen onClick={this.hideStartScreen} />
+        }
         if (this.state.spinner) {
             return <Spinner className="spinner_game" />
         }
