@@ -3,7 +3,7 @@ import EnglishLevels from './EnglishLevels/EnglishLevels';
 import Hints from './Hints/Hints';
 import Notification from './Notification/Notification'
 import UserSettings from '../../data/UserSettings';
-import { TEXT, NOTIFICATIONS, DEFAULT } from './constants';
+import { TEXT, NOTIFICATIONS, DEFAULT, DICTIONARY_ARRAY, HINTS_ARRAY } from './constants';
 import { withRouter } from "react-router-dom";
 import loaderImage from '../../assets/img/loader.svg';
 import './SettingsWindow.scss';
@@ -25,7 +25,9 @@ class SettingsWindow extends Component {
                 transcription: false,
                 image: false,
                 answerButton: false,
-            }
+                dictionaryRemove: true,
+                dictionaryDifficult: true,
+            },
         },
         user: {
             id: localStorage.userId,
@@ -38,7 +40,7 @@ class SettingsWindow extends Component {
     }
 
     async getUserSettings() {
-        try {            
+        try {
             const settingsRequest = await UserSettings.getUserSettings(this.state.user);
             const settings = settingsRequest.optional;
             this.setState({ settings });
@@ -155,10 +157,19 @@ class SettingsWindow extends Component {
                             max='100'
                         />
 
+                        <p className='settings-window__text'>{TEXT.DICTIONARY}</p>
+                        <Hints
+                            className='settings-window__hints'
+                            isActive={settings.hints}
+                            workArray={DICTIONARY_ARRAY}
+                            onChange={this.formChangeHandler}
+                        />
+
                         <p className='settings-window__text'>{TEXT.HINTS}</p>
                         <Hints
                             className='settings-window__hints'
                             isActive={settings.hints}
+                            workArray={HINTS_ARRAY}
                             onChange={this.formChangeHandler}
                         />
 
