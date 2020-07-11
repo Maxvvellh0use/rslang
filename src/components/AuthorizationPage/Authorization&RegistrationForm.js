@@ -128,7 +128,7 @@ class AuthorizationForm extends Component {
       });
       if (this.props.type === 'Auth'){
         try {
-          let newAuthUser = await Authentication.loginUser(newUser);
+          let newAuthUser = await Authentication.loginUser(newUser);  
           localStorage.user = JSON.stringify(newAuthUser);
           localStorage.userId = newAuthUser.id;
           localStorage.userToken = newAuthUser.token;

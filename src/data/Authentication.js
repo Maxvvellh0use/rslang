@@ -27,6 +27,7 @@ export default class Authentication {
       password: user.password,
       id: response.userId,
       token: response.token,
+      refreshToken: response.refreshToken,
     }
     );
   };

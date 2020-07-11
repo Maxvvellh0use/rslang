@@ -25,7 +25,7 @@ class DictionaryPage extends React.Component {
     this._isMounted = true;
     if (!this.state.authUser) {
       if (localStorage.getItem('user') !== null) {
-        const localAuthUser = new AuthenticatedUserModel(JSON.parse(localStorage.getItem('user')));
+        const localAuthUser = new AuthenticatedUserModel(JSON.parse(localStorage.getItem('user')));        
         if (this._isMounted) {
           this.setState({
             authUser: localAuthUser,
