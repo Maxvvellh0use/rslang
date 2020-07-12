@@ -12,18 +12,25 @@ import { dictionaryTabName } from '../../models/DictionaryWordModel';
 import DictionarySpinner from './DictionarySpinner/DictionarySpinner';
 
 class DictionaryPage extends React.Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
-      authUser: this.props.authUser,
+      authUser: null,
     };
   }
 
   componentDidMount = async () => {
-
+    this._isMounted = true;
     if (!this.state.authUser) {
       if (localStorage.getItem('user') !== null) {
-        const localAuthUser = new AuthenticatedUserModel(JSON.parse(localStorage.getItem('user')));
+        const localAuthUser = new AuthenticatedUserModel(JSON.parse(localStorage.getItem('user')));        
+        if (this._isMounted) {
+          this.setState({
+            authUser: localAuthUser,
+          });
+        }
 
         let userWords = [];
         let count = 0;
@@ -36,9 +43,6 @@ class DictionaryPage extends React.Component {
         } catch (error) {
           console.log(error);
         }
-        this.setState({
-          authUser: localAuthUser,
-        });
         return;
       }
 
@@ -54,10 +58,16 @@ class DictionaryPage extends React.Component {
         console.log(error);
       }
       //this.populateUserWords(authUser);
-      this.setState({
-        authUser: authUser,
-      });
+      if (this._isMounted) {
+        this.setState({
+          authUser: authUser,
+        });
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   populateUserWords = async (authUser) => {
@@ -97,7 +107,7 @@ class DictionaryPage extends React.Component {
         await UserWords.addWord({
           authUser: authUser,
           wordId: word.id,
-          statistics: new UserWordStatisticsModel({dictionaryTab: dictionaryTabName.difficult}),
+          statistics: new UserWordStatisticsModel({ dictionaryTab: dictionaryTabName.difficult }),
         });
       } catch (error) {
         console.log(error);
@@ -114,7 +124,7 @@ class DictionaryPage extends React.Component {
           <div className="dictionary__wrapper">
             <DictionaryContainer authUser={this.state.authUser} />
           </div>
-        </main>) : (<DictionarySpinner/>)
+        </main>) : (<DictionarySpinner />)
     );
   }
 }

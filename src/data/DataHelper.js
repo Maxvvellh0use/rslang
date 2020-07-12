@@ -13,7 +13,7 @@ export default class DataHelper {
           );
         case 422:
           throw new Error(
-            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Incorrect e-mail or password`
+            `In ${errorMessage}. Error code: ${rawResponse.status}. Message: Incorrect data`
           );
         default:
           throw new Error(
