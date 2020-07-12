@@ -67,6 +67,8 @@ class Card extends React.Component {
             exampleSentence: '',
             transcription: '',
             image: '',
+            dictionaryDifficult: '',
+            dictionaryRemove: '',
         },
         spinnerDictionaryClass: ' hidden',
         resultWindow: false,
@@ -215,6 +217,8 @@ class Card extends React.Component {
             const autoPlayHint = hints.autoPlay;
             const exampleSentenceHint = hints.exampleSentence ? '' : ' visibility_hidden';
             const meaningSentenceHint = hints.meaningSentence ? '' : ' visibility_hidden';
+            const dictionaryDifficult = hints.dictionaryDifficult ? '' : ' visibility_hidden';
+            const dictionaryRemove = hints.dictionaryDifficult ? '' : ' visibility_hidden';
             this.setState({
                 optionals: {
                     dailyNumber: userOptionals.dailyNumber,
@@ -230,6 +234,8 @@ class Card extends React.Component {
                     autoPlay: autoPlayHint,
                     meaningSentence: meaningSentenceHint,
                     exampleSentence: exampleSentenceHint,
+                    dictionaryDifficult: dictionaryDifficult,
+                    dictionaryRemove: dictionaryRemove,
                 }
             })
         }
@@ -497,12 +503,12 @@ class Card extends React.Component {
                             </div>
                             <div className="dictionary_buttons">
                                 <Spinner className={'spinner_buttons_dictionary' + this.state.spinnerDictionaryClass}/>
-                                <SpanButton className="dictionary_buttons__difficult"
+                                <SpanButton className={"dictionary_buttons__difficult" + this.state.hints.dictionaryDifficult}
                                             onClick={this.difficultWordDictionary}
                                             title="В сложные"/>
                                 <SpanButton title="Удалить слово"
                                             onClick={this.removeWordDictionary}
-                                            className="dictionary_buttons__remove"/>
+                                            className={"dictionary_buttons__remove" + this.state.hints.dictionaryRemove}/>
                             </div>
                         </div>
                     </div>
