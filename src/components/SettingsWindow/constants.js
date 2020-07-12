@@ -5,6 +5,7 @@ export const TEXT = {
     MAX_NUMBER: 'Укажите максимальное количество новых слов, которое вы хотите изучать ежедневно:',
     SUBMIT: 'Принять',
     HINTS: 'Выберите информацию, которая будет выводиться на карточках:',
+    DICTIONARY: 'Выберите кнопки, которые будут отображаться на странице',
 }
 export const NOTIFICATIONS = {
     CANNOT_BE_GREATER: { type: 'error', text: 'Ежедневное количество слов не может быть больше максимального количества слов' },
@@ -27,3 +28,7 @@ export const DEFAULT = {
     DAILY_NUMBER: 20,
     MAX_NUMBER: 40,
 }
+export const DICTIONARY_ARRAY = [
+    { type: 'checkbox', name: 'dictionaryRemove', text: 'Удалить - исключить слово из изучения' },
+    { type: 'checkbox', name: 'dictionaryDifficult', text: 'В сложные - добавить слово в группу "Сложные"' },
+]

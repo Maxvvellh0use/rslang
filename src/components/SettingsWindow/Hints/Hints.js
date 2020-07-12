@@ -1,8 +1,7 @@
 import React from 'react';
-import { HINTS_ARRAY } from '../constants'
 
 const Hints = (props) => {
-    const hintsCheckboxes = HINTS_ARRAY.map((hint, index) => {
+    const hintsCheckboxes = props.workArray.map((hint, index) => {
         return (
             <label key={index}>
                 <input
