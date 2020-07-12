@@ -18,9 +18,9 @@ import {
 } from "./const";
 import Spinner from "../Spinner/Spinner";
 import getLvlWords from "./helpers/getLvlWords";
-import ResultWindow from "./ResultWindow/ResultWindow";
+import ResultWindow from "../ResultWindow/ResultWindow";
 import clearLocalStorageResults from "./helpers/clearLocalStorageResuts";
-import addWordToDictionary from "./helpers/addWordToDictionary";
+import addWordToDictionary from "../games/AudioCall/helpers/addWordToDictionary";
 import updateWordToDictionary from "./helpers/updateWordInDictionary";
 import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 
@@ -67,6 +67,8 @@ class Card extends React.Component {
             exampleSentence: '',
             transcription: '',
             image: '',
+            dictionaryDifficult: '',
+            dictionaryRemove: '',
         },
         spinnerDictionaryClass: ' hidden',
         resultWindow: false,
@@ -180,7 +182,9 @@ class Card extends React.Component {
                     imageLoad: true
                 });
                 this.hideSpinner();
-                this.inputWord.current.focusInput();
+                if (this._isMounted) {
+                    this.inputWord.current.focusInput();
+                }
             })
         }
     }
@@ -213,6 +217,8 @@ class Card extends React.Component {
             const autoPlayHint = hints.autoPlay;
             const exampleSentenceHint = hints.exampleSentence ? '' : ' visibility_hidden';
             const meaningSentenceHint = hints.meaningSentence ? '' : ' visibility_hidden';
+            const dictionaryDifficult = hints.dictionaryDifficult ? '' : ' visibility_hidden';
+            const dictionaryRemove = hints.dictionaryDifficult ? '' : ' visibility_hidden';
             this.setState({
                 optionals: {
                     dailyNumber: userOptionals.dailyNumber,
@@ -228,6 +234,8 @@ class Card extends React.Component {
                     autoPlay: autoPlayHint,
                     meaningSentence: meaningSentenceHint,
                     exampleSentence: exampleSentenceHint,
+                    dictionaryDifficult: dictionaryDifficult,
+                    dictionaryRemove: dictionaryRemove,
                 }
             })
         }
@@ -288,8 +296,7 @@ class Card extends React.Component {
         }
     }
 
-    showResultWindow = () => {
-        this.props.switchOverlay()
+    showResultWindow = async () => {
         this.setState({
             resultWindow: true,
         })
@@ -323,24 +330,22 @@ class Card extends React.Component {
         const correctLetters = checkLetters.filter((elem) => elem !== true);
         const audio = this.state.audio;
         const changeOfWords = 1;
-        const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
-            Number(localStorage.oldCorrects) : Number(localStorage.corrects);
+        localStorage.corrects = localStorage.corrects ? localStorage.corrects : startProgressValue;
         if (!correctLetters.length) {
-            if (currentProgress === this.state.optionals.maxNumber) {
-                this.props.switchOverlay()
-                this.correctWordState(currentProgress)
-                await this.playWordAudio();
-                audio.addEventListener('ended', this.showResultWindow);
-                return true;
-            }
             this.setState({
                 difficultyClass: '',
                 submitted: true,
             })
-            this.props.switchOverlay()
             this.nextPage(increaseCoefficient);
+            const currentProgress = Number(localStorage.oldCorrects) ? Number(localStorage.corrects) +
+                Number(localStorage.oldCorrects) : Number(localStorage.corrects);
             this.correctWordState(currentProgress)
-            await this.playWordAudio();
+            if (currentProgress === this.state.optionals.maxNumber) {
+               await this.showResultWindow();
+            } else {
+                this.props.switchOverlay()
+                await this.playWordAudio();
+            }
         } else {
             await this.playWordAudio();
             this.setState({
@@ -430,6 +435,9 @@ class Card extends React.Component {
             return (
                 <main>
                     <ResultWindow
+                        hidden={' hidden'}
+                        history={this.props.history}
+                        value={'Ура! Дневная норма выполнена!'}
                         corrects={totalCorrects}
                         errors={totalErrors}
                     />
@@ -470,7 +478,7 @@ class Card extends React.Component {
                                 </div>
                                 <div className="transcription_and_image">
                                     <span className={"transcription_and_image__transcription"
-                                    + this.state.hints.translation}>
+                                    + this.state.hints.transcription}>
                                         {this.state.transcription}</span>
                                     <img src={this.state.imagePath}
                                          className={"transcription_and_image__image" + this.state.hints.image}
@@ -497,12 +505,12 @@ class Card extends React.Component {
                             </div>
                             <div className="dictionary_buttons">
                                 <Spinner className={'spinner_buttons_dictionary' + this.state.spinnerDictionaryClass}/>
-                                <SpanButton className="dictionary_buttons__difficult"
+                                <SpanButton className={"dictionary_buttons__difficult" + this.state.hints.dictionaryDifficult}
                                             onClick={this.difficultWordDictionary}
                                             title="В сложные"/>
                                 <SpanButton title="Удалить слово"
                                             onClick={this.removeWordDictionary}
-                                            className="dictionary_buttons__remove"/>
+                                            className={"dictionary_buttons__remove" + this.state.hints.dictionaryRemove}/>
                             </div>
                         </div>
                     </div>
