@@ -8,6 +8,7 @@ import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
 import DictionaryPage from '../DictionaryPage/DictionaryPage';
+import GamesPage from '../GamesPage/GamesPage';
 import { NAVLINK_ARRAY } from "./const";
 import NavbarLink from "./NavbarLink";
 import LogOut from './LogOut';
@@ -113,6 +114,7 @@ class Sidebar extends React.Component {
                     </Route>
                     <Route path="/main/settings" component={SettingsWindow} />
                     <Route path="/main/dictionary" component={DictionaryPage} />
+                    <Route path="/main/games" component={GamesPage} />
                     <Route path="/main/logout">
                         <LogOut isAuthorization={this.props.isAuthorization} history={this.props.history} />
                     </Route>
