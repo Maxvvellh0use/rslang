@@ -12,6 +12,7 @@ import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "../Sidebar/Sidebar";
+import AudioCall from "../games/AudioCall/AudioCall";
 
 class StartPage extends React.Component {
 
@@ -30,6 +31,9 @@ class StartPage extends React.Component {
             return (
                 <Router>
                     <Switch>
+                        <Route path="/main/games/audio_call">
+                            <AudioCall/>
+                        </Route>
                         <Route exact path="/">
                             <Sidebar isAuthorization={this.isAuthorization}/>
                         </Route>
@@ -77,6 +81,7 @@ class StartPage extends React.Component {
                                      history={this.props.history}/>
                             </Route>
                         }
+                        <Route path="/main/games/audio_call" component={AudioCall}/>
                     </Switch>
                 </div>
             </Router>

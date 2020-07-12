@@ -114,7 +114,9 @@ class Sidebar extends React.Component {
                     </Route>
                     <Route path="/main/settings" component={SettingsWindow} />
                     <Route path="/main/dictionary" component={DictionaryPage} />
-                    <Route path="/main/games" component={GamesPage} />
+                    <Route path="/main/games">
+                        <GamesPage history={this.props.history}/>
+                    </Route>
                     <Route path="/main/logout">
                         <LogOut isAuthorization={this.props.isAuthorization} history={this.props.history} />
                     </Route>
