@@ -67,6 +67,7 @@ a:hover, a:focus {
 
 .up_line {
     border-top: 1px solid #47748b;
+    margin-bottom: 0;
 }
 
 .sidebar ul p {
@@ -74,7 +75,7 @@ a:hover, a:focus {
     padding: .625rem;
 }
 
-.sidebar ul li a {
+.sidebar a {
     padding: .9375rem;
     font-size: 1em;
     display: block;
@@ -167,4 +168,8 @@ ul ul a {
     margin-right: 3rem;
     padding-left: 1.2rem;
     padding-right: 1.2rem;
+}
+
+ul li .logout_btn {
+    padding-bottom: 0.7rem;
 }
