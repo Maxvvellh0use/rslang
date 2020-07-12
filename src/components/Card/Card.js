@@ -478,7 +478,7 @@ class Card extends React.Component {
                                 </div>
                                 <div className="transcription_and_image">
                                     <span className={"transcription_and_image__transcription"
-                                    + this.state.hints.translation}>
+                                    + this.state.hints.transcription}>
                                         {this.state.transcription}</span>
                                     <img src={this.state.imagePath}
                                          className={"transcription_and_image__image" + this.state.hints.image}
