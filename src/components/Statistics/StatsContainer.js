@@ -4,6 +4,7 @@ import getLastWeek from './helpers/getLastWeek';
 import compareData from './helpers/comapreData';
 import GraphDays from './GraphDays';
 import GraphWords from './GraphWords';
+import { NavLink, Switch, Route } from "react-router-dom";
 
 class StatsContainer extends React.Component {
     state = {
@@ -11,6 +12,7 @@ class StatsContainer extends React.Component {
         longStats: [],
         days: [],
         count: [],
+        statsData: [],
         data: {
             labels: [],
             datasets: [
@@ -53,31 +55,29 @@ class StatsContainer extends React.Component {
                 timeStamp: Date.parse(word.optional.lastUse),
             }
         })
-
-        const lastWeekDates = getLastWeek();
-        
-        const result = compareData(lastWeekDates, statsData);
-
-        const days = result.map((item) => item.day);
-        const count = result.map((item) => item.wordsCount);
         
         this.setState({
-            data: {
-                labels: days,
-                datasets: [
-                    {
-                        label: "Карточек завершено",
-                        backgroundColor: "rgba(255, 0, 255, 0.75)",
-                        data: count
-                    },
-                    // {
-                    //     label: "Правильные ответы",
-                    //     backgroundColor: "rgba(0, 255, 0, 0.75)",
-                    //     data: [4, 15, 21, 0, 12, 4, 2]
-                    // }
-                ]
-            }
+            statsData: statsData,
         })
+        // const lastWeekDates = getLastWeek();
+        
+        // const result = compareData(lastWeekDates, statsData);
+
+        // const days = result.map((item) => item.day);
+        // const count = result.map((item) => item.wordsCount);
+        
+        // this.setState({
+        //     data: {
+        //         labels: days,
+        //         datasets: [
+        //             {
+        //                 label: "Карточек завершено",
+        //                 backgroundColor: "rgba(255, 0, 255, 0.75)",
+        //                 data: count
+        //             },
+        //         ]
+        //     }
+        // })
     }
 
     render = () => {
@@ -87,20 +87,29 @@ class StatsContainer extends React.Component {
                     <h2>Мои результаты</h2>
                     <div>
                         <ul className="list-unstyled list-inline">
+                            {/* <li className="list-inline-item">
+                                <NavLink to="/main/stats/today">Сегодня</NavLink>
+                            </li> */}
                             <li className="list-inline-item">
-                                <button>Сегодня</button>
+                                <NavLink to="/main/stats/stats">Статистика</NavLink>
                             </li>
                             <li className="list-inline-item">
-                                <button>Статистика</button>
-                            </li>
-                            <li className="list-inline-item">
-                                <button>Слова</button>
+                                <NavLink to="/main/stats/words">Слова</NavLink>
                             </li>
                         </ul>
                     </div>
-                    {/* <GraphDays data={this.state.data} /> */}
-                    <GraphWords />
+                    {/* <GraphDays data={this.state.statsData} /> */}
+                    {/* <GraphWords /> */}
                 </div>
+                <Switch>
+                    {/* <Route path="/main/stats/today" /> */}
+                    <Route path="/main/stats/stats">
+                        <GraphDays data={this.state.statsData} />
+                    </Route>
+                    <Route path="/main/stats/words">
+                        <GraphWords data={this.state.statsData} />
+                    </Route>
+                </Switch>
             </section>
         )
     }

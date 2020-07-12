@@ -1,6 +1,8 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import "./Statistics.scss";
+import getLastWeek from './helpers/getLastWeek';
+import compareData from './helpers/comapreData';
 
 class GraphDays extends React.Component {
     state = {
@@ -10,7 +12,7 @@ class GraphDays extends React.Component {
             datasets: [
                 {
                     label: "Карточек завершено",
-                    backgroundColor: "rgba(255, 0, 255, 0.75)",
+                    backgroundColor: "rgba(0, 51, 102, 0.75)",
                     data: []
                 },
                 // {
@@ -20,6 +22,29 @@ class GraphDays extends React.Component {
                 // }
             ]
         }
+    }
+
+    componentDidMount() {
+
+        const statsData = this.props.data;
+        const lastWeekDates = getLastWeek();
+        const result = compareData(lastWeekDates, statsData);
+
+        const days = result.map((item) => item.day);
+        const count = result.map((item) => item.wordsCount);
+
+        this.setState({
+            data: {
+                labels: days,
+                datasets: [
+                    {
+                        label: "Карточек завершено",
+                        backgroundColor: "rgba(0, 51, 102, 0.75)",
+                        data: count
+                    },
+                ]
+            }
+        })
     }
 
     render = () => {
@@ -36,7 +61,7 @@ class GraphDays extends React.Component {
                             options={{
                                 responsive: true
                             }}
-                            data={this.props.data}
+                            data={this.state.data}
                         />
                     </div>
                 </div>
