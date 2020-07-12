@@ -180,7 +180,9 @@ class Card extends React.Component {
                     imageLoad: true
                 });
                 this.hideSpinner();
-                this.inputWord.current.focusInput();
+                if (this._isMounted) {
+                    this.inputWord.current.focusInput();
+                }
             })
         }
     }
