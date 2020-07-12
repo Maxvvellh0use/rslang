@@ -1,4 +1,5 @@
 import AggregatedWords from "../../../../data/AggregatedWords";
+import { maxWordsPerPage } from "../const";
 
 async function getAggregatedAllWords(currentUser, group) {
     const filter = { "$and": [{ "userWord":null }] };
@@ -6,7 +7,7 @@ async function getAggregatedAllWords(currentUser, group) {
         {
             authUser: currentUser,
             group: group,
-            wordsPerPage: 5,
+            wordsPerPage: maxWordsPerPage,
             filter: JSON.stringify(filter),
         });
     return WordsAggregated;

@@ -32,7 +32,9 @@ class StartPage extends React.Component {
                 <Router>
                     <Switch>
                         <Route path="/main/games/audio_call">
-                            <AudioCall/>
+                            <AudioCall
+                                history={this.props.history}
+                            />
                         </Route>
                         <Route exact path="/">
                             <Sidebar isAuthorization={this.isAuthorization}/>

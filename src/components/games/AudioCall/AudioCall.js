@@ -196,6 +196,8 @@ class AudioCall extends React.Component {
             return (
                 <div>
                     <ResultWindow
+                        hidden=''
+                        history={this.props.history}
                         value={'Конец игры!'}
                         corrects={this.state.progress.corrects}
                         errors={this.state.progress.errors}

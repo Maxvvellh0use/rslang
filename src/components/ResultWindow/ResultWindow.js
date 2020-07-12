@@ -1,7 +1,9 @@
 import React from "react";
+import { backHistoryValue } from "../games/AudioCall/const";
 import "./ResultWindow.scss"
 
 const ResultWindow = (props) => {
+    console.log(props.history)
     const percentageCorrect = props.errors ? Math.round((props.corrects /
         (props.corrects + props.errors)) * 100) : 100;
     return (
@@ -12,6 +14,7 @@ const ResultWindow = (props) => {
                     <span className="description__corrects">Карточек пройдено: {props.corrects}</span>
                     <span className="description__errors">Процент верных ответов: {percentageCorrect}%</span>
                 </div>
+                <button className={"back_button" + props.hidden} onClick={() => props.history.go(backHistoryValue)}>Назад</button>
             </div>
         </section>
     )

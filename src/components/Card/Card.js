@@ -435,6 +435,8 @@ class Card extends React.Component {
             return (
                 <main>
                     <ResultWindow
+                        hidden={' hidden'}
+                        history={this.props.history}
                         value={'Ура! Дневная норма выполнена!'}
                         corrects={totalCorrects}
                         errors={totalErrors}
