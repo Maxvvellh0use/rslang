@@ -2,11 +2,13 @@ import React from 'react';
 import './App.scss';
 import '../../style/index.scss';
 import StartPage from "../StartPage/StartPage";
+import AboutTeam from '../AboutTeam/AboutTeamPage';
 
 function App(props) {
   return (
     <div>
-      <StartPage history={props.history}/>
+      <AboutTeam/>
+{/*       <StartPage history={props.history}/> */}
     </div>
   );
 }
