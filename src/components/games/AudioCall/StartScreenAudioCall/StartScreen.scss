@@ -12,14 +12,6 @@ body {
   z-index: -1;
   background: $color-audioCall-background;
 }
-
-.audio_call_wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 28vh;
-}
-
 .repeat {
   display: flex;
   flex-direction: row;
