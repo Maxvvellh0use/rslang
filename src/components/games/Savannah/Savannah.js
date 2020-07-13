@@ -2,15 +2,10 @@ import React from 'react';
 import './Savannah.scss'
 import audioError from '../../../assets/sounds/sound_error.mp3'
 import audioSuccess from '../../../assets/sounds/sound_success.mp3'
-import {firstIndex, maxWordsPerPage, startProgressValue, unitOffset, wordsQuantity} from "./const";
+import {firstIndex, startProgressValue, unitOffset, wordsQuantity} from "./const";
 import getRandomNumber from "../Savannah/helpers/getRandomNumber";
 import addWordToDictionary from "../Savannah/helpers/addWordToDictionary";
 import UserSettings from "../../../data/UserSettings";
-import SpanButton from "../../Card/SpanButton/SpanButton";
-import StartScreen from "./StartScreen/StartScreenSavannah";
-import Spinner from "../../Spinner/Spinner";
-import getLvlWords from "../../Card/helpers/getLvlWords";
-import getAggregatedAllWords from "../Savannah/helpers/getAggregatedAllWords";
 import { maxProgress } from "./const";
 import createArrayHearts from "./helpers/createArrayHearts";
 import getSliceArrayWords from "./helpers/getSliceArray";
@@ -31,7 +26,7 @@ class Savannah extends React.Component {
             lifeHearts: true,
         },
         wordsData: {
-            arrayWordModels: null,
+            arrayWordModels: this.props.arrayWordModels,
             correctWordModel: null,
             currentWordModels: null,
             correctWord: null,
@@ -51,30 +46,14 @@ class Savannah extends React.Component {
     }
 
     componentDidMount = async () => {
-        await this.getUserSettings();
+        console.log(this.props.arrayWordModels)
         await this.getWords()
-    }
-    //
-    // componentDidMount = async () => {
-    //     await this.getUserSettings();
-    //     await this.getWords()
-    // }
-
-    createCounter = () => {
-
-    }
-
-    getWordModel = async () => {
-        const group = getLvlWords(this.state.optionals.englishLevel);
-        const currentUser = JSON.parse(localStorage.user);
-        const allWords = await getAggregatedAllWords(currentUser, group);
-        return allWords;
     }
 
     getWords = async () => {
-        const arrayWordModels = [await this.getWordModel()];
+        const arrayWordModels = this.props.arrayWordModels;
         const endIndex = firstIndex + wordsQuantity;
-        const currentWordModels = getSliceArrayWords(arrayWordModels[firstIndex], firstIndex, endIndex)
+        const currentWordModels = getSliceArrayWords(arrayWordModels, firstIndex, endIndex)
         const correctWordNumber = getRandomNumber();
         const correctWordModel =  currentWordModels[correctWordNumber];
         const correctWord = currentWordModels[correctWordNumber].word;
@@ -161,7 +140,7 @@ class Savannah extends React.Component {
         const startIndex = this.state.wordsData.startIndex + wordsQuantity;
         const endIndex = this.state.wordsData.endIndex + wordsQuantity;
         const arrayWordModels = this.state.wordsData.arrayWordModels;
-        const currentWordModels = getSliceArrayWords(arrayWordModels[firstIndex], startIndex, endIndex)
+        const currentWordModels = getSliceArrayWords(arrayWordModels, startIndex, endIndex)
         const correctWordNumber = getRandomNumber();
         const correctWord = currentWordModels[correctWordNumber].word;
         const correctWordTranslation = currentWordModels[correctWordNumber].translation;
@@ -221,13 +200,6 @@ class Savannah extends React.Component {
         })
     }
 
-    showCounter = () => {
-       this.setState({
-           startScreen: false,
-           counter: true,
-       })
-    }
-
     showResultWindow = () => {
         this.setState({
             resultWindow: true,
@@ -237,13 +209,7 @@ class Savannah extends React.Component {
     render = () => {
         const wordBlocks = this.state.wordBlocks;
         const life = this.state.lifeBlock.lifeHearts;
-        console.log('startScreen' + this.state.startScreen)
-        if (this.state.counter) {
-            return  (
-                <Counter hideStartScreen={this.hideStartScreen}/>
-            )
-        }
-        else if (this.state.resultWindow) {
+        if (this.state.resultWindow) {
             return (
                 <div>
                     <ResultWindow
