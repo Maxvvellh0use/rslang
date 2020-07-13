@@ -11,7 +11,6 @@ import createArrayHearts from "./helpers/createArrayHearts";
 import getSliceArrayWords from "./helpers/getSliceArray";
 import {increaseCoefficient} from "../AudioCall/const";
 import ResultWindow from "../../ResultWindow/ResultWindow";
-import Counter from "./Counter";
 
 class Savannah extends React.Component {
     audioSuccess = new Audio(audioSuccess);
@@ -46,7 +45,6 @@ class Savannah extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.props.arrayWordModels)
         await this.getWords()
     }
 
@@ -184,7 +182,6 @@ class Savannah extends React.Component {
 
     createWordBlock = () => {
         const wordsModels = this.state.wordsData.currentWordModels;
-        console.log(wordsModels)
         const wordBlocks = wordsModels.map((wordModel, index) => {
             return <div onClick={this.checkWord}
                         data-check={wordModel.word}

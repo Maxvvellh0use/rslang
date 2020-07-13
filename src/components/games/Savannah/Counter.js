@@ -1,5 +1,5 @@
 import React from "react";
-import {startCounterValue, unitOffset} from "./const";
+import { startCounterValue, unitOffset } from "./const";
 import Savannah from "./Savannah";
 import audioClock from '../../../assets/sounds/sound_clock.mp3'
 import getLvlWords from "../../Card/helpers/getLvlWords";
