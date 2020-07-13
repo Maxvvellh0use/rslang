@@ -1,13 +1,21 @@
-import React from "react";
-export const AuthorizationFormErrors = ({formErrors}) =>
-  <div className='form-errors'>
-    { Object.keys(formErrors).map((fieldName, i) => {
-      if(formErrors[fieldName].length > 0){
-        return (
-          <p key={i}>{formErrors[fieldName]}</p>
-        )        
-      } else {
-        return '';
-      }
-    })}
-  </div>
+import React, { Component } from "react";
+class AuthorizationFormErrors extends Component {
+  isValid = () => {
+    if(this.props.formErrors.length > 0){
+      return (
+        <p>{this.props.formErrors}</p>
+      )        
+    } else {
+      return '';
+    }
+  }
+  render = () => {
+    return(
+      <div className='form-errors'>
+        {this.isValid()}
+      </div>
+    )
+  }
+}
+
+export default AuthorizationFormErrors;

@@ -21,9 +21,10 @@
     .authorization-request-error{
         text-align: center;
         color: red;
-        line-height: 1.2px;
+        line-height: 1rem;
+        font-size: 12px;
         .form-errors{
-            height: 2rem;
+            height: 3rem;
         }
     }
     .authorization-icon{
