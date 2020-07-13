@@ -51,7 +51,10 @@ class Counter extends React.Component {
 
     render = () => {
         if (this.state.counterValue < 0) {
-            return <Savannah arrayWordModels={this.state.arrayWordModels} />
+            return <Savannah
+                history={this.props.history}
+                arrayWordModels={this.state.arrayWordModels}
+            />
         }
         return (
             <div className="counter_wrapper">

@@ -11,7 +11,7 @@ import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 import UserSettings from "../../../data/UserSettings";
 import addWordToDictionary from "./helpers/addWordToDictionary";
 import ResultWindow from "../../ResultWindow/ResultWindow";
-import StartScreen from "../Savannah/StartScreen/StartScreenSavannah";
+import StartScreen from "./StartScreenAudioCall/StartScreenAudioCall";
 
 class AudioCall extends React.Component {
     audioSuccess = new Audio(audioSuccess);
@@ -212,7 +212,7 @@ class AudioCall extends React.Component {
                    <div className="repeat">
                        <SpanButton className="repeat__button" onClick={this.playAudio}/>
                    </div>
-                   <div className="words_block">
+                   <div className="words_block_audio_call">
                        {wordBlocks}
                    </div>
                </div>

@@ -16,7 +16,9 @@ class StartScreenSavannah extends React.Component {
 
     render = () => {
         if (!this.state.startScreen) {
-            return <Counter />
+            return <Counter
+                history={this.props.history}
+                />
         }
         return (
             <div className="start_screen_wrapper">
