@@ -2,19 +2,16 @@ import React from 'react';
 import './AudioCall.scss';
 import audioError from '../../../assets/sounds/sound_error.mp3'
 import audioSuccess from '../../../assets/sounds/sound_success.mp3'
-import Words from "../../../data/Words";
 import SpanButton from "../../Card/SpanButton/SpanButton";
 import Spinner from "../../Spinner/Spinner";
-import { increaseCoefficient, unitOffset, startProgressValue, maxProgress, audioPaths } from "./const";
+import { increaseCoefficient, unitOffset, startProgressValue, maxProgress } from "./const";
 import getRandomNumber from "./helpers/getRandomNumber";
-import getSortFilterWords from "./helpers/getSortFilterWords";
 import getLvlWords from "../../Card/helpers/getLvlWords";
 import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 import UserSettings from "../../../data/UserSettings";
 import addWordToDictionary from "./helpers/addWordToDictionary";
-import clearLocalStorageResults from "../../Card/helpers/clearLocalStorageResuts";
 import ResultWindow from "../../ResultWindow/ResultWindow";
-import StartScreen from "./StartScreen/StartScreen";
+import StartScreen from "../Savannah/StartScreen/StartScreen";
 
 class AudioCall extends React.Component {
     audioSuccess = new Audio(audioSuccess);
