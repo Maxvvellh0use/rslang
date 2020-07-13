@@ -83,12 +83,44 @@
 }
 
 .counter_wrapper {
+  margin: 30vh 20px 20px;
   display: flex;
   justify-content: center;
 }
 
 .counter {
+  animation-iteration-count: infinite;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  width: 250px;
+  height: 250px;
+  line-height: 245px;
+  text-align: center;
   display: block;
+  font-size: 90px;
+  font-weight: bolder;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-shadow: 0 0 22px 0 rgba(0,0,0,0.75);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  animation-name: pulse;
 }
 
 .opacity_0 {

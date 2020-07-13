@@ -7,7 +7,7 @@ import getRandomNumber from "../Savannah/helpers/getRandomNumber";
 import addWordToDictionary from "../Savannah/helpers/addWordToDictionary";
 import UserSettings from "../../../data/UserSettings";
 import SpanButton from "../../Card/SpanButton/SpanButton";
-import StartScreen from "./StartScreen/StartScreen";
+import StartScreen from "./StartScreen/StartScreenSavannah";
 import Spinner from "../../Spinner/Spinner";
 import getLvlWords from "../../Card/helpers/getLvlWords";
 import getAggregatedAllWords from "../Savannah/helpers/getAggregatedAllWords";
@@ -16,12 +16,14 @@ import createArrayHearts from "./helpers/createArrayHearts";
 import getSliceArrayWords from "./helpers/getSliceArray";
 import {increaseCoefficient} from "../AudioCall/const";
 import ResultWindow from "../../ResultWindow/ResultWindow";
+import Counter from "./Counter";
 
 class Savannah extends React.Component {
     audioSuccess = new Audio(audioSuccess);
     audioError = new Audio(audioError);
     state = {
         startScreen: true,
+        counter: false,
         wordsModels: null,
         wordBlocks: null,
         lifeBlock: {
@@ -48,13 +50,15 @@ class Savannah extends React.Component {
         }
     }
 
-    hideStartScreen = async () => {
-        this.setState({
-            startScreen: false,
-        })
+    componentDidMount = async () => {
         await this.getUserSettings();
         await this.getWords()
     }
+    //
+    // componentDidMount = async () => {
+    //     await this.getUserSettings();
+    //     await this.getWords()
+    // }
 
     createCounter = () => {
 
@@ -217,6 +221,12 @@ class Savannah extends React.Component {
         })
     }
 
+    showCounter = () => {
+       this.setState({
+           startScreen: false,
+           counter: true,
+       })
+    }
 
     showResultWindow = () => {
         this.setState({
@@ -227,11 +237,10 @@ class Savannah extends React.Component {
     render = () => {
         const wordBlocks = this.state.wordBlocks;
         const life = this.state.lifeBlock.lifeHearts;
-        if (this.state.startScreen) {
-            return (
-                <div>
-                    <StartScreen onClick={this.hideStartScreen} />
-                </div>
+        console.log('startScreen' + this.state.startScreen)
+        if (this.state.counter) {
+            return  (
+                <Counter hideStartScreen={this.hideStartScreen}/>
             )
         }
         else if (this.state.resultWindow) {

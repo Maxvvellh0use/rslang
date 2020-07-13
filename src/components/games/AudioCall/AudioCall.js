@@ -11,7 +11,7 @@ import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 import UserSettings from "../../../data/UserSettings";
 import addWordToDictionary from "./helpers/addWordToDictionary";
 import ResultWindow from "../../ResultWindow/ResultWindow";
-import StartScreen from "../Savannah/StartScreen/StartScreen";
+import StartScreen from "../Savannah/StartScreen/StartScreenSavannah";
 
 class AudioCall extends React.Component {
     audioSuccess = new Audio(audioSuccess);
