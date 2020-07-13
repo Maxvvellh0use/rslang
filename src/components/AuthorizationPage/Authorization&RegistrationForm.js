@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './AuthorizationStyles.scss';
 import AuthorizationFormInput from './AuthorizationFormInput';
-import { AuthorizationFormErrors } from './AuthorizationFormErrors';
+import AuthorizationFormErrors from './AuthorizationFormErrors';
 import Users from '../../data/Users'
 import Authentication from '../../data/Authentication'
 import UserModel from '../../models/UserModel'
 import {emailRegExp} from './const'
 import { passwordRegExp } from './const'
+import {passwordRequirement } from './const'
 import nameIcon from '../../assets/img/icons/name.png'
 import emailIcon from '../../assets/img/icons/email.png'
 import passwordIcon from '../../assets/img/icons/password.png'
@@ -21,7 +22,7 @@ class AuthorizationForm extends Component {
       email: '',
       password: '',
       passwordRepeat: '',
-      formErrors: {email: '',  password: '', passwordRepeat: '', passwords: '', requestError: ''},
+      formErrors: '',
       emailValid: '',
       passwordValid: '',
       passwordRepeatValid: '',
@@ -47,30 +48,30 @@ class AuthorizationForm extends Component {
           case 'email':
             emailValid = value.match(emailRegExp);
             if (emailValid) {
-              fieldValidationErrors.email = ''
+              fieldValidationErrors = ''
               emailValid = true;
             } else {
-              fieldValidationErrors.email = 'Неверный адрес эл.почты'
+              fieldValidationErrors = 'Неверный адрес эл.почты'
               emailValid = false;
             }
             break;
           case 'password':
             passwordValid = value.match(passwordRegExp);
             if (passwordValid) {
-              fieldValidationErrors.password = ''
+              fieldValidationErrors = ''
               passwordValid = true;
             } else {
-              fieldValidationErrors.password = 'Неверный пароль'
+              fieldValidationErrors = passwordRequirement;
               passwordValid = false;
             }
             break;
           case 'passwordRepeat':
             passwordRepeatValid = value.match(passwordRegExp);
             if (passwordRepeatValid) {
-              fieldValidationErrors.passwordRepeat = ''
+              fieldValidationErrors = ''
               passwordRepeatValid = true;
             } else {
-              fieldValidationErrors.passwordRepeat = 'Неверный пароль'
+              fieldValidationErrors = passwordRequirement;
               passwordRepeatValid = false;
             }
             break;
@@ -80,11 +81,11 @@ class AuthorizationForm extends Component {
 
         if (this.props.type !== 'Auth' && (passwordValid && passwordRepeatValid)) {
           if (this.state.password === this.state.passwordRepeat) {
-            fieldValidationErrors.passwords = '';
+            fieldValidationErrors = '';
             passwordValid = true;
             passwordRepeatValid = true;
           } else {
-            fieldValidationErrors.passwords = "Пароли не совпадают";
+            fieldValidationErrors = "Пароли не совпадают";
             passwordValid = false;
             passwordRepeatValid = false;
           }
@@ -113,7 +114,7 @@ class AuthorizationForm extends Component {
 
     showError = (errorText) => {
         const fieldValidationErrors = this.state.formErrors;
-        fieldValidationErrors.requestError = errorText;
+        fieldValidationErrors = errorText;
         this.setState({
             formErrors: fieldValidationErrors
         });
