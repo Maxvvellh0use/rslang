@@ -3,13 +3,12 @@ import './Savannah.scss'
 import audioError from '../../../assets/sounds/sound_error.mp3'
 import audioSuccess from '../../../assets/sounds/sound_success.mp3'
 import audioTimeIsUp from '../../../assets/sounds/sound_timeout_savannah.mp3'
-import { firstIndex, startProgressValue, unitOffset, wordsQuantity, timeForWord, maxProgress } from "./const";
+import { firstIndex, startProgressValue, unitOffset, wordsQuantity, timeForWord, maxProgress, increaseCoefficient } from "./const";
 import getRandomNumber from "../Savannah/helpers/getRandomNumber";
 import addWordToDictionary from "../Savannah/helpers/addWordToDictionary";
 import UserSettings from "../../../data/UserSettings";
 import createArrayHearts from "./helpers/createArrayHearts";
 import getSliceArrayWords from "./helpers/getSliceArray";
-import {increaseCoefficient} from "../AudioCall/const";
 import ResultWindow from "../../ResultWindow/ResultWindow";
 
 class Savannah extends React.Component {

@@ -1,6 +1,7 @@
 export const firstIndex = 0;
 
 export const unitOffset = 1;
+export const increaseCoefficient = 1;
 export const wordsQuantity = 4;
 export const randomCoefficient = 0.5;
 export const startProgressValue = 0;
