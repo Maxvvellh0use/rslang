@@ -4,6 +4,8 @@ function clearLocalStorageResults(localStorage) {
     localStorage.errors = 0;
     localStorage.oldCorrects = 0;
     localStorage.showWords = 0;
+    localStorage.correctSeries = 0;
+    localStorage.bestSeries = 0;
 }
 
 export default clearLocalStorageResults;
