@@ -45,9 +45,8 @@ class GraphDays extends React.Component {
     render = () => {
         return (
                 <div className="graph_days">
-                    <h1>Stats</h1>
                     <div className="graph">
-                        <h3>Chart Sample</h3>
+                        <h4 className="graph_title">Статистика за неделю</h4>
                         <Line 
                             options={{
                                 responsive: true

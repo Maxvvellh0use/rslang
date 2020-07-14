@@ -68,7 +68,6 @@ class GraphWords extends React.Component {
             onWeekData: result,
             totalWords: totalWordsX,
             data: {
-                // labels: [ '0' ,'1000', '2000', '3000', '4000', '5000'],
                 datasets: [
                     {
                         label: "Слов изучено",
@@ -96,7 +95,7 @@ class GraphWords extends React.Component {
         
         return (
             <div className="graph_words">
-                    <h4>Слова</h4>
+                    <h4 className="graph_title">Слова</h4>
                     <div>Всего слов изучено: {this.state.totalWords}</div>
                     <div className="graph">
                     <ReactHover options={optionsCursorTrueWithMargin}>
