@@ -22,6 +22,10 @@ class Counter extends React.Component {
         })
     }
 
+    componentWillUnmount = () => {
+        this.audioClock.pause()
+    }
+
     getUserSettings = async () => {
         const user = {
             id: localStorage.userId,

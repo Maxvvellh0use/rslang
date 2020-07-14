@@ -41,6 +41,7 @@ class Savannah extends React.Component {
         resultWindow: false,
         animationMoveWord: '',
         progress: {
+            skip: startProgressValue,
             corrects: startProgressValue,
             errors: startProgressValue,
             click: false,
@@ -117,13 +118,15 @@ class Savannah extends React.Component {
     checkWord = async (event) => {
         const currentWord = event.target.dataset.check;
         const correctWord = this.state.wordsData.correctWord;
+        const progress = this.state.wordsData.correctWord + this.state.progress.skip;
         const corrects = this.state.progress.corrects;
         const errors = this.state.progress.errors
-        if (currentWord === correctWord && corrects !== maxProgress && !this.state.progress.click) {
+        if (currentWord === correctWord && progress !== maxProgress && !this.state.progress.click) {
             this.clearMyTimeout()
             await this.audioSuccess.play();
             this.setState({
                 progress: {
+                    skip: this.state.progress.skip,
                     corrects: corrects +
                         increaseCoefficient,
                     errors: errors,
@@ -136,6 +139,7 @@ class Savannah extends React.Component {
             await this.audioError.play();
             this.setState({
                 progress: {
+                    skip: this.state.progress.skip,
                     corrects: corrects,
                     errors: errors +
                         increaseCoefficient,
@@ -146,21 +150,21 @@ class Savannah extends React.Component {
     }
 
     nextWord = async () => {
-        const corrects = this.state.progress.corrects;
-        const startIndex = this.state.wordsData.startIndex + wordsQuantity;
-        const endIndex = this.state.wordsData.endIndex + wordsQuantity;
-        const arrayWordModels = this.state.wordsData.arrayWordModels;
-        const currentWordModels = getSliceArrayWords(arrayWordModels, startIndex, endIndex)
-        const correctWordNumber = getRandomNumber();
-        const correctWord = currentWordModels[correctWordNumber].word;
-        const correctWordTranslation = currentWordModels[correctWordNumber].translation;
-        const correctWordModel =  currentWordModels[correctWordNumber];
-        const tabName = 'learning';
-        const currentUser = JSON.parse(localStorage.user);
-        await addWordToDictionary(currentUser, correctWordModel, tabName);
-        if (corrects === maxProgress) {
+        const progress = this.state.progress.corrects + this.state.progress.skip;
+        if (progress === maxProgress) {
             this.showResultWindow()
         } else {
+            const startIndex = this.state.wordsData.startIndex + wordsQuantity;
+            const endIndex = this.state.wordsData.endIndex + wordsQuantity;
+            const arrayWordModels = this.state.wordsData.arrayWordModels;
+            const currentWordModels = getSliceArrayWords(arrayWordModels, startIndex, endIndex)
+            const correctWordNumber = getRandomNumber();
+            const correctWord = currentWordModels[correctWordNumber].word;
+            const correctWordTranslation = currentWordModels[correctWordNumber].translation;
+            const correctWordModel =  currentWordModels[correctWordNumber];
+            const tabName = 'learning';
+            const currentUser = JSON.parse(localStorage.user);
+            await addWordToDictionary(currentUser, correctWordModel, tabName);
             this.createWordBlock();
             this.setState({
                 wordsData: {
@@ -174,6 +178,7 @@ class Savannah extends React.Component {
                 },
                 animationMoveWord: ' animation_move',
                 progress: {
+                    skip: this.state.progress.skip,
                     corrects: this.state.progress.corrects,
                     errors: this.state.progress.errors,
                     click: false,
@@ -205,6 +210,15 @@ class Savannah extends React.Component {
         this.timeout = setTimeout(async () => {
             await this.audioTimeIsUp.play();
             this.removeHeart()
+            this.setState({
+                progress: {
+                    skip: this.state.progress.skip +
+                        increaseCoefficient,
+                    corrects: this.state.progress.corrects,
+                    errors: this.state.progress.errors,
+                    click: this.state.progress.click,
+                }
+            })
             await this.nextWord();
         }, timeForWord);
     }
@@ -231,6 +245,7 @@ class Savannah extends React.Component {
     }
 
     showResultWindow = () => {
+        this.clearMyTimeout()
         this.setState({
             resultWindow: true,
         })
