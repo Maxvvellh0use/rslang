@@ -51,6 +51,10 @@ class Savannah extends React.Component {
         await this.getWords()
     }
 
+    componentWillUnmount() {
+        this.clearMyTimeout()
+    }
+
     getWords = async () => {
         const arrayWordModels = this.props.arrayWordModels;
         const endIndex = firstIndex + wordsQuantity;
