@@ -1,5 +1,6 @@
+@import '../../style/placeholders.scss';
+
 .graph {
-    // position: relative;
     width: 37.5rem;
 }
 
@@ -16,5 +17,5 @@
 }
 
 .graph_title {
-    text-shadow: 1px 1px 16px black, 0 0 1em black;
+    @extend %textshadow;
 }
