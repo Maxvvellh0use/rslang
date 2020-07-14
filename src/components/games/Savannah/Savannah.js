@@ -2,17 +2,19 @@ import React from 'react';
 import './Savannah.scss'
 import audioError from '../../../assets/sounds/sound_error.mp3'
 import audioSuccess from '../../../assets/sounds/sound_success.mp3'
-import {firstIndex, startProgressValue, unitOffset, wordsQuantity} from "./const";
+import audioTimeIsUp from '../../../assets/sounds/sound_timeout_savannah.mp3'
+import { firstIndex, startProgressValue, unitOffset, wordsQuantity, timeForWord, maxProgress } from "./const";
 import getRandomNumber from "../Savannah/helpers/getRandomNumber";
 import addWordToDictionary from "../Savannah/helpers/addWordToDictionary";
 import UserSettings from "../../../data/UserSettings";
-import { maxProgress } from "./const";
 import createArrayHearts from "./helpers/createArrayHearts";
 import getSliceArrayWords from "./helpers/getSliceArray";
 import {increaseCoefficient} from "../AudioCall/const";
 import ResultWindow from "../../ResultWindow/ResultWindow";
 
 class Savannah extends React.Component {
+    timeout = false;
+    audioTimeIsUp = new Audio(audioTimeIsUp);
     audioSuccess = new Audio(audioSuccess);
     audioError = new Audio(audioError);
     state = {
@@ -103,6 +105,9 @@ class Savannah extends React.Component {
                 lifeHearts: this.state.lifeBlock.lifeHearts,
             },
         })
+        if (this.state.lifeBlock.lifeHearts.length === 0 && this.timeout) {
+            this.clearMyTimeout()
+        }
     }
 
     checkWord = async (event) => {
@@ -111,6 +116,7 @@ class Savannah extends React.Component {
         const corrects = this.state.progress.corrects;
         const errors = this.state.progress.errors
         if (currentWord === correctWord && corrects !== maxProgress && !this.state.progress.click) {
+            this.clearMyTimeout()
             await this.audioSuccess.play();
             this.setState({
                 progress: {
@@ -187,7 +193,20 @@ class Savannah extends React.Component {
         })
     }
 
+    clearMyTimeout = () => {
+        clearTimeout(this.timeout)
+    }
+
+    timeIsUp = () => {
+        this.timeout = setTimeout(async () => {
+            await this.audioTimeIsUp.play();
+            this.removeHeart()
+            await this.nextWord();
+        }, timeForWord);
+    }
+
     createWordBlock = () => {
+        this.clearMyTimeout()
         const wordsModels = this.state.wordsData.currentWordModels;
         const wordBlocks = wordsModels.map((wordModel, index) => {
             return <div onClick={this.checkWord}
@@ -201,8 +220,10 @@ class Savannah extends React.Component {
         });
         this.setState({
             wordBlocks: wordBlocks,
-
         })
+        if (this.state.lifeBlock.lifeHearts.length !== 0) {
+            this.timeIsUp();
+        }
     }
 
     showResultWindow = () => {
@@ -219,6 +240,7 @@ class Savannah extends React.Component {
                 <div className="position-absolute">
                     <div className="background_block__savannah"/>
                     <ResultWindow
+                        clearTimeout={this.clearTimeout}
                         hidden=''
                         history={this.props.history}
                         value={'Поздравляем!'}
@@ -233,6 +255,7 @@ class Savannah extends React.Component {
                 <div>
                     <div className="background_block__savannah"/>
                     <ResultWindow
+                        clearTimeout={this.clearTimeout}
                         hidden=''
                         history={this.props.history}
                         value={'Конец игры!'}

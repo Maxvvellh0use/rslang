@@ -14,3 +14,5 @@ export const maxWordsPerPage = 44;
 export const backHistoryValue = -1;
 
 export const startCounterValue = 3;
+
+export const timeForWord = 4500;
