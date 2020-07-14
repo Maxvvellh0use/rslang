@@ -1,10 +1,10 @@
 export const PersonalInformationObject = {
     photo:  [],
-    name:   ['Burdina Alexandra',
-             'Mikhaduk Nikita',
-             'Burdina Helen',
-             'Titok Maxim',
-             'Vayl Daria'],
+    name:   ['Александра Бурдина',
+             'Никита Михадюк',
+             'Ирина Цымбаревич',
+             'Максим Титок',
+             'Дарья Вяль'],
 
     github: ['https://github.com/Alexandra2503',
              'https://github.com/Nikita3026',
@@ -12,9 +12,16 @@ export const PersonalInformationObject = {
              'https://github.com/Nikita3026',
              'https://github.com/Alexandra2503'],
 
-    work:   ['Authorization and registration',
+    contribution:   
+            ['Учащаяся ',
              'Main page and savanah game',
              'SpeakIt game',
              'English-puzzle game',
              'Statistic'],
+
+    work:   ['Authorization and registration',
+            'Main page and savanah game',
+            'SpeakIt game',
+            'English-puzzle game',
+            'Statistic'],
 }
