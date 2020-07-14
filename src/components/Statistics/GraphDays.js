@@ -15,11 +15,6 @@ class GraphDays extends React.Component {
                     backgroundColor: "rgba(0, 51, 102, 0.75)",
                     data: []
                 },
-                // {
-                //     label: "Правильные ответы",
-                //     backgroundColor: "rgba(0, 255, 0, 0.75)",
-                //     data: [4, 15, 21, 0, 12, 4, 2]
-                // }
             ]
         }
     }
@@ -51,10 +46,6 @@ class GraphDays extends React.Component {
         return (
                 <div className="graph_days">
                     <h1>Stats</h1>
-                    <div>
-                        <div>total words:</div>
-
-                    </div>
                     <div className="graph">
                         <h3>Chart Sample</h3>
                         <Line 
