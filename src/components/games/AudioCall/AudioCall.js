@@ -32,6 +32,7 @@ class AudioCall extends React.Component {
         progress: {
             corrects: startProgressValue,
             errors: startProgressValue,
+            click: false,
         }
     }
 
@@ -131,6 +132,11 @@ class AudioCall extends React.Component {
             this.setState({
                 showCorrectWord: '',
                 imageHidden: ' visibility_hidden',
+                progress: {
+                    corrects: this.state.progress.corrects,
+                    errors: this.state.progress.errors,
+                    click: false,
+                }
             })
             this.showSpinner();
             await this.getUserSettings();
@@ -151,7 +157,7 @@ class AudioCall extends React.Component {
         const correctWord = this.state.correctWord;
         const corrects = this.state.progress.corrects;
         const errors = this.state.progress.errors
-        if (currentWord === correctWord && corrects !== maxProgress) {
+        if (currentWord === correctWord && corrects !== maxProgress && !this.state.progress.click) {
             await this.audioSuccess.play();
             this.setState({
                 imageHidden: '',
@@ -160,6 +166,7 @@ class AudioCall extends React.Component {
                     corrects: corrects +
                         increaseCoefficient,
                     errors: errors,
+                    click: true,
                 }
             })
             setTimeout(async () => this.nextWord(), 1000)
@@ -187,6 +194,7 @@ class AudioCall extends React.Component {
         if (this.state.spinner) {
             return (
                 <div>
+                    <div className="background_block__audio_call"/>
                     <Spinner className="spinner_game" />
                 </div>
             )
@@ -194,6 +202,7 @@ class AudioCall extends React.Component {
         else if (this.state.resultWindow) {
             return (
                 <div>
+                    <div className="background_block__audio_call"/>
                     <ResultWindow
                         hidden=''
                         history={this.props.history}
@@ -206,6 +215,7 @@ class AudioCall extends React.Component {
         }
        return (
            <section>
+               <div className="background_block__audio_call"/>
                <div className="wrapper audio_call_wrapper">
                    <img className={'repeat__image_association' + this.state.imageHidden} src={this.state.correctWordImage} alt='association'/>
                    <div className="repeat__result_word">{this.state.showCorrectWord}</div>

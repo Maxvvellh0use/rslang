@@ -1,79 +1,41 @@
+@import "../../../../style/constants";
 @import "../../../../style/placeholders";
 
-body {
-  height: 100%;
-}
-
-.background_audioCall {
-  margin: 0;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: $color-audioCall-background;
-}
-.repeat {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-}
-
-.repeat__result_word {
-  height: 50px;
-  margin: auto;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.repeat__button {
+.start_screen__button {
   @extend %my-transition;
-  display: block;
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  background-image: url(../../../../assets/img/icons/audio-on-icon.png);
-  animation-duration: 1s;
-  animation-name: opacity_button;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 80px;
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
-.words_block_audio_call {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  @media (max-width: 1020px) {
-    flex-direction: column;
-  }
-}
-
-.words_block__word {
-  @extend %my-transition;
-  cursor: pointer;
-  margin: 50px;
-  user-select: none;
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
+  font-size: 40px;
   border-radius: 5px;
-  &:first-letter {
-    opacity: .4;
-  }
+  text-align: center;
+  width: 150px;
+  border: 1px solid $color-button-start-page;
+  margin-top: 100px;
   &:hover {
-    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    color: $color-body;
+    background: $color-button-start-page;
   }
 }
 
-.word__span {
-  margin-left: 10px;
+.description_game {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.start_screen_wrapper__audio_call {
+  padding: 40px;
+  text-align: center;
+  margin: 30vh auto auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../../../assets/img/background_audioCall.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.title_start_screen {
+  font-weight: bold;
 }
 
 

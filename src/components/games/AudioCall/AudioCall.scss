@@ -63,7 +63,7 @@ body {
   margin: auto;
 }
 
-.words_block {
+.words_block_audio_call {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -94,5 +94,13 @@ body {
   margin-left: 10px;
 }
 
+.background_block__audio_call {
+  top: 0;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-image: $color-audioCall-background;
+}
 
 

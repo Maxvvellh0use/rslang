@@ -41,6 +41,7 @@ class Savannah extends React.Component {
         progress: {
             corrects: startProgressValue,
             errors: startProgressValue,
+            click: false,
         }
     }
 
@@ -109,13 +110,14 @@ class Savannah extends React.Component {
         const correctWord = this.state.wordsData.correctWord;
         const corrects = this.state.progress.corrects;
         const errors = this.state.progress.errors
-        if (currentWord === correctWord && corrects !== maxProgress) {
+        if (currentWord === correctWord && corrects !== maxProgress && !this.state.progress.click) {
             await this.audioSuccess.play();
             this.setState({
                 progress: {
                     corrects: corrects +
                         increaseCoefficient,
                     errors: errors,
+                    click: true,
                 },
                 animationMoveWord: ' opacity_0',
             })
@@ -161,6 +163,11 @@ class Savannah extends React.Component {
                     endIndex: endIndex ,
                 },
                 animationMoveWord: ' animation_move',
+                progress: {
+                    corrects: this.state.progress.corrects,
+                    errors: this.state.progress.errors,
+                    click: false,
+                }
             })
             this.createWordBlock();
         }
@@ -194,6 +201,7 @@ class Savannah extends React.Component {
         });
         this.setState({
             wordBlocks: wordBlocks,
+
         })
     }
 
@@ -208,7 +216,8 @@ class Savannah extends React.Component {
         const life = this.state.lifeBlock.lifeHearts;
         if (this.state.resultWindow) {
             return (
-                <div>
+                <div className="position-absolute">
+                    <div className="background_block__savannah"/>
                     <ResultWindow
                         hidden=''
                         history={this.props.history}
@@ -222,6 +231,7 @@ class Savannah extends React.Component {
         else if (this.state.lifeBlock.lifeHearts.length === 0) {
             return (
                 <div>
+                    <div className="background_block__savannah"/>
                     <ResultWindow
                         hidden=''
                         history={this.props.history}
@@ -234,6 +244,7 @@ class Savannah extends React.Component {
         }
         return (
             <section>
+                <div className="background_block__savannah"/>
                 <div className="life_block">{life}</div>
                 <div className="correct_word__wrapper">
                     <div className={'correct_word' + this.state.animationMoveWord}>
@@ -241,10 +252,7 @@ class Savannah extends React.Component {
                     </div>
                 </div>
                 <div className="wrapper savannah_wrapper">
-                    <div className="repeat">
-
-                    </div>
-                    <div className="words_block">
+                    <div className="words_block_savannah">
                         {wordBlocks}
                     </div>
                 </div>

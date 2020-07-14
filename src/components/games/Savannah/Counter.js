@@ -21,6 +21,7 @@ class Counter extends React.Component {
             arrayWordModels: arrayWordModels,
         })
     }
+
     getUserSettings = async () => {
         const user = {
             id: localStorage.userId,
@@ -44,9 +45,14 @@ class Counter extends React.Component {
 
     counterUpdate = async () => {
         await this.audioClock.play()
-        setInterval(() => this.setState({
-            counterValue: this.state.counterValue - unitOffset,
-        }), 1000)
+        const clock = setInterval(() => {
+            this.setState({
+                counterValue: this.state.counterValue - unitOffset,
+            })
+            if (this.state.counterValue < 0) {
+                clearInterval(clock);
+            }
+        }, 1000)
     }
 
     render = () => {
@@ -57,8 +63,11 @@ class Counter extends React.Component {
             />
         }
         return (
-            <div className="counter_wrapper">
-                <span className="counter">{this.state.counterValue}</span>
+            <div>
+                <div className="background_block__savannah"/>
+                <div className="counter_wrapper">
+                    <span className="counter">{this.state.counterValue}</span>
+                </div>
             </div>
         )
     }
