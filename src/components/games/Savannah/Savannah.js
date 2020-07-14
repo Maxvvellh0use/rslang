@@ -241,7 +241,7 @@ class Savannah extends React.Component {
         const life = this.state.lifeBlock.lifeHearts;
         if (this.state.resultWindow) {
             return (
-                <div className="position-absolute">
+                <div>
                     <div className="background_block__savannah"/>
                     <ResultWindow
                         clearTimeout={this.clearTimeout}
