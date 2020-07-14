@@ -5,12 +5,12 @@ import PersoanlImformationComponent from './PersoanlImformationComponent'
 class AboutTeam extends Component{
     render = () => (
         <div className='container'>
-            <div className='row'>
-                <PersoanlImformationComponent/>
-                <PersoanlImformationComponent/>
-                <PersoanlImformationComponent/>
-                <PersoanlImformationComponent/>
-                <PersoanlImformationComponent/>
+            <div className='row justify-content-center'>
+                <PersoanlImformationComponent arrayNumber='0'/>
+                <PersoanlImformationComponent arrayNumber='1'/>
+                <PersoanlImformationComponent arrayNumber='2'/>
+                <PersoanlImformationComponent arrayNumber='3'/>
+                <PersoanlImformationComponent arrayNumber='4'/>
             </div>
         </div>
     )
