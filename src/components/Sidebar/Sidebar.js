@@ -9,6 +9,7 @@ import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
 import DictionaryPage from '../DictionaryPage/DictionaryPage';
 import GamesPage from '../GamesPage/GamesPage';
+import AboutTeam from '../AboutTeam/AboutTeamPage'
 import { NAVLINK_ARRAY } from "./const";
 import NavbarLink from "./NavbarLink";
 import LogOut from './LogOut';
@@ -117,6 +118,7 @@ class Sidebar extends React.Component {
                     <Route path="/main/games">
                         <GamesPage history={this.props.history}/>
                     </Route>
+                    <Route path="/main/about" component={AboutTeam} />
                     <Route path="/main/logout">
                         <LogOut isAuthorization={this.props.isAuthorization} history={this.props.history} />
                     </Route>

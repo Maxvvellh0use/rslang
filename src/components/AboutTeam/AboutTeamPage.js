@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './AboutTeam.scss'
 import PersoanlImformationComponent from './PersoanlImformationComponent'
 
-class AboutTeam extends Component{
-    render = () => (
+const AboutTeam = () => {
+    return(
         <div className='container'>
             <div className='row justify-content-center'>
                 <PersoanlImformationComponent arrayNumber='0'/>
