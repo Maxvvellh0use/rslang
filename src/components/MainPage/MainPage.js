@@ -6,6 +6,7 @@ import image from '../../assets/img/main_page/big_ban.jpg'
 class MainPage extends Component {
     render = () => (
         <div>
+            <h3 className='today-plane'>План на сегодня</h3>
             <CardWithTask 
                 path = {ObjectWithPhrases.card1.link}
                 image =  {ObjectWithPhrases.card1.image}
