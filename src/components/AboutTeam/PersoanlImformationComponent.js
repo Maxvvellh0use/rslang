@@ -5,7 +5,7 @@ import githubIcon from '../../assets/img/icons/github.png'
 class PersoanlImformationComponent extends Component {
 
     render = () => (
-        <div className='card testimonial-card personal-information-component col-6 col-sm-5 col-md-5 col-lg-4 reverse'>
+        <div className='card testimonial-card personal-information-component col-8 col-sm-5 col-md-5 col-lg-4 reverse'>
             <img className='developer-photo card-img-top' src={PersonalInformationObject.photo[this.props.arrayNumber]} alt='developer photo'/>
             <div className='personal-information-text-block card-body card-body-cascade'>
                 <p className='developer-name card-title'>
