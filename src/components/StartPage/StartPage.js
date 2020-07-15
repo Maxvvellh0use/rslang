@@ -14,6 +14,7 @@ import Footer from "./Footer";
 import Sidebar from "../Sidebar/Sidebar";
 import AudioCall from "../games/AudioCall/AudioCall";
 import StartScreenSavannah from "../games/Savannah/StartScreenSavannah/StartScreenSavannah";
+import SpeakIt from "../games/SpeakIt/SpeakIt";
 
 class StartPage extends React.Component {
 
@@ -39,6 +40,11 @@ class StartPage extends React.Component {
                         </Route>
                         <Route path="/main/games/savannah">
                             <StartScreenSavannah
+                                history={this.props.history}
+                            />
+                        </Route>
+                        <Route path="/main/games/speak_it">
+                            <SpeakIt
                                 history={this.props.history}
                             />
                         </Route>

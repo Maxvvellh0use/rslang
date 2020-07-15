@@ -1,0 +1,52 @@
+.results-element-si {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+
+    margin: 9px 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__audio {
+        width: 20px;
+        height: 20px;
+        margin-right: 7px;
+
+        background-image: url("../../assets/img/speaker.svg");
+
+        cursor: pointer;
+    }
+
+    &__text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0;
+        padding: 0 4px;
+
+        &_gray {
+            margin: 0;
+
+            color: gray;
+        }
+    }
+}
+
+@media screen and (max-width: 469px) {
+    .results-element-si {
+        &__transcription {
+            display: none;
+        }
+        &__audio {
+            margin-right: 2px;
+            background-size: cover;
+        }
+
+        &__text {
+            font-size: 14px;
+        }
+    }
+}
