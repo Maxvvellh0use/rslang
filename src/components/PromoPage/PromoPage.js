@@ -1,7 +1,7 @@
 import React from "react";
 import './PromoPage.scss'
 import { sectionsApplication } from "./const";
-import { ReactComponent as BackgroundPromo } from '../../assets/img/background_promo_page.svg';
+import backgroundPromo from '../../assets/img/background_promo_page.svg';
 import SpanButton from "../Card/SpanButton/SpanButton";
 class PromoPage extends React.Component {
     state = {
@@ -69,7 +69,7 @@ class PromoPage extends React.Component {
         return (
             <main>
                 <div className='background_promo'>
-                    <BackgroundPromo style={{ width: "100vw", height: "100vh" }}/>
+                    <img className='background_promo__image' src={backgroundPromo}/>
                 </div>
                 <article className='main_content'>
                     <section className='logo'>
