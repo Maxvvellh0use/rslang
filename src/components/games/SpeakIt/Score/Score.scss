@@ -1,0 +1,12 @@
+.score {
+    &__image {
+        width: 29px;
+        margin: 0 1px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .score__image {
+        width: 20px;
+    }
+}

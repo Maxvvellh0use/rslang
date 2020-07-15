@@ -82,3 +82,15 @@
         transform: scale(1);
     }
 }
+
+@media screen and (max-width: 767px) {
+    .game-element {
+        width: 274px;
+        left: 13px;
+        &__heading {
+            grid-column: 1/2;
+        }
+        grid-template-columns: 300px;
+        grid-template-rows: auto 200px 200px 200px 200px 200px 200px;
+    }
+}

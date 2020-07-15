@@ -1,23 +1,43 @@
 .games-page {
-    position: relative;
-    top: -45px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
     display: grid;
 
     margin: auto;
 
-    grid-template-columns: 300px 300px 300px;
+    grid-template-columns: 300px 300px;
     column-gap: 30px;
     grid-template-rows: auto 200px 200px;
     row-gap: 30px;
 
     &__heading {
-        grid-column: 1/4;
-        text-align: center;
         font-size: 48px;
-        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, .2);
+
+        text-align: center;
+
+        grid-column: 1/4;
+    }
+}
+
+@media screen and (max-width: 1049px) {
+    .games-page {
+        &__heading {
+            grid-column: 1/3;
+        }
+        grid-template-columns: 300px 300px;
+        grid-template-rows: auto 200px 200px 200px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .games-page {
+        &__heading {
+            grid-column: 1/2;
+        }
+        grid-template-columns: 300px;
+        grid-template-rows: auto 200px 200px 200px 200px 200px 200px;
+        
     }
 }

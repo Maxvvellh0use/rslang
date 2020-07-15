@@ -9,9 +9,9 @@
     flex-wrap: wrap;
     flex-direction: row;
     max-width: 900px;
-    min-width: 320px;
+    min-width: 270px;
     width: 100%;
-    height: 800px;
+    height: 700px;
     margin: 10px auto;
     overflow: hidden;
 
@@ -19,7 +19,8 @@
 
     @extend %card-shadow;
 
-    @include media-tablet {
+    @include media-tablet {     
+      height: 600px; 
       flex-direction: column-reverse;
     }
   }
@@ -28,7 +29,7 @@
     position: relative;
     display: block;
     width: 80%;
-    height: 800px;
+    height: 700px;
     margin: 0;
     padding: 0;
 
@@ -49,7 +50,7 @@
     }
 
     @include media-tablet {
-      height: 700px;
+      height: 500px;
       width: 100%;
     }
   }
