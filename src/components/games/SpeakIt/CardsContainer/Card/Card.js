@@ -2,8 +2,8 @@ import React from 'react';
 import './Card.scss';
 
 const Card = (props) => {
-    const activeCardClass = props.wasSpoken ? 'card_active' : '';
-    const cardClass = `card ${activeCardClass}`;
+    const activeCardClass = props.wasSpoken ? 'card-si_active' : '';
+    const cardClass = `card-si ${activeCardClass}`;
     const clickHandler = props.isGameStarted ? null : props.onClick;
 
     return (
@@ -12,10 +12,10 @@ const Card = (props) => {
             className={cardClass}
         >
             <div
-                className='card__audio-wrap'>
+                className='card-si__audio-wrap'>
             </div>
-            <p className='card__word'>{props.word}</p>
-            <p className='card__transcription'>{props.transcription}</p>
+            <p className='card-si__word'>{props.word}</p>
+            <p className='card-si__transcription'>{props.transcription}</p>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-.card {
+.card-si {
     display: grid;
 
     width: 200px;
@@ -62,7 +62,7 @@
 }
 
 @media screen and (min-width: 860px) and (max-width: 1079px) {
-    .card {
+    .card-si {
         &:nth-last-child(-n+2) {
             grid-column: 2/3;
         }
@@ -74,12 +74,9 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 860px) {
-    .card:nth-last-child(1) {
+    .card-si:nth-last-child(1) {
         grid-column: 2/3;
     }
 }
 
-// @media screen and (max-width: 767px) {
-
-// }
 
