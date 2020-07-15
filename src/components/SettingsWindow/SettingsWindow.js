@@ -86,7 +86,9 @@ class SettingsWindow extends Component {
         const settings = this.state.settings;
         const dailyNumber = settings.dailyNumber;
         const maxNumber = settings.maxNumber;
-        const hints = settings.hints;
+        const hints = { ...settings.hints };
+        delete hints.dictionaryRemove;
+        delete hints.dictionaryDifficult;
         const noCheckedHints = !Object.values(hints).includes(true);
         const dailyGreaterMax = dailyNumber > maxNumber;
         const pathName = this.props.history.location.pathname
