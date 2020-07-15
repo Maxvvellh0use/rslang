@@ -5,10 +5,9 @@ const Hints = (props) => {
         return (
             <label key={index}>
                 <input
-                    readOnly={true}
                     name={hint.name}
                     type={hint.type}
-                    checked={props.isActive[hint.name]}>
+                    defaultChecked={props.isActive[hint.name]}>
                 </input>
                 {hint.text}
             </label>
