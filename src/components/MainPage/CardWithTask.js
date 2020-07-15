@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Router, Switch, withRouter, Link } from 'react-router-dom';
-import Card from '../Card/Card';
+import { Link } from 'react-router-dom';
 import './MainPage.scss'
 
 const CardWithTask = ({path, image, task, linkMessage, motivationalMessage}) => {
