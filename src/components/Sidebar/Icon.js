@@ -6,9 +6,12 @@ import { ReactComponent as StatsIcon } from '../../assets/img/icons_navbar/stats
 import { ReactComponent as AboutIcon } from '../../assets/img/icons_navbar/about.svg';
 import { ReactComponent as LogOutIcon } from '../../assets/img/icons_navbar/logout.svg';
 import { ReactComponent as DictionaryIcon } from '../../assets/img/icons_navbar/dictionary.svg';
+import { ReactComponent as MainIcon } from '../../assets/img/icons_navbar/main.svg';
 
 const Icon = (props) => {
   switch(props.name) {
+    case "main":
+        return <MainIcon />;
     case "words":
         return <WordsIcon />;
     case "games":

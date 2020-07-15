@@ -110,6 +110,7 @@ class Sidebar extends React.Component {
                     </div>
                 </nav>
                 <Switch>
+                    <Route path="/main/main_page" />
                     <Route path="/main/words">
                         <Card history={this.props.history}
                               switchOverlay={this.switchOverlay}/>

@@ -1,4 +1,5 @@
 export const NAVLINK_ARRAY = [
+    { path: '/main/main_page', text: 'Главная', icon: 'main' },
     { path: '/main/words', text: 'Слова', icon: 'words' }, 
     { path: '/main/games', text: 'Игры', icon: 'games' },
     { path: '/main/dictionary', text: 'Словарь', icon: 'dictionary' },
