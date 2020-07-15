@@ -1,4 +1,4 @@
-# ![image](src\assets\img\logo-start-page.png)
+# ![image](./src/assets/img/logo-start-page.png)
 The final project at Rsschool
 
 ## On the project used:
