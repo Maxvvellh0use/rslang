@@ -77,7 +77,7 @@ class Sidebar extends React.Component {
                                 NAVLINK_ARRAY.map((navlink, index) => {
                                     return (
                                         <li key={index}>
-                                            <NavbarLink 
+                                            <NavbarLink
                                                         path={navlink.path}
                                                         text={navlink.text}
                                                         icon={navlink.icon}
@@ -118,7 +118,9 @@ class Sidebar extends React.Component {
                     <Route path="/main/games">
                         <GamesPage history={this.props.history}/>
                     </Route>
-                    <Route path="/main/stats" component={StatsContainer} />
+                    <Route path="/main/stats">
+                        <StatsContainer history={this.props.history} />
+                    </Route>
                     <Route path="/main/logout">
                         <LogOut isAuthorization={this.props.isAuthorization} history={this.props.history} />
                     </Route>

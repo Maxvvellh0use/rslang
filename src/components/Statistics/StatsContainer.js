@@ -31,8 +31,7 @@ class StatsContainer extends React.Component {
         }
         catch (error) {
           console.log(error);
-        };
-
+        }
         const statsData = userWords.map((word) => {
             return {
                 wordId: word.id,
@@ -40,10 +39,11 @@ class StatsContainer extends React.Component {
                 timeStamp: Date.parse(word.optional.lastUse),
             }
         })
-        
+
         this.setState({
             statsData: statsData,
         })
+        this.props.history.push('/main/stats/stats');
     }
 
     render = () => {

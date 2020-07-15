@@ -20,7 +20,6 @@ class GraphDays extends React.Component {
     }
 
     componentDidMount() {
-
         const statsData = this.props.data;
         const lastWeekDates = getLastWeek();
         const result = compareData(lastWeekDates, statsData);
@@ -47,7 +46,7 @@ class GraphDays extends React.Component {
                 <div className="graph_days">
                     <div className="graph">
                         <h4 className="graph_title">Статистика за неделю</h4>
-                        <Line 
+                        <Line
                             options={{
                                 responsive: true
                             }}
