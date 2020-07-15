@@ -8,7 +8,6 @@ class PromoPage extends React.Component {
 
     }
 
-
     createBlocksImages = () => {
         const imagesBlocks = sectionsApplication.map((section, index) => {
             if (index === 0) {
@@ -67,9 +66,6 @@ class PromoPage extends React.Component {
         return imagesBlocks;
     }
 
-
-
-
     render = () => {
         const images = this.createBlocksImages();
         return (
@@ -79,7 +75,9 @@ class PromoPage extends React.Component {
                 </div>
                 <article className='main_content'>
                     <section className='logo'>
-                        <span className='logo_span'/>
+                        <a className='app_link' href='https://rslang-team32-maxvvellh0use.netlify.app/'>
+                            <span className='logo_span'/>
+                        </a>
                     </section>
                     <section className='description_promo'>
                         <div className='description_promo__text'>

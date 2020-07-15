@@ -25,6 +25,7 @@ body {
 }
 
 .logo_span {
+  @extend %my-transition;
   display: block;
   margin: 50vh 40px 20px;
   width: 600px;
@@ -32,6 +33,10 @@ body {
   background-image: url('../../assets/img/logo-start-page.png');
   background-size: 600px;
   background-repeat: no-repeat;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
 }
 
 .description_promo__text {
