@@ -10,14 +10,16 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: $color-audioCall-background;
 }
 
 .audio_call_wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 28vh;
+  margin-top: 15vh;
+  @media (max-width: 1020px) {
+    margin-top: 1vh;
+  }
 }
 
 .repeat {
@@ -53,7 +55,15 @@ body {
   }
 }
 
-.words_block {
+.repeat__image_association {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin: auto;
+}
+
+.words_block_audio_call {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -84,5 +94,13 @@ body {
   margin-left: 10px;
 }
 
+.background_block__audio_call {
+  top: 0;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-image: $color-audioCall-background;
+}
 
 

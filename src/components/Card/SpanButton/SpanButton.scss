@@ -63,6 +63,16 @@
   &:hover {
     transform: scale(1.1);
   }
+  @media (max-width: 800px) {
+    width: 25px;
+    height: 25px;
+    background-size: 25px;
+  }
+  @media (max-width: 500px) {
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
+  }
 }
 
 .dictionary_buttons__difficult {
@@ -80,6 +90,16 @@
   background-size: 35px;
   &:hover {
     transform: scale(1.1);
+  }
+  @media (max-width: 800px) {
+    width: 25px;
+    height: 25px;
+    background-size: 25px;
+  }
+  @media (max-width: 500px) {
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
   }
 }
 

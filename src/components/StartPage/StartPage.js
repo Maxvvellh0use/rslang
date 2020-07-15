@@ -13,6 +13,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "../Sidebar/Sidebar";
 import AudioCall from "../games/AudioCall/AudioCall";
+import StartScreenSavannah from "../games/Savannah/StartScreenSavannah/StartScreenSavannah";
 
 class StartPage extends React.Component {
 
@@ -33,6 +34,11 @@ class StartPage extends React.Component {
                     <Switch>
                         <Route path="/main/games/audio_call">
                             <AudioCall
+                                history={this.props.history}
+                            />
+                        </Route>
+                        <Route path="/main/games/savannah">
+                            <StartScreenSavannah
                                 history={this.props.history}
                             />
                         </Route>
@@ -83,7 +89,7 @@ class StartPage extends React.Component {
                                      history={this.props.history}/>
                             </Route>
                         }
-                        <Route path="/main/games/audio_call" component={AudioCall}/>
+                        {/*<Route path="/main/games/audio_call" component={AudioCall}/>*/}
                     </Switch>
                 </div>
             </Router>

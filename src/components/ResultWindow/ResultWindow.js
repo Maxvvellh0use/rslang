@@ -3,7 +3,9 @@ import { backHistoryValue } from "../games/AudioCall/const";
 import "./ResultWindow.scss"
 
 const ResultWindow = (props) => {
-    console.log(props.history)
+    if (props.clearTimeout) {
+        props.clearTimeout()
+    }
     const percentageCorrect = props.errors ? Math.round((props.corrects /
         (props.corrects + props.errors)) * 100) : 100;
     return (

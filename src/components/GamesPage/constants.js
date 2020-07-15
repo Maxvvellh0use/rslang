@@ -8,12 +8,12 @@ import SAGameImage from '../../assets/img/games/SAGame.jpg'
 export const englishPuzzleLink = 'https://rslang-team32-maxvvellh0useenglish.netlify.app/'
 
 const GAMES = [
-    {title: 'Speak It', description: 'Игра для тренировки произношения', id: 0, img: SIGameImage},
+    {title: 'Speak It', description: 'Игра для тренировки произношения', id: 0, img: SIGameImage, link: '/main/games/speak_it'},
     {title: 'English Puzzle', description: 'Собирайте предложения из перемешанных слов', id: 1, img: EPGameImage, link: englishPuzzleLink},
-    {title: 'Спринт', description: 'За отведенный промежуток времени необходимо указать принадлежат ли переводы словам', id: 2, img: SPGameImage},
+    {title: 'Спринт', description: 'За отведенный промежуток времени необходимо указать принадлежат ли переводы словам', id: 2, img: SPGameImage, link: '/main/games/sprint'},
     {title: 'Аудиовызов', description: 'Слушайте слово на английском и выбирайте его перевод на русском', id: 3, img: AGameImage, link: '/main/games/audio_call'},
-    {title: 'CrossWord', description: 'Угадывайте слова по буквам исходя из заданных вопросов', id: 4, img: CWGameImage},
-    {title: 'Саванна', description: 'Что-то тут явно происходит', id: 5, img: SAGameImage}
+    {title: 'CrossWord', description: 'Угадывайте слова по буквам исходя из заданных вопросов', id: 4, img: CWGameImage, link: '/main/games/cross_word'},
+    {title: 'Саванна', description: 'Успейте правильно определить перевод данного слова. Количество ошибок ограничено!', id: 5, img: SAGameImage, link: '/main/games/savannah'}
 ]
 
 export default GAMES;

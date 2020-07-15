@@ -127,9 +127,6 @@ class Card extends React.Component {
             const imagePath = wordModel.imagePath;
             const wordLength = word.length
             const widthInput = getInputWidth(wordLength);
-            const tabName = 'learning';
-            const currentUser = JSON.parse(localStorage.user);
-            await addWordToDictionary(currentUser, wordModel, tabName);
             await this.setState({
                 wordModel: wordModel,
                 inputDataCheck: word,
@@ -328,8 +325,10 @@ class Card extends React.Component {
     submitForm = async () => {
         const checkLetters = checkWord(this.state.inputDataCheck, this.state.valueInputWord)
         const correctLetters = checkLetters.filter((elem) => elem !== true);
-        const audio = this.state.audio;
         const changeOfWords = 1;
+        const wordModel = this.state.wordModel;
+        const tabName = 'learning';
+        const currentUser = JSON.parse(localStorage.user);
         localStorage.corrects = localStorage.corrects ? localStorage.corrects : startProgressValue;
         if (!correctLetters.length) {
             this.setState({
@@ -346,6 +345,7 @@ class Card extends React.Component {
                 this.props.switchOverlay()
                 await this.playWordAudio();
             }
+            await addWordToDictionary(currentUser, wordModel, tabName);
         } else {
             await this.playWordAudio();
             this.setState({
@@ -399,6 +399,10 @@ class Card extends React.Component {
             spanCheckValue: '',
         })
         await this.playWordAudio()
+        const wordModel = this.state.wordModel;
+        const tabName = 'learning';
+        const currentUser = JSON.parse(localStorage.user);
+        await addWordToDictionary(currentUser, wordModel, tabName);
         this.nextPage(startProgressValue);
         setTimeout(async () => { await this.createCard() }, 1000);
     }

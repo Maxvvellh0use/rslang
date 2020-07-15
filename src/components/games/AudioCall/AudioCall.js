@@ -2,19 +2,16 @@ import React from 'react';
 import './AudioCall.scss';
 import audioError from '../../../assets/sounds/sound_error.mp3'
 import audioSuccess from '../../../assets/sounds/sound_success.mp3'
-import Words from "../../../data/Words";
 import SpanButton from "../../Card/SpanButton/SpanButton";
 import Spinner from "../../Spinner/Spinner";
-import { increaseCoefficient, unitOffset, startProgressValue, maxProgress, audioPaths } from "./const";
+import { increaseCoefficient, unitOffset, startProgressValue, maxProgress } from "./const";
 import getRandomNumber from "./helpers/getRandomNumber";
-import getSortFilterWords from "./helpers/getSortFilterWords";
 import getLvlWords from "../../Card/helpers/getLvlWords";
 import getAggregatedAllWords from "./helpers/getAggregatedAllWords";
 import UserSettings from "../../../data/UserSettings";
 import addWordToDictionary from "./helpers/addWordToDictionary";
-import clearLocalStorageResults from "../../Card/helpers/clearLocalStorageResuts";
 import ResultWindow from "../../ResultWindow/ResultWindow";
-import StartScreen from "./StartScreen/StartScreen";
+import StartScreen from "./StartScreenAudioCall/StartScreenAudioCall";
 
 class AudioCall extends React.Component {
     audioSuccess = new Audio(audioSuccess);
@@ -26,6 +23,8 @@ class AudioCall extends React.Component {
         currentAudio: null,
         correctWordModel: null,
         correctWord: '',
+        correctWordImage: null,
+        imageHidden: ' visibility_hidden',
         showCorrectWord: '',
         currentWord: '',
         spinner: null,
@@ -33,6 +32,7 @@ class AudioCall extends React.Component {
         progress: {
             corrects: startProgressValue,
             errors: startProgressValue,
+            click: false,
         }
     }
 
@@ -52,11 +52,13 @@ class AudioCall extends React.Component {
         const correctWordModel =  wordsModels[correctWordNumber];
         const correctWord = wordsModels[correctWordNumber].word;
         const currentAudioSrc = wordsModels[correctWordNumber].audioPath;
+        const correctWordImagePath = correctWordModel.imagePath
         const tabName = 'learning';
         const currentUser = JSON.parse(localStorage.user);
         await addWordToDictionary(currentUser, correctWordModel, tabName);
         this.setState({
             correctWordModel: correctWordModel,
+            correctWordImage: correctWordImagePath,
             wordsModels: wordsModels,
             currentAudio: new Audio(currentAudioSrc),
             correctWord: correctWord,
@@ -129,6 +131,12 @@ class AudioCall extends React.Component {
         } else {
             this.setState({
                 showCorrectWord: '',
+                imageHidden: ' visibility_hidden',
+                progress: {
+                    corrects: this.state.progress.corrects,
+                    errors: this.state.progress.errors,
+                    click: false,
+                }
             })
             this.showSpinner();
             await this.getUserSettings();
@@ -147,24 +155,22 @@ class AudioCall extends React.Component {
     checkWord = async (event) => {
         const currentWord = event.target.dataset.check;
         const correctWord = this.state.correctWord;
-        console.log({currentWord, correctWord})
         const corrects = this.state.progress.corrects;
         const errors = this.state.progress.errors
-        console.log(corrects)
-        if (currentWord === correctWord && corrects !== maxProgress) {
+        if (currentWord === correctWord && corrects !== maxProgress && !this.state.progress.click) {
             await this.audioSuccess.play();
             this.setState({
+                imageHidden: '',
                 showCorrectWord: this.state.correctWord,
                 progress: {
                     corrects: corrects +
                         increaseCoefficient,
                     errors: errors,
+                    click: true,
                 }
             })
             setTimeout(async () => this.nextWord(), 1000)
         } else if (currentWord !== correctWord) {
-            console.log(this.audioError)
-            console.log(this.audioError.paused)
             await this.audioError.play();
             this.setState({
                 progress: {
@@ -188,6 +194,7 @@ class AudioCall extends React.Component {
         if (this.state.spinner) {
             return (
                 <div>
+                    <div className="background_block__audio_call"/>
                     <Spinner className="spinner_game" />
                 </div>
             )
@@ -195,6 +202,7 @@ class AudioCall extends React.Component {
         else if (this.state.resultWindow) {
             return (
                 <div>
+                    <div className="background_block__audio_call"/>
                     <ResultWindow
                         hidden=''
                         history={this.props.history}
@@ -207,12 +215,14 @@ class AudioCall extends React.Component {
         }
        return (
            <section>
+               <div className="background_block__audio_call"/>
                <div className="wrapper audio_call_wrapper">
+                   <img className={'repeat__image_association' + this.state.imageHidden} src={this.state.correctWordImage} alt='association'/>
                    <div className="repeat__result_word">{this.state.showCorrectWord}</div>
                    <div className="repeat">
                        <SpanButton className="repeat__button" onClick={this.playAudio}/>
                    </div>
-                   <div className="words_block">
+                   <div className="words_block_audio_call">
                        {wordBlocks}
                    </div>
                </div>

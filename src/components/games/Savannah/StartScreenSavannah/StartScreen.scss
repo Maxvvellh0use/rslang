@@ -21,7 +21,7 @@
   font-weight: bold;
 }
 
-.start_screen_wrapper {
+.start_screen_wrapper__savannah {
   padding: 40px;
   text-align: center;
   margin: 30vh auto auto;
@@ -29,9 +29,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../../../../assets/img/background_audioCall.png);
-  background-position: center;
+  background-image: url(../../../../assets/img/background_savannah.png);
+  background-position: 50% 55%;
   background-repeat: no-repeat;
+  background-size: 100px;
 }
 
 .title_start_screen {
