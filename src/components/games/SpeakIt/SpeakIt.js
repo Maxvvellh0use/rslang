@@ -48,7 +48,6 @@ export default class SpeakIt extends Component {
             ? await getRandomWords(this.state.group)
             : await getAggregatedWords(COUNT_OF_WORDS)
 
-        console.log(wordsData)
         const wordsArray = wordsData.map(wordData => wordData.word.toLowerCase());
         const unspokenWords = wordsArray;
 
@@ -69,14 +68,15 @@ export default class SpeakIt extends Component {
         const word = result[0].transcript.trim().toLowerCase();
 
         const wordsData = [...this.state.wordsData];
+        const wordsArray = [...this.state.wordsArray];
         const unspokenWords = [...this.state.unspokenWords];
 
         const wordIndex = unspokenWords.indexOf(word);
 
-
         if (wordIndex >= 0) {
             unspokenWords.splice(wordIndex, 1);
-            const wordData = wordsData[wordIndex];
+            const newWordIndex = wordsArray.indexOf(word);
+            const wordData = wordsData[newWordIndex];
 
             const image = wordData.imagePath;
             const translation = wordData.wordTranslate;

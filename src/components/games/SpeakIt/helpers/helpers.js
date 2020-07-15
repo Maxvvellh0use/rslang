@@ -6,11 +6,6 @@ import getLvlWords from '../../../Card/helpers/getLvlWords';
 import UserWords from '../../../../data/UserWords';
 import UserWordStatisticsModel from '../../../../models/UserWordStatisticsModel';
 
-const currentUser = {
-    id: localStorage.userId,
-    token: localStorage.userToken
-}
-
 export const getRandomWords = async (group) => {
     const randomLevel = Math.floor(
         LEVEL_NUMBERS.MIN + Math.random() * (LEVEL_NUMBERS.MAX + 1 - LEVEL_NUMBERS.MIN)
@@ -27,12 +22,20 @@ export const getRandomWords = async (group) => {
 }
 
 const getUsersDifficulty = async () => {
+    const currentUser = {
+        id: localStorage.userId,
+        token: localStorage.userToken
+    }
     const userSettings = await UserSettings.getUserSettings(currentUser);
     const difficulty = userSettings.optional.englishLevel;
     return difficulty;
 }
 
 export const getAggregatedWords = async (wordsPerPage) => {
+    const currentUser = {
+        id: localStorage.userId,
+        token: localStorage.userToken
+    }
     const filter = { "$and": [{ "userWord": null }] };
     const difficulty = await getUsersDifficulty();
     const englishLevel = await getLvlWords(difficulty);
@@ -47,6 +50,10 @@ export const getAggregatedWords = async (wordsPerPage) => {
 }
 
 export const addWordToLearning = async (wordModel) => {
+    const currentUser = {
+        id: localStorage.userId,
+        token: localStorage.userToken
+    }
     try {
         const response = await UserWords.addWord({
             authUser: currentUser,

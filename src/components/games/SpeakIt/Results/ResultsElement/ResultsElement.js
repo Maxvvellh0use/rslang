@@ -8,13 +8,13 @@ const ResultsElement = (props) => {
 
     return (
         <div
-            className={`${props.className} results-si-element`}>
+            className={`${props.className} results-element-si`}>
             <div
-                className='results-si-element__audio'
+                className='results-element-si__audio'
                 onClick={() => audioClickHandler(props.audio)}
             />
-            <p className='results-si-element__text'>{props.word}</p>
-            <p className='results-si-element__text 
+            <p className='results-element-si__text'>{props.word}</p>
+            <p className='results-element-si__text 
                 results-element-si__text_gray 
                 results-element-si__transcription'
             >
