@@ -7,12 +7,14 @@ class MainPage extends Component {
     render = () => (
         <div>
             <CardWithTask 
+                path = {ObjectWithPhrases.card1.link}
                 image =  {ObjectWithPhrases.card1.image}
                 task = {ObjectWithPhrases.card1.task}
                 linkMessage = {ObjectWithPhrases.card1.linkMessage}
                 motivationalMessage = {ObjectWithPhrases.card1.motivationalMessage}/>
             
             <CardWithTask 
+                path = {ObjectWithPhrases.card2.link}
                 image =  {ObjectWithPhrases.card2.image}
                 task = {ObjectWithPhrases.card2.task}
                 linkMessage = {ObjectWithPhrases.card2.linkMessage}
