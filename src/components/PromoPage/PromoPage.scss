@@ -25,6 +25,8 @@ body {
 
 .logo_span {
   @extend %my-transition;
+  animation-duration: 1s;
+  animation-name: opacity_button;
   display: block;
   margin: 50vh 40px 20px;
   width: 600px;
