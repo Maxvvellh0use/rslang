@@ -40,10 +40,11 @@ class StatsContainer extends React.Component {
                 timeStamp: Date.parse(word.optional.lastUse),
             }
         })
-        
+
         this.setState({
             statsData: statsData,
         })
+        this.props.history.push('/main/stats/stats');
     }
 
     render = () => {

@@ -13,9 +13,14 @@
 }
 
 .graph_words, .graph_days {
+    animation-duration: 1s;
+    animation-name: opacity_button;
     text-align: center;
 }
 
 .graph_title {
     @extend %textshadow;
 }
+
+
+
