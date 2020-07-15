@@ -5,7 +5,6 @@ import './MainPage.scss'
 
 const CardWithTask = ({path, image, task, linkMessage, motivationalMessage}) => {
     return (
-        <div>
             <div className='card main-page-card'>
                 <img className='image' src={image} alt='image'/>
                 <div className='text-block card-body'>
@@ -16,8 +15,7 @@ const CardWithTask = ({path, image, task, linkMessage, motivationalMessage}) => 
                     <p className='motivational-message'>{motivationalMessage}</p>
                 </div>
             </div>
-        </div>
-    )
+   )
 }
 
 export default CardWithTask;
