@@ -1,4 +1,5 @@
 import cardImage from '../../assets/img/screenshots/sceenshots_card.png';
+import difficultImage from '../../assets/img/screenshots/screenshots_difficult.png';
 import gamesImage from '../../assets/img/screenshots/sceenshots_games.png';
 import dictionaryImage from '../../assets/img/screenshots/screenshots_dictionary.png';
 import settingsImage from '../../assets/img/screenshots/screenshots_settings.png';
@@ -8,6 +9,12 @@ const cardBlock = {
     image: cardImage,
     description: 'Возможность изучения новых слов по специальным карточкам с подсказками.',
 }
+
+const difficultBlock = {
+    image: difficultImage,
+    description: 'Управление сложностью слова и повторение сложных слов.',
+}
+
 const gamesBlock = {
     image: gamesImage,
     description: 'Разнообразная игровая форма обучения. Скучно не будет!',
@@ -28,4 +35,4 @@ const statisticsBlock = {
     description: 'Ведение долгосрочной статистики прогресса обучения.',
 }
 
-export const sectionsApplication = [cardBlock, gamesBlock, dictionaryBlock, settingsBlock, statisticsBlock]
+export const sectionsApplication = [cardBlock, difficultBlock, gamesBlock, dictionaryBlock, settingsBlock, statisticsBlock]
