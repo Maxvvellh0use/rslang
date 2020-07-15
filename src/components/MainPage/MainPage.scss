@@ -1,0 +1,23 @@
+@import "~bootstrap/scss/bootstrap";
+
+.main-page-card{
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    background-color: white;
+    height: 152px;
+    border-radius: 10px;
+    .image{
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+    }
+    .task-number{
+        letter-spacing: -0.5px;
+        line-height: 17px;
+    }
+    .motivational-message{
+        font-size: 0.85em;
+    }
+}
