@@ -10,7 +10,7 @@ import shuffleArray from "./helpers/shuffleArray";
 import getPreparedArray from "./helpers/getPreparedArray";
 import SprintCard from './SprintCard';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import ResultWindow from "../../ResultWindow/ResultWindow";
+import ResultWindow from "./ResultWindow/ResultWindow";
 import Spinner from "../../Spinner/Spinner";
 import StartScreenSprint from "./StartScreenSprint/StartScreenSprint";
 
@@ -20,7 +20,7 @@ class Sprint extends React.Component {
         wordsModels: null,
         endGame: false,
         addScore: null,
-        scoreHidden: false,
+        scoreHidden: true,
         progress: {
             corrects: 0,
             errors: 0
@@ -42,22 +42,10 @@ class Sprint extends React.Component {
         this.prepareCard();
     }
 
-    // componentDidMount = async () => {
-    //     await this.getUserSettings();
-    //     await this.getWordModel();
-    //     await this.getWords();
-    //     this.prepareData();
-    //     this.prepareCard();
-    // }
 
     startGame = async () => {
-        // this.setState({
-        //     startScreen: false,
-        // })
-        // this.showSpinner()
         await this.getUserSettings();
         await this.getWords();
-        // await this.playAudio();
     }
 
     getUserSettings = async () => {
@@ -97,7 +85,14 @@ class Sprint extends React.Component {
         this.hideSpinner();
     }
 
-    prepareCard = () => {
+    prepareCard = async () => {
+        if (this.state.preparedArray.length < 2) {
+            this.showSpinner()
+            await this.getWordModel();
+            await this.getWords();
+            this.prepareData();
+            this.hideSpinner();
+        }
         const wordsArray = this.state.preparedArray;
         const wordData = wordsArray.pop();
         this.setState({
@@ -193,7 +188,7 @@ class Sprint extends React.Component {
 
     showResult = () => {
         this.setState({
-            endGame: false
+            endGame: true
         })
     }
 
@@ -221,8 +216,7 @@ class Sprint extends React.Component {
                         hidden=''
                         history={this.props.history}
                         value={'Конец игры!'}
-                        corrects={this.state.progress.corrects}
-                        errors={this.state.progress.errors}
+                        score={localStorage.score}
                     />
                 </div>
             )
@@ -243,7 +237,7 @@ class Sprint extends React.Component {
                     </div>
                     <div className="timer">
                     <CountdownCircleTimer   isPlaying
-                                            duration={10}
+                                            duration={60}
                                             colors={[['#21941f', 0.50], ['#cc6900', 0.60], ['#cc0000']]}
                                             onComplete={this.showResult}
                                             size={100}
