@@ -7,15 +7,16 @@ import ResultWindow from "../ResultWindow/ResultWindow";
 import Savannah from "../games/Savannah/Savannah";
 import Counter from "../games/Savannah/Counter";
 import StartScreenSavannah from "../games/Savannah/StartScreenSavannah/StartScreenSavannah";
-
+import MainPage from '../MainPage/MainPage'
 function App(props) {
   return (
     <div>
-      <StartPage history={props.history}/>
+      {/* <StartPage history={props.history}/> */}
       {/*<StartScreenSavannah />*/}
       {/*<Counter />*/}
       {/*<AudioCall />*/}
       {/*<ResultWindow/>*/}
+      <MainPage/>
     </div>
   );
 }
