@@ -19,6 +19,8 @@ class Sprint extends React.Component {
         startScreen: true,
         wordsModels: null,
         endGame: false,
+        addScore: null,
+        scoreHidden: false,
         progress: {
             corrects: 0,
             errors: 0
@@ -103,6 +105,48 @@ class Sprint extends React.Component {
         })
     }
 
+    addSeries = () => {
+        if (localStorage.correctSeries && localStorage.bestSeries) {
+            localStorage.correctSeries = localStorage.correctSeries ? Number(localStorage.correctSeries) +
+            1 : 0;
+            localStorage.bestSeries = Number(localStorage.correctSeries) > Number(localStorage.bestSeries) ?
+            localStorage.correctSeries : localStorage.bestSeries;
+        } else {
+            localStorage.correctSeries = 1;
+            localStorage.bestSeries = 0;
+        }
+    }
+
+    addScore = () => {
+        if (localStorage.score) {
+            if (Number(localStorage.correctSeries) <= 3) {
+                localStorage.score = Number(localStorage.score) + 20;
+                this.setState({
+                    addScore: 20,
+                    scoreHidden: false,
+                })
+            } else if (Number(localStorage.correctSeries) > 3 && Number(localStorage.correctSeries) <= 6) {
+                localStorage.score = Number(localStorage.score) + 40;
+                this.setState({
+                    addScore: 40,
+                    scoreHidden: false,
+                })
+            } else if (Number(localStorage.correctSeries) > 6) {
+                localStorage.score = Number(localStorage.score) + 40;
+                this.setState({
+                    addScore: 80,
+                    scoreHidden: false,
+                })
+            }
+        } else {
+            localStorage.score = 20;
+            this.setState({
+                addScore: 20,
+                scoreHidden: false,
+            })
+        }
+    }
+
     showSpinner = () => {
         this.setState({
             spinner: true,
@@ -115,11 +159,21 @@ class Sprint extends React.Component {
         })
     }
 
+    hideScore = () => {
+        this.setState({
+            scoreHidden: true,
+        })
+    }
+
     onFalse = async () => {
         if(this.state.wordData.answer === false) {
             await this.audioSuccess.play();
+            this.addSeries();
+            this.addScore();
+            setTimeout(this.hideScore, 500);
         } else {
             await this.audioError.play();
+            localStorage.correctSeries = 0;
         }
         this.prepareCard();
     }
@@ -127,8 +181,12 @@ class Sprint extends React.Component {
     onTrue = async () => {
         if(this.state.wordData.answer === true) {
             await this.audioSuccess.play();
+            this.addSeries();
+            this.addScore();
+            setTimeout(this.hideScore, 500);
         } else {
             await this.audioError.play();
+            localStorage.correctSeries = 0;
         }
         this.prepareCard();
     }
@@ -158,7 +216,7 @@ class Sprint extends React.Component {
         else if (this.state.endGame) {
             return (
                 <div>
-                    <div className="background_block__sprintl"/>
+                    <div className="background_block__sprint"/>
                     <ResultWindow
                         hidden=''
                         history={this.props.history}
@@ -174,7 +232,7 @@ class Sprint extends React.Component {
                 <div className="background_block__sprint"/>
                 <div className="wrapper_block__sprint">
                     <div>
-                    <h3>This is Sprint</h3>
+                    <h3 className={"score " + (this.state.scoreHidden ? 'score_hidden' : 'score_show')}>+ {this.state.addScore}</h3>
                     {this.state.wordData &&
                         <SprintCard word={this.state.wordData} />
                     }

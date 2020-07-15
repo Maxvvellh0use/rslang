@@ -48,3 +48,17 @@
 .btn_wrong {
   margin-right: 3rem;
 }
+
+.score_hidden {
+  opacity: 0;
+  transition-duration: 1000ms;
+
+}
+
+.score_show {
+  opacity: 1;
+}
+
+.score {
+  text-align: center;
+}
