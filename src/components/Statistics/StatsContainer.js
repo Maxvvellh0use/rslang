@@ -31,8 +31,7 @@ class StatsContainer extends React.Component {
         }
         catch (error) {
           console.log(error);
-        };
-
+        }
         const statsData = userWords.map((word) => {
             return {
                 wordId: word.id,
