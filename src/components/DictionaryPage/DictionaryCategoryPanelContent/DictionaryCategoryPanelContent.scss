@@ -30,7 +30,7 @@
       @include transform(rotateX(-270deg) translateY(-350px));
       @include transform-origin(top left);
       @include media-tablet {
-        @include transform(rotateX(-270deg) translateY(-300px));
+        @include transform(rotateX(-270deg) translateY(-250px));
       }
     }
 
@@ -38,7 +38,7 @@
       background-color: $dictionary-difficult-panel-background;
       @include translateZ(350px);
       @include media-tablet {
-        @include translateZ(300px);
+        @include translateZ(250px);
       }
     }
 
@@ -47,7 +47,7 @@
       @include transform(rotateX(-90deg) translateY(350px));
       @include transform-origin(bottom center);
       @include media-tablet {
-        @include transform(rotateX(-90deg) translateY(300px));
+        @include transform(rotateX(-90deg) translateY(250px));
       }
     }
 
@@ -91,7 +91,7 @@
 
       @include media-mobile {
         p {
-          width: 150px;
+          width: 120px;
           overflow: hidden;
           text-overflow: ellipsis;
         }
