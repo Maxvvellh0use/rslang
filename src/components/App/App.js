@@ -11,12 +11,12 @@ import MainPage from '../MainPage/MainPage'
 function App(props) {
   return (
     <div>
-      {/* <StartPage history={props.history}/> */}
+      <StartPage history={props.history}/>
       {/*<StartScreenSavannah />*/}
       {/*<Counter />*/}
       {/*<AudioCall />*/}
       {/*<ResultWindow/>*/}
-      <MainPage/>
+      {/* <MainPage/> */}
     </div>
   );
 }
