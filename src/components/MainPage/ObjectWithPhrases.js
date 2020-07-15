@@ -14,16 +14,16 @@ const ObjectWithPhrases = {
     card1: { 
         image: imageCard1,
         task: 'Задание 1:  Пройди дневную норму слов',
-        link: '',
-        linkMessage: '',
+        link: '/main/words',
+        linkMessage: 'Слова',
         motivationalMessage: 'Отличная возможность пополнить свой слованый запас!'
     },
     card2:{
-            image: GAMES[setGameFromDate()].img,
-            task: 'Задание 2:  Прокачай свои знания в мини-игре',
-            link: GAMES[setGameFromDate()].link,
-            linkMessage: GAMES[setGameFromDate()].title,
-            motivationalMessage: motivationalMessage[setGameFromDate()]
+        image: GAMES[setGameFromDate()].img,
+        task: 'Задание 2:  Прокачай свои знания в мини-игре',
+        link: GAMES[setGameFromDate()].link,
+        linkMessage: GAMES[setGameFromDate()].title,
+        motivationalMessage: motivationalMessage[setGameFromDate()]
     },
 } 
 
