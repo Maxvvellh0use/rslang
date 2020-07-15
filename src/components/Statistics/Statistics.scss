@@ -1,0 +1,21 @@
+@import '../../style/placeholders.scss';
+
+.graph {
+    width: 37.5rem;
+}
+
+.stats_wrapper {
+    margin: 2rem auto auto;
+}
+
+.stats_container {
+    text-align: center;
+}
+
+.graph_words, .graph_days {
+    text-align: center;
+}
+
+.graph_title {
+    @extend %textshadow;
+}

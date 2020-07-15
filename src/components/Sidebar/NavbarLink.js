@@ -12,7 +12,7 @@ const NavbarLink = ({ path, text, icon, enterHover, leaveHover, state, exact, cl
                 <div className="hint">
                 <span className="hint_label">{text}</span>
                 </div>
-            </NavLink>
+            </NavLink> 
     )
 }
 

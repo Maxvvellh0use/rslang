@@ -15,6 +15,14 @@ const ResultWindow = (props) => {
                 <div className="result_window__description">
                     <span className="description__corrects">Карточек пройдено: {props.corrects}</span>
                     <span className="description__errors">Процент верных ответов: {percentageCorrect}%</span>
+                    {props.newWords &&
+                        <div className="result_window__description">
+                            <span className="description__new">Новых слов: {props.newWords}</span>
+                            <span className="description__errors">Самая длинная серия правильных ответов: {localStorage.bestSeries}</span>
+                        </div>
+                    }
+                    <span className="description__new hidden">Новых слов: {props.newWords}</span>
+                    <span className="description__errors hidden">Самая длинная серия правильных ответов: {localStorage.bestSeries}</span>
                 </div>
                 <button className={"back_button" + props.hidden} onClick={() => props.history.go(backHistoryValue)}>Назад</button>
             </div>

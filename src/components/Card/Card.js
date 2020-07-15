@@ -291,6 +291,15 @@ class Card extends React.Component {
             localStorage.page = Number(corrects) + Number(showWords) >= maxWordNumber ?
                 Number(localStorage.page) + increaseCoefficient : localStorage.page;
         }
+        if (localStorage.correctSeries && localStorage.bestSeries) {
+            localStorage.correctSeries = localStorage.correctSeries ? Number(localStorage.correctSeries) +
+            1 : 0;
+            localStorage.bestSeries = Number(localStorage.correctSeries) > Number(localStorage.bestSeries) ?
+            localStorage.correctSeries : localStorage.bestSeries;
+        } else {
+            localStorage.correctSeries = 0;
+            localStorage.bestSeries = 0;
+        }
     }
 
     showResultWindow = async () => {
@@ -357,6 +366,7 @@ class Card extends React.Component {
             setTimeout(this.clearInput, 1000);
             localStorage.errors = localStorage.errors ? Number(localStorage.errors) + changeOfWords
                 : changeOfWords;
+            localStorage.correctSeries = 0;
         }
     }
 
@@ -444,6 +454,7 @@ class Card extends React.Component {
                         value={'Ура! Дневная норма выполнена!'}
                         corrects={totalCorrects}
                         errors={totalErrors}
+                        newWords={this.state.optionals.maxNumber}
                     />
                 </main>
                 )
