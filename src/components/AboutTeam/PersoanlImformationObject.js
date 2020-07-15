@@ -1,27 +1,33 @@
-export const PersonalInformationObject = {
-    photo:  [],
-    name:   ['Александра Бурдина',
-             'Никита Михадюк',
-             'Ирина Цымбаревич',
-             'Максим Титок',
-             'Дарья Вяль'],
+import MaximPhoto from '../../assets/img/developersPhoto/Maxim.png'
+import Vyacheslav from '../../assets/img/developersPhoto/Vyacheslav.jpg'
 
-    github: ['https://github.com/Alexandra2503',
-             'https://github.com/Nikita3026',
-             'https://github.com/Alexandra2503',
-             'https://github.com/Nikita3026',
+
+export const PersonalInformationObject = {
+    photo:  [MaximPhoto,
+             Vyacheslav,],
+    name:   ['Максим Павлов',
+             'Вячеслав Шаболтиев',
+             '',
+             '',
+             'Александра Бурдина'],
+
+    github: ['https://github.com/Maxvvellh0use',
+             'https://github.com/enl001',
+             '',
+             '',
              'https://github.com/Alexandra2503'],
 
     contribution:   
-            ['Учащаяся ',
-             'Main page and savanah game',
-             'SpeakIt game',
-             'English-puzzle game',
-             'Statistic'],
+            ['Самара, Россия, 24 года. Окончил железнодорожный вуз и решил выбрать путь не по специальности.',
+             'Минск, Беларусь',
+             '',
+             '',
+             'Минск, Беларусь, 19 лет. Учащаяся БГУИР'],
 
-    work:   ['Authorization and registration',
-            'Main page and savanah game',
-            'SpeakIt game',
-            'English-puzzle game',
-            'Statistic'],
+    description:   
+           ['В данном проекте выполнял стартовую страницу и страницу карточек, а также мини-игры english puzzle, Аудиовызов и Саваннa',
+            'В данном проекте выполнял запросы к REST API, а также сделал страницу словаря.',
+            '',
+            '',
+            'В данном проекте выполняла страницу авторизации и регистрации и страницу "о команде"'],
 }
