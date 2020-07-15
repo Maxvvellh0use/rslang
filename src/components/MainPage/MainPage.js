@@ -5,7 +5,7 @@ import ObjectWithPhrases from './ObjectWithPhrases'
 import image from '../../assets/img/main_page/big_ban.jpg'
 class MainPage extends Component {
     render = () => (
-        <div>
+        <div className='main-page'>
             <h3 className='today-plane'>План на сегодня</h3>
             <CardWithTask 
                 path = {ObjectWithPhrases.card1.link}

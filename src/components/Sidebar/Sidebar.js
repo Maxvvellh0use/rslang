@@ -7,6 +7,7 @@ import { ReactComponent as ArrowLeftIcon } from '../../assets/img/icons_navbar/a
 import logoIcon from '../../assets/img/logo-start-page.png';
 import Card from "../Card/Card";
 import SettingsWindow from "../SettingsWindow/SettingsWindow"
+import MainPage from '../MainPage/MainPage'
 import DictionaryPage from '../DictionaryPage/DictionaryPage';
 import GamesPage from '../GamesPage/GamesPage';
 import StatsContainer from '../Statistics/StatsContainer';
@@ -109,7 +110,7 @@ class Sidebar extends React.Component {
                     </div>
                 </nav>
                 <Switch>
-                    <Route path="/main/main_page" />
+                    <Route path="/main/main_page" component={MainPage}/>
                     <Route path="/main/words">
                         <Card history={this.props.history}
                               switchOverlay={this.switchOverlay}/>
