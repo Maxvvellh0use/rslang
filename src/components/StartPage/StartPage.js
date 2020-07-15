@@ -16,6 +16,7 @@ import AudioCall from "../games/AudioCall/AudioCall";
 import StartScreenSavannah from "../games/Savannah/StartScreenSavannah/StartScreenSavannah";
 import SpeakIt from "../games/SpeakIt/SpeakIt";
 import CrossWord from "../games/CrossWord/CrossWord";
+import Sprint from "../games/Sprint/Sprint";
 
 class StartPage extends React.Component {
 
@@ -51,6 +52,11 @@ class StartPage extends React.Component {
                         </Route>
                         <Route path="/main/games/cross_word">
                             <CrossWord
+                               history={this.props.history}
+                               />
+                           </Route>
+                        <Route path="/main/games/sprint">
+                            <Sprint
                                 history={this.props.history}
                             />
                         </Route>
