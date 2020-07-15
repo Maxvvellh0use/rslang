@@ -89,7 +89,6 @@ class StartPage extends React.Component {
                                      history={this.props.history}/>
                             </Route>
                         }
-                        {/*<Route path="/main/games/audio_call" component={AudioCall}/>*/}
                     </Switch>
                 </div>
             </Router>
