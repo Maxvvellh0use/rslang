@@ -9,23 +9,44 @@ import getRandomNumber from "./helpers/getRandomNumber";
 import shuffleArray from "./helpers/shuffleArray";
 import getPreparedArray from "./helpers/getPreparedArray";
 import SprintCard from './SprintCard';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import ResultWindow from "../../ResultWindow/ResultWindow";
+import Spinner from "../../Spinner/Spinner";
+import StartScreenSprint from "./StartScreenSprint/StartScreenSprint";
 
 class Sprint extends React.Component {
     state = {
+        startScreen: true,
         wordsModels: null,
         endGame: false,
+        progress: {
+            corrects: 0,
+            errors: 0
+        }
     }
 
     audioSuccess = new Audio(audioSuccess);
     audioError = new Audio(audioError);
 
-    componentDidMount = async () => {
+    hideStartScreen = async () => {
+        this.setState({
+            startScreen: false,
+        })
+        this.showSpinner()
         await this.getUserSettings();
         await this.getWordModel();
         await this.getWords();
         this.prepareData();
         this.prepareCard();
     }
+
+    // componentDidMount = async () => {
+    //     await this.getUserSettings();
+    //     await this.getWordModel();
+    //     await this.getWords();
+    //     this.prepareData();
+    //     this.prepareCard();
+    // }
 
     startGame = async () => {
         // this.setState({
@@ -71,6 +92,7 @@ class Sprint extends React.Component {
         this.setState({
             preparedArray: preparedArray,
         })
+        this.hideSpinner();
     }
 
     prepareCard = () => {
@@ -78,6 +100,18 @@ class Sprint extends React.Component {
         const wordData = wordsArray.pop();
         this.setState({
             wordData: wordData,
+        })
+    }
+
+    showSpinner = () => {
+        this.setState({
+            spinner: true,
+        })
+    }
+
+    hideSpinner = () => {
+        this.setState({
+            spinner: false,
         })
     }
 
@@ -99,18 +133,68 @@ class Sprint extends React.Component {
         this.prepareCard();
     }
 
+    showResult = () => {
+        this.setState({
+            endGame: false
+        })
+    }
+
     render = () => {
-        return (
-            <div>
-                <h3>This is Sprint</h3>
-                {this.state.wordData &&
-                    <SprintCard word={this.state.wordData} />
-                }
-                <div className="d-inline">
-                    <button className="btn btn-danger" onClick={this.onFalse}>Неверно</button>
-                    <button className="btn btn-success" onClick={this.onTrue}>Верно</button>
+        if (this.state.startScreen) {
+            return (
+                <div>
+                    <StartScreenSprint onClick={this.hideStartScreen} />
                 </div>
-            </div>
+            )
+        }
+        if (this.state.spinner) {
+            return (
+                <div>
+                    <div className="background_block__sprint"/>
+                    <Spinner className="spinner_game" />
+                </div>
+            )
+        }
+        else if (this.state.endGame) {
+            return (
+                <div>
+                    <div className="background_block__sprintl"/>
+                    <ResultWindow
+                        hidden=''
+                        history={this.props.history}
+                        value={'Конец игры!'}
+                        corrects={this.state.progress.corrects}
+                        errors={this.state.progress.errors}
+                    />
+                </div>
+            )
+        }
+        return (
+            <section>
+                <div className="background_block__sprint"/>
+                <div className="wrapper_block__sprint">
+                    <div>
+                    <h3>This is Sprint</h3>
+                    {this.state.wordData &&
+                        <SprintCard word={this.state.wordData} />
+                    }
+                    <div className="button_block">
+                        <button className="btn btn-danger btn_wrong" onClick={this.onFalse}>Неверно</button>
+                        <button className="btn btn-success" onClick={this.onTrue}>Верно</button>
+                    </div>
+                    </div>
+                    <div className="timer">
+                    <CountdownCircleTimer   isPlaying
+                                            duration={10}
+                                            colors={[['#21941f', 0.50], ['#cc6900', 0.60], ['#cc0000']]}
+                                            onComplete={this.showResult}
+                                            size={100}
+                    >
+                        {({ remainingTime }) => remainingTime}
+                    </CountdownCircleTimer>
+                    </div>
+                </div>
+            </section>
         )
     }
 }
