@@ -1,0 +1,43 @@
+@import "../../../../style/constants";
+@import "../../../../style/placeholders";
+
+.start_screen__button {
+  @extend %my-transition;
+  font-size: 40px;
+  border-radius: 5px;
+  text-align: center;
+  width: 150px;
+  border: 1px solid $color-button-start-page;
+  margin-top: 100px;
+  &:hover {
+    cursor: pointer;
+    color: $color-body;
+    background: $color-button-start-page;
+  }
+}
+
+.description_game {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.start_screen_wrapper__sprint {
+//   padding: 40px;
+//   text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(../../../../assets/img/background_sprint.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+//   background: url(../../../../assets/img/background_sprint.png) no-repeat center center fixed;
+//         background-size: cover;
+}
+
+.title_start_screen {
+  font-weight: bold;
+}

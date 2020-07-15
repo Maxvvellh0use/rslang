@@ -1,0 +1,64 @@
+@import "../../../style/placeholders";
+
+.background_block__sprint {
+    top: 0;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-image: $color-sprint-background;
+}
+
+.audio_call_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15vh;
+    @media (max-width: 1020px) {
+      margin-top: 1vh;
+    }
+}
+
+.wrapper_block__sprint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.sprint_word_block, .button_block {
+  text-align: center;
+}
+
+.timer {
+  font-size: 2rem;
+  margin-left: 6rem;
+}
+
+.sprint_word {
+  padding: 1rem;
+  font-size: 2.5rem;
+}
+
+.sprint_translate {
+  font-size: 1.3rem;
+  margin-bottom: 4rem;
+}
+
+.btn_wrong {
+  margin-right: 3rem;
+}
+
+.score_hidden {
+  opacity: 0;
+  transition-duration: 1000ms;
+
+}
+
+.score_show {
+  opacity: 1;
+}
+
+.score {
+  text-align: center;
+}
