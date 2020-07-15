@@ -24,7 +24,6 @@ class PromoPage extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 )
             }
             else if (index % 2 === 0) {
@@ -44,7 +43,6 @@ class PromoPage extends React.Component {
                     </div>
                 )
             } else {
-
                 return (
                     <div className='image_block__wrapper'>
                         <hr className='horizontal_line' align="center" width="500" size="9" color="#3084C1"/>
@@ -75,7 +73,9 @@ class PromoPage extends React.Component {
                 </div>
                 <article className='main_content'>
                     <section className='logo'>
-                        <a className='app_link' href='https://rslang-team32-maxvvellh0use.netlify.app/'>
+                        <a className='app_link'
+                           title='Открыть приложение'
+                           href='https://rslang-team32-maxvvellh0use.netlify.app/'>
                             <span className='logo_span'/>
                         </a>
                     </section>
@@ -94,11 +94,12 @@ class PromoPage extends React.Component {
                             Copyright ©
                         </div>
                         <div className='github'>
-                            <a href='https://github.com/Maxvvellh0use/rslang'>
+                            <a href='https://github.com/Maxvvellh0use/rslang'
+                               title="Репозиторий проекта">
                                 <SpanButton
                                     className='github_button'
                                 />
-                            </a>
+                            </a >
                         </div>
                     </div>
                 </footer>
