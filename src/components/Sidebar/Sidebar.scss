@@ -138,7 +138,7 @@ ul ul a {
 }
 
 .active {
-    color: #ff934d;
+    color: #ff934d !important;
 }
 
 .logout_btn {
@@ -180,26 +180,26 @@ ul li .logout_btn {
 
 @media only screen and (max-width: 768px) {
 
-    .logout { 
-       font-size: 1.5rem; 
+    .logout {
+       font-size: 1.5rem;
        height: 15rem;
     }
 
     .btn-success, .btn-danger {
         font-size: 1rem;
     }
- 
+
  }
 
  @media only screen and (max-width: 330px) {
 
-    .logout { 
-       font-size: 1rem; 
+    .logout {
+       font-size: 1rem;
        height: 12rem;
     }
 
     .btn-success, .btn-danger {
         font-size: 0.7rem;
     }
- 
+
  }
