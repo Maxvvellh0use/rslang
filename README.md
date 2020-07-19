@@ -12,7 +12,7 @@ The final project at Rsschool
 
 - react-router for routing between pages
 - Sass preprocessor for styling React components
-- clsx for css classes
+- clsx for constructing className strings conditionally.
 - react-hover for hover animations
 - react-scripts for simple build and start project
 
