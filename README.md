@@ -10,6 +10,7 @@ The final project at Rsschool
 
 ### Others: 
 
+- react-create-app
 - react-router for routing between pages
 - Sass preprocessor for styling React components
 - clsx for constructing className strings conditionally.
