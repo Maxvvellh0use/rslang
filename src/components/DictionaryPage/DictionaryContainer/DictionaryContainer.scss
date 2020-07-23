@@ -1,0 +1,78 @@
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
+
+.dictionary {
+  &__container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: 900px;
+    min-width: 270px;
+    width: 100%;
+    height: 700px;
+    margin: 10px auto;
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    @extend %card-shadow;
+
+    @include media-tablet {     
+      height: 600px; 
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__panel {
+    position: relative;
+    display: block;
+    width: 80%;
+    height: 700px;
+    margin: 0;
+    padding: 0;
+
+    @include transform-origin(0 50%);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 0.5s ease-in;
+    transition: transform 0.5s ease-in;
+
+    &_learning-selected {
+      @include rotateX(-90deg);
+    }
+    &_difficult-selected {
+      @include rotateX(0deg);
+    }
+    &_removed-selected {
+      @include rotateX(90deg);
+    }
+
+    @include media-tablet {
+      height: 500px;
+      width: 100%;
+    }
+  }
+
+  &__tabs {
+    position: relative;
+    display: block;
+    width: 20%;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+
+    @include media-tablet {
+      height: 100px;
+      width: 100%;
+      flex-direction: row;
+      z-index: 100;
+    }
+  }
+}

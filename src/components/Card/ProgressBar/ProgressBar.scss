@@ -1,0 +1,50 @@
+@import "../../../style/constants";
+
+.progress_section {
+  position: absolute;
+  display: flex;
+  bottom: 10px;
+  max-width: 700px;
+  margin: auto;
+  left: 48px;
+  right: 0;
+  text-align: center;
+}
+
+.progress_block__number {
+  font-size: 25px;
+  padding: 0 5px;
+}
+
+.progress_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.progress_block_background {
+  justify-self: center;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin: 0 5px;
+  background: $color-card-background;
+  box-shadow: $box-shadow-progress-bar;
+}
+
+.progress_block__bar {
+  border-radius: 5px;
+  background: $color-progress-bar;
+  height: 100%;
+}

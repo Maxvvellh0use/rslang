@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,400&display=swap');
+@import "~bootstrap/scss/bootstrap";
+@import "./constants";
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: $color-body !important;
+  font-family: $font-family-body;
+  text-decoration: none !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.wrapper {
+  max-width: $width-wrapper;
+  margin: auto;
+}
+
+.sidebar a {
+  color: #1a3b71;
+}
+
+a {
+  text-decoration: none;
+  color: $color-link-card;
+  &:hover {
+    text-decoration: none !important;
+  }
+}

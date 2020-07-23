@@ -1,0 +1,101 @@
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
+
+.dictionary__panel_learning-selected {
+  .dictionary__panel-content_learning {
+    z-index: 100;
+  }
+}
+
+.dictionary {
+  &__panel-content {
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    @include media-tablet {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+
+    &_learning {
+      background-color: $dictionary-learning-panel-background;
+      @include transform(rotateX(-270deg) translateY(-350px));
+      @include transform-origin(top left);
+      @include media-tablet {
+        @include transform(rotateX(-270deg) translateY(-250px));
+      }
+    }
+
+    &_difficult {
+      background-color: $dictionary-difficult-panel-background;
+      @include translateZ(350px);
+      @include media-tablet {
+        @include translateZ(250px);
+      }
+    }
+
+    &_removed {
+      background-color: $dictionary-removed-panel-background;
+      @include transform(rotateX(-90deg) translateY(350px));
+      @include transform-origin(bottom center);
+      @include media-tablet {
+        @include transform(rotateX(-90deg) translateY(250px));
+      }
+    }
+
+    &__scroll {
+      position: relative;
+      overflow-y: scroll;
+      max-height: 90%;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__title {
+      position: relative;
+      display: block;
+      text-align: center;
+      @extend %textshadow;
+      height: 40px;
+      margin-bottom: 20px;
+      color: $dictionary-word-card-font-color-primary;
+
+      @include media-mobile {
+        font-size: 25px;
+        line-height: 40px;
+        margin-bottom: 10px;
+      }
+    }
+
+    &__footer {
+      position: relative;
+      display: block;
+      height: 40px;
+      padding: 0 20px;
+      margin: 0;
+      font-size: 16px;
+      line-height: 40px;
+      text-align: right;
+      align-self: flex-end;
+      @extend %textshadow;
+      color: $dictionary-word-card-font-color-primary;
+
+      @include media-mobile {
+        p {
+          width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

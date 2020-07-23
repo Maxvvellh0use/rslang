@@ -1,0 +1,55 @@
+@import "../../style/constants";
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid $color-spinner;
+  border-color: $color-spinner transparent $color-spinner transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner_card {
+  display: flex;
+  justify-content: center;
+  margin-top: 38vh;
+  width: 100%;
+}
+
+.spinner_buttons_dictionary {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.spinner_buttons_dictionary::after {
+  width: 25px;
+  height: 25px;
+  border: 2px solid $color-spinner;
+  border-color: $color-spinner transparent $color-spinner transparent;
+  margin: 3px;
+}
+
+.spinner_game {
+  display: flex;
+  justify-content: center;
+  margin-top: 38vh;
+  width: 100%;
+}
+

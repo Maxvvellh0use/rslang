@@ -1,0 +1,25 @@
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
+
+.dictionary__sound {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding-left: 15px;
+  cursor: pointer;
+  background-image: url(../../../assets/img/icons/audion-off-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  @extend %transition;
+
+  &_active {
+    background-image: url(../../../assets/img/icons/audio-on-icon.png);
+  }
+
+  &:hover {
+    @extend %scale;
+    @extend %transition;
+  }
+}

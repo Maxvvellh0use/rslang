@@ -1,0 +1,39 @@
+@import "~bootstrap/scss/bootstrap";
+
+.autorization-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem;
+    padding-top: 0;
+    width: 500px;
+    margin: auto;
+    .form-group{
+        display: flex;
+        flex-direction: row;
+    }
+    .authorization-title{
+        text-align: center;
+        padding: 1rem 
+    }
+    .error-block,
+    .authorization-request-error{
+        text-align: center;
+        color: red;
+        line-height: 1.2px;
+        .form-errors{
+            height: 2rem;
+        }
+    }
+    .authorization-icon{
+        width: 20px;
+        height: 20px;
+        margin: auto 7px;
+    }
+    .authorization-button{
+        float:right;
+        margin: 1rem 0;
+        justify-content: right  ;
+    }
+}

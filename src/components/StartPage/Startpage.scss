@@ -1,0 +1,209 @@
+@import "../../style/constants";
+@import "../../style/placeholders";
+
+.header_start_page {
+    width: 100%;
+    background: $color-header-start-page;
+}
+
+.wrapper {
+    max-width: $width-wrapper;
+    margin: auto;
+}
+
+.header_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header_block__logo {
+    width: 200px;
+    height: 40px;
+    background-image: url(../../assets/img/logo-start-page.png);
+    background-size: 200px;
+    background-repeat: no-repeat;
+    margin: 20px;
+}
+
+.header_block__log_buttons {
+    margin-top: 16px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.header_block__log_buttons button {
+    margin: 10px;
+    border-radius: $border-radius-button;
+    @media (max-width: 500px) {
+        width: 100px;
+        font-size: 8px;
+    }
+}
+
+.main_content__description__wrapper {
+    display: flex;
+    flex-direction: row;
+    @media (max-width: 1020px) {
+        flex-direction: column;
+    }
+}
+
+.main_content__description {
+    margin: 15vh 20px 20px;
+}
+
+.main_content__description__h2 {
+    text-align: center;
+    font-size: 30px;
+    @media (max-width: 1020px) {
+        font-size: 25px;
+    }
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+    @media (max-width: 500px) {
+        font-size: 16px;
+    }
+}
+
+.main_content__description__text_block {
+    display: flex;
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 850px;
+    height: 200px;
+    background: navajowhite;
+    border-radius: 10px;
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+    @media (max-width: 1020px) {
+        width: 650px;
+    }
+    @media (max-width: 768px) {
+        width: 450px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    @media (max-width: 500px) {
+        width: 300px;
+    }
+}
+.main_content__description__text {
+    margin-top: 35px;
+    align-self: center;
+    margin-left: 20px;
+    font-size: 20px;
+    text-align: left;
+    width: 400px;
+    height: 100%;
+    @media (max-width: 1020px) {
+        font-size: 17px;
+    }
+    @media (max-width: 768px) {
+        font-size: 15px;
+    }
+    @media (max-width: 500px) {
+        font-size: 13px;
+    }
+}
+
+.main_content__description__learn_icon {
+    margin-left: 40px;
+    width: 300px;
+    height: 200px;
+    background-image: url(../../assets/img/learn_start_page_icon.png);
+    background-size: 150px;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    @media (max-width: 1020px) {
+        margin-left: 20px;
+        width: 200px;
+        height: 180px;
+        background-size: 130px;
+    }
+    @media (max-width: 768px) {
+        margin-left: 20px;
+        width: 300px;
+        height: 200px;
+        background-size: 110px;
+    }
+    @media (max-width: 500px) {
+        margin-left: 10px;
+        width: 300px;
+        height: 200px;
+        background-size: 90px;
+    }
+}
+
+.main_content__description__button {
+    @extend %my-transition;
+    &:hover {
+        cursor: pointer;
+        color: $color-button-start-page;
+        background: $color-body;
+    }
+    border: 4px solid $color-button-start-page;
+    align-self: center;
+    margin-top: 40px;
+    margin-left: 100px;
+    font-size: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    user-select: none;
+    color: $color-text-button-start-page;
+    background: $color-button-start-page;
+    @media (max-width: 1020px) {
+        display: none;
+    }
+}
+
+.footer_start_page {
+    background: $color-footer-start-page;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    @media (max-width: 1020px) {
+        height: 60px;
+    }
+}
+
+.footer_start_page_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    @media (max-width: 1020px) {
+        height: 50px;
+    }
+}
+
+.main_content__description__promo_button {
+    @extend %my-transition;
+    font-size: 30px;
+    border-radius: 5px;
+    border: 4px solid $color-button-start-page;
+    padding: 5px;
+    color: $color-text-button-start-page;
+    background: $color-button-start-page;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.07);
+    }
+    @media (max-width: 1020px) {
+        font-size: 20px;
+    }
+}
+
+.show_word__button {
+    cursor: pointer;
+    color: $color-link-card;
+}
+
+
+
+
+
+

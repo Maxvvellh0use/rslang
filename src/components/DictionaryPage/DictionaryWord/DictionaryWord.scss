@@ -1,0 +1,123 @@
+@import "../../../style/constants";
+@import "../../../style/placeholders";
+@import "../../../style/mixins";
+
+.dictionary {
+  &__word {
+    position: relative;
+
+    padding: 10px;
+    padding-right: 50px;
+    margin-bottom: 10px;
+
+    width: 100%;
+
+    border-radius: 5px;
+    @extend %card-shadow;
+    @extend %transition;
+
+    cursor: move;
+
+    background-color: $dictionary-word-card-background;
+    border: 1px solid $dictionary-word-card-border;
+
+    font-size: 20px;
+    line-height: 30px;
+    color: $dictionary-word-card-font-color-primary;
+    font-weight: 500;
+
+    &__container {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+
+      @include media-mobile {
+        flex-wrap: wrap;
+      }
+    }
+
+    &__main-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-left: 5px;
+    }
+
+    &__name {
+      font-weight: 700;
+      padding: 0 5px 0 0;
+      margin: 0;
+      text-transform: lowercase;
+    }
+
+    &__transcription {
+      color: $dictionary-word-card-font-color-secondary;
+      padding: 0 15px 0 0;
+      margin: 0;
+      text-transform: lowercase;
+      @extend %transition;
+    }
+
+    &__translate {
+      font-weight: 700;
+      padding-left: 5px;
+      margin: 0;
+      text-transform: lowercase;
+    }
+
+    &__meaning,
+    &__example {
+      color: $dictionary-word-card-font-color-secondary;
+      font-size: 18px;
+      padding: 5px;
+      margin: 0;
+      @extend %transition;
+    }
+
+    &__image-container {
+      position: relative;
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      @extend %transition;
+      @include media-mobile {
+        text-align: center;
+      }
+    }
+
+    &__image {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 5px;
+    }
+
+    &__translate-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background-image: url(../../../assets/img/icons/translate.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0.6;
+      @extend %transition;
+
+      &:hover {
+        opacity: 1;
+        @extend %transition;
+        @extend %scale;
+      }
+    }
+  }
+}

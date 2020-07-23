@@ -1,0 +1,41 @@
+@import "constants";
+
+%my-transition {
+  transition: all ease-in-out 0.2s;
+}
+
+%transition {
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+
+%no-userselect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-touch-callout: none;  
+  -webkit-tap-highlight-color: transparent; 
+}
+
+%card-shadow {
+  -webkit-box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+%textshadow {
+  text-shadow: 1px 2px 4px rgb(80, 80, 80);  
+}
+
+%scale {
+  -webkit-transform: scale(1.07);
+  -moz-transform: scale(1.07);
+  -ms-transform: scale(1.07);
+  -o-transform: scale(1.07);
+  transform: scale(1.07);  
+}

@@ -1,0 +1,47 @@
+$color-card-background: aliceblue;
+$color-body: #FFF5EE;
+$color-link-card: cadetblue;
+$border-radius-window: 5px;
+
+$font-family-body: 'Lato', sans-serif;
+
+$box-shadow-card: 2px 3px 18px 3px rgba(0,0,0,0.75);
+$color-spinner: black;
+$box-shadow-progress-bar: 2px 3px 8px 3px rgba(0,0,0,0.4);
+$color-header-start-page: #abcdef;
+$color-button-start-page: #455A64;
+$color-text-button-start-page: aliceblue;
+$color-footer-start-page: #455A64;
+$color-body: #FFF5EE;
+$color-progress-bar: #68B8FF;
+
+$color-valid-letter: lightgreen;
+$color-invalid-letter: palevioletred;
+$color-input-default: white;
+$color-black: #000;
+$color-red: #ff0000;
+$color-green: #008000;
+
+$font-family-body: 'Lato', sans-serif !important;
+
+$width-wrapper: 1200px;
+
+$border-radius-button: 5px;
+$dictionary-word-card-background: aliceblue;
+$dictionary-word-card-border: rgba(182, 182, 182, 0.568);
+$dictionary-word-card-font-color-primary: rgb(0, 50, 82);
+$dictionary-word-card-font-color-secondary: rgb(0, 143, 131);
+$dictionary-container-background: rgba(128, 144, 160, 0.473);
+$dictionary-learning-panel-background: rgb(173, 238, 173);
+$dictionary-difficult-panel-background: rgb(166, 219, 252);
+$dictionary-removed-panel-background: rgb(253, 220, 225);
+$dictionary-dropdown-selected-background: $dictionary-difficult-panel-background;
+$dictionary-dropdown-background: $color-body;
+
+$dictionary-tablet-width: 768px;
+$dictionary-mobile-width: 500px;
+
+//games:
+$color-audioCall-background: linear-gradient(326deg, #861657 0%, #ffa69e 74%);
+$color-savannah-background: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+$color-sprint-background: linear-gradient(315deg, #f0493b 0%, #ffc5a8 74%);
